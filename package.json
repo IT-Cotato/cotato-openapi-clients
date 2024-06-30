@@ -1,8 +1,9 @@
 {
   "name": "cotato-openapi-clients",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.240630.0",
+  "private": false,
   "dependencies": {
+    "@openapitools/openapi-generator-cli": "^2.13.4",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -17,10 +18,13 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "setup": "node setup.js",
+    "prepare": "rm -rf dist && mkdir dist && tsc",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "rm -fr dist/* && tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && ./fixup.sh",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "open-api": "cross-env node -r dotenv/config setup.cjs && cross-env openapi-generator-cli generate -i http://43.201.196.189:8082/v3/api-docs -g typescript-axios -o ./src -c ./openapi.json --skip-validate-spec --additional-properties=modelNamePrefix=Cotato"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +43,18 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "type": "module",
+  "main": "dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
+  "types": "dist/index.d.ts",
+  "author": "",
+  "license": "ISC",
+  "exports": {
+    ".": {
+      "import": "./dist/mjs/index.js",
+      "require": "./dist/cjs/index.js"
+    }
   }
 }
