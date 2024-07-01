@@ -1,6 +1,6 @@
 {
   "name": "cotato-openapi-clients",
-  "version": "0.240630.0",
+  "version": "0.240631.0",
   "private": false,
   "dependencies": {
     "@openapitools/openapi-generator-cli": "^2.13.4",
@@ -46,15 +46,14 @@
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "type": "module",
-  "main": "dist/cjs/index.js",
+  "main": "dist/mjs/index.js",
   "module": "dist/mjs/index.js",
-  "types": "dist/index.d.ts",
-  "author": "",
+  "types": "dist/mjs/index.d.ts",
+  "author": "Donghyun Hwang",
   "license": "ISC",
   "exports": {
     ".": {
-      "import": "./dist/mjs/index.js",
-      "require": "./dist/cjs/index.js"
+      "import": "./dist/mjs/index.js"
     }
   }
 }
