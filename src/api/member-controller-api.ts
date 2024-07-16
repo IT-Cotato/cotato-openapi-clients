@@ -27,6 +27,8 @@ import type { CotatoMemberInfoResponse } from '../model';
 import type { CotatoMemberMyPageInfoResponse } from '../model';
 // @ts-ignore
 import type { CotatoUpdatePasswordRequest } from '../model';
+// @ts-ignore
+import type { CotatoUpdatePhoneNumberRequest } from '../model';
 /**
  * MemberControllerApi - axios parameter creator
  * @export
@@ -156,6 +158,53 @@ export const MemberControllerApiAxiosParamCreator = function (configuration?: Co
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 멤버 전화번호 수정하기
+         * @summary 멤버 전화번호 수정
+         * @param {string} authorization 
+         * @param {CotatoUpdatePhoneNumberRequest} cotatoUpdatePhoneNumberRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updatePhoneNumber: async (authorization: string, cotatoUpdatePhoneNumberRequest: CotatoUpdatePhoneNumberRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'authorization' is not null or undefined
+            assertParamExists('updatePhoneNumber', 'authorization', authorization)
+            // verify required parameter 'cotatoUpdatePhoneNumberRequest' is not null or undefined
+            assertParamExists('updatePhoneNumber', 'cotatoUpdatePhoneNumberRequest', cotatoUpdatePhoneNumberRequest)
+            const localVarPath = `/v1/api/member/phone-number`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (authorization != null) {
+                localVarHeaderParameter['Authorization'] = String(authorization);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(cotatoUpdatePhoneNumberRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -203,6 +252,20 @@ export const MemberControllerApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['MemberControllerApi.updatePassword']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * 멤버 전화번호 수정하기
+         * @summary 멤버 전화번호 수정
+         * @param {string} authorization 
+         * @param {CotatoUpdatePhoneNumberRequest} cotatoUpdatePhoneNumberRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updatePhoneNumber(authorization: string, cotatoUpdatePhoneNumberRequest: CotatoUpdatePhoneNumberRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updatePhoneNumber(authorization, cotatoUpdatePhoneNumberRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MemberControllerApi.updatePhoneNumber']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -240,6 +303,17 @@ export const MemberControllerApiFactory = function (configuration?: Configuratio
          */
         updatePassword(authorization: string, cotatoUpdatePasswordRequest: CotatoUpdatePasswordRequest, options?: any): AxiosPromise<void> {
             return localVarFp.updatePassword(authorization, cotatoUpdatePasswordRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 멤버 전화번호 수정하기
+         * @summary 멤버 전화번호 수정
+         * @param {string} authorization 
+         * @param {CotatoUpdatePhoneNumberRequest} cotatoUpdatePhoneNumberRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updatePhoneNumber(authorization: string, cotatoUpdatePhoneNumberRequest: CotatoUpdatePhoneNumberRequest, options?: any): AxiosPromise<void> {
+            return localVarFp.updatePhoneNumber(authorization, cotatoUpdatePhoneNumberRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -283,6 +357,19 @@ export class MemberControllerApi extends BaseAPI {
      */
     public updatePassword(authorization: string, cotatoUpdatePasswordRequest: CotatoUpdatePasswordRequest, options?: RawAxiosRequestConfig) {
         return MemberControllerApiFp(this.configuration).updatePassword(authorization, cotatoUpdatePasswordRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 멤버 전화번호 수정하기
+     * @summary 멤버 전화번호 수정
+     * @param {string} authorization 
+     * @param {CotatoUpdatePhoneNumberRequest} cotatoUpdatePhoneNumberRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MemberControllerApi
+     */
+    public updatePhoneNumber(authorization: string, cotatoUpdatePhoneNumberRequest: CotatoUpdatePhoneNumberRequest, options?: RawAxiosRequestConfig) {
+        return MemberControllerApiFp(this.configuration).updatePhoneNumber(authorization, cotatoUpdatePhoneNumberRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

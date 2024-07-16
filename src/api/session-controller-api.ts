@@ -22,15 +22,19 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
+import type { CotatoAddSessionPhotoResponse } from '../model';
+// @ts-ignore
 import type { CotatoAddSessionResponse } from '../model';
 // @ts-ignore
 import type { CotatoCsEducationOnSessionNumberResponse } from '../model';
 // @ts-ignore
+import type { CotatoDeleteSessionPhotoRequest } from '../model';
+// @ts-ignore
 import type { CotatoSessionListResponse } from '../model';
 // @ts-ignore
-import type { CotatoUpdateSessionDescriptionRequest } from '../model';
-// @ts-ignore
 import type { CotatoUpdateSessionNumberRequest } from '../model';
+// @ts-ignore
+import type { CotatoUpdateSessionPhotoOrderRequest } from '../model';
 /**
  * SessionControllerApi - axios parameter creator
  * @export
@@ -38,11 +42,12 @@ import type { CotatoUpdateSessionNumberRequest } from '../model';
 export const SessionControllerApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
+         * 세션 추가하기
+         * @summary Session 추가하기
          * @param {number} generationId 
          * @param {string} title 
          * @param {string} description 
-         * @param {File} [sessionImage] 
+         * @param {Array<File>} [photos] 
          * @param {AddSessionItIssueEnum} [itIssue] 
          * @param {AddSessionNetworkingEnum} [networking] 
          * @param {AddSessionCsEducationEnum} [csEducation] 
@@ -50,7 +55,7 @@ export const SessionControllerApiAxiosParamCreator = function (configuration?: C
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addSession: async (generationId: number, title: string, description: string, sessionImage?: File, itIssue?: AddSessionItIssueEnum, networking?: AddSessionNetworkingEnum, csEducation?: AddSessionCsEducationEnum, devTalk?: AddSessionDevTalkEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        addSession: async (generationId: number, title: string, description: string, photos?: Array<File>, itIssue?: AddSessionItIssueEnum, networking?: AddSessionNetworkingEnum, csEducation?: AddSessionCsEducationEnum, devTalk?: AddSessionDevTalkEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'generationId' is not null or undefined
             assertParamExists('addSession', 'generationId', generationId)
             // verify required parameter 'title' is not null or undefined
@@ -78,10 +83,12 @@ export const SessionControllerApiAxiosParamCreator = function (configuration?: C
             if (generationId !== undefined) { 
                 localVarFormParams.append('generationId', generationId as any);
             }
-    
-            if (sessionImage !== undefined) { 
-                localVarFormParams.append('sessionImage', sessionImage as any);
+                if (photos) {
+                photos.forEach((element) => {
+                  localVarFormParams.append('photos', element as any);
+                })
             }
+
     
             if (title !== undefined) { 
                 localVarFormParams.append('title', title as any);
@@ -114,6 +121,98 @@ export const SessionControllerApiAxiosParamCreator = function (configuration?: C
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 세션 수정 시 사진 추가하기, photoId 반환
+         * @summary Session 수정 - 사진 추가하기
+         * @param {number} sessionId 
+         * @param {File} photo 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        additionalSessionPhoto: async (sessionId: number, photo: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'sessionId' is not null or undefined
+            assertParamExists('additionalSessionPhoto', 'sessionId', sessionId)
+            // verify required parameter 'photo' is not null or undefined
+            assertParamExists('additionalSessionPhoto', 'photo', photo)
+            const localVarPath = `/v1/api/session/photo`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+            if (sessionId !== undefined) { 
+                localVarFormParams.append('sessionId', sessionId as any);
+            }
+    
+            if (photo !== undefined) { 
+                localVarFormParams.append('photo', photo as any);
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 사진 삭제하기
+         * @summary Session 수정 - 사진 삭제하기
+         * @param {CotatoDeleteSessionPhotoRequest} cotatoDeleteSessionPhotoRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteSessionPhoto: async (cotatoDeleteSessionPhotoRequest: CotatoDeleteSessionPhotoRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'cotatoDeleteSessionPhotoRequest' is not null or undefined
+            assertParamExists('deleteSessionPhoto', 'cotatoDeleteSessionPhotoRequest', cotatoDeleteSessionPhotoRequest)
+            const localVarPath = `/v1/api/session/photo`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(cotatoDeleteSessionPhotoRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -161,7 +260,8 @@ export const SessionControllerApiAxiosParamCreator = function (configuration?: C
             };
         },
         /**
-         * 
+         * Get Session Infos
+         * @summary Session 리스트 정보 얻기
          * @param {number} generationId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -203,22 +303,18 @@ export const SessionControllerApiAxiosParamCreator = function (configuration?: C
         /**
          * 
          * @param {number} sessionId 
-         * @param {boolean} isPhotoUpdated 
          * @param {UpdateSessionItIssueEnum} itIssue 
          * @param {UpdateSessionNetworkingEnum} networking 
          * @param {UpdateSessionCsEducationEnum} csEducation 
          * @param {UpdateSessionDevTalkEnum} devTalk 
-         * @param {File} [sessionImage] 
          * @param {string} [title] 
          * @param {string} [description] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateSession: async (sessionId: number, isPhotoUpdated: boolean, itIssue: UpdateSessionItIssueEnum, networking: UpdateSessionNetworkingEnum, csEducation: UpdateSessionCsEducationEnum, devTalk: UpdateSessionDevTalkEnum, sessionImage?: File, title?: string, description?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        updateSession: async (sessionId: number, itIssue: UpdateSessionItIssueEnum, networking: UpdateSessionNetworkingEnum, csEducation: UpdateSessionCsEducationEnum, devTalk: UpdateSessionDevTalkEnum, title?: string, description?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'sessionId' is not null or undefined
             assertParamExists('updateSession', 'sessionId', sessionId)
-            // verify required parameter 'isPhotoUpdated' is not null or undefined
-            assertParamExists('updateSession', 'isPhotoUpdated', isPhotoUpdated)
             // verify required parameter 'itIssue' is not null or undefined
             assertParamExists('updateSession', 'itIssue', itIssue)
             // verify required parameter 'networking' is not null or undefined
@@ -247,14 +343,6 @@ export const SessionControllerApiAxiosParamCreator = function (configuration?: C
 
             if (sessionId !== undefined) { 
                 localVarFormParams.append('sessionId', sessionId as any);
-            }
-    
-            if (sessionImage !== undefined) { 
-                localVarFormParams.append('sessionImage', sessionImage as any);
-            }
-    
-            if (isPhotoUpdated !== undefined) { 
-                localVarFormParams.append('isPhotoUpdated', String(isPhotoUpdated) as any);
             }
     
             if (title !== undefined) { 
@@ -288,45 +376,6 @@ export const SessionControllerApiAxiosParamCreator = function (configuration?: C
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = localVarFormParams;
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {CotatoUpdateSessionDescriptionRequest} cotatoUpdateSessionDescriptionRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateSessionDescription: async (cotatoUpdateSessionDescriptionRequest: CotatoUpdateSessionDescriptionRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'cotatoUpdateSessionDescriptionRequest' is not null or undefined
-            assertParamExists('updateSessionDescription', 'cotatoUpdateSessionDescriptionRequest', cotatoUpdateSessionDescriptionRequest)
-            const localVarPath = `/v1/api/session/description`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication bearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(cotatoUpdateSessionDescriptionRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -373,16 +422,16 @@ export const SessionControllerApiAxiosParamCreator = function (configuration?: C
             };
         },
         /**
-         * 
-         * @param {number} sessionId 
-         * @param {File} [sessionImage] 
+         * 세션 사진 순서 바꾸기
+         * @summary Session 수정 - 사진 순서
+         * @param {CotatoUpdateSessionPhotoOrderRequest} cotatoUpdateSessionPhotoOrderRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateSessionPhoto: async (sessionId: number, sessionImage?: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'sessionId' is not null or undefined
-            assertParamExists('updateSessionPhoto', 'sessionId', sessionId)
-            const localVarPath = `/v1/api/session/update/photo`;
+        updateSessionPhotoOrder: async (cotatoUpdateSessionPhotoOrderRequest: CotatoUpdateSessionPhotoOrderRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'cotatoUpdateSessionPhotoOrderRequest' is not null or undefined
+            assertParamExists('updateSessionPhotoOrder', 'cotatoUpdateSessionPhotoOrderRequest', cotatoUpdateSessionPhotoOrderRequest)
+            const localVarPath = `/v1/api/session/photo/order`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -393,28 +442,19 @@ export const SessionControllerApiAxiosParamCreator = function (configuration?: C
             const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
 
             // authentication bearerAuth required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
-            if (sessionId !== undefined) { 
-                localVarFormParams.append('sessionId', sessionId as any);
-            }
     
-            if (sessionImage !== undefined) { 
-                localVarFormParams.append('sessionImage', sessionImage as any);
-            }
-    
-    
-            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
-    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            localVarRequestOptions.data = serializeDataIfNeeded(cotatoUpdateSessionPhotoOrderRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -432,11 +472,12 @@ export const SessionControllerApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = SessionControllerApiAxiosParamCreator(configuration)
     return {
         /**
-         * 
+         * 세션 추가하기
+         * @summary Session 추가하기
          * @param {number} generationId 
          * @param {string} title 
          * @param {string} description 
-         * @param {File} [sessionImage] 
+         * @param {Array<File>} [photos] 
          * @param {AddSessionItIssueEnum} [itIssue] 
          * @param {AddSessionNetworkingEnum} [networking] 
          * @param {AddSessionCsEducationEnum} [csEducation] 
@@ -444,10 +485,37 @@ export const SessionControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async addSession(generationId: number, title: string, description: string, sessionImage?: File, itIssue?: AddSessionItIssueEnum, networking?: AddSessionNetworkingEnum, csEducation?: AddSessionCsEducationEnum, devTalk?: AddSessionDevTalkEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CotatoAddSessionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addSession(generationId, title, description, sessionImage, itIssue, networking, csEducation, devTalk, options);
+        async addSession(generationId: number, title: string, description: string, photos?: Array<File>, itIssue?: AddSessionItIssueEnum, networking?: AddSessionNetworkingEnum, csEducation?: AddSessionCsEducationEnum, devTalk?: AddSessionDevTalkEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CotatoAddSessionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addSession(generationId, title, description, photos, itIssue, networking, csEducation, devTalk, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SessionControllerApi.addSession']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 세션 수정 시 사진 추가하기, photoId 반환
+         * @summary Session 수정 - 사진 추가하기
+         * @param {number} sessionId 
+         * @param {File} photo 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async additionalSessionPhoto(sessionId: number, photo: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CotatoAddSessionPhotoResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.additionalSessionPhoto(sessionId, photo, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SessionControllerApi.additionalSessionPhoto']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 사진 삭제하기
+         * @summary Session 수정 - 사진 삭제하기
+         * @param {CotatoDeleteSessionPhotoRequest} cotatoDeleteSessionPhotoRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteSessionPhoto(cotatoDeleteSessionPhotoRequest: CotatoDeleteSessionPhotoRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteSessionPhoto(cotatoDeleteSessionPhotoRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SessionControllerApi.deleteSessionPhoto']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -463,7 +531,8 @@ export const SessionControllerApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
+         * Get Session Infos
+         * @summary Session 리스트 정보 얻기
          * @param {number} generationId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -477,33 +546,19 @@ export const SessionControllerApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {number} sessionId 
-         * @param {boolean} isPhotoUpdated 
          * @param {UpdateSessionItIssueEnum} itIssue 
          * @param {UpdateSessionNetworkingEnum} networking 
          * @param {UpdateSessionCsEducationEnum} csEducation 
          * @param {UpdateSessionDevTalkEnum} devTalk 
-         * @param {File} [sessionImage] 
          * @param {string} [title] 
          * @param {string} [description] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateSession(sessionId: number, isPhotoUpdated: boolean, itIssue: UpdateSessionItIssueEnum, networking: UpdateSessionNetworkingEnum, csEducation: UpdateSessionCsEducationEnum, devTalk: UpdateSessionDevTalkEnum, sessionImage?: File, title?: string, description?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateSession(sessionId, isPhotoUpdated, itIssue, networking, csEducation, devTalk, sessionImage, title, description, options);
+        async updateSession(sessionId: number, itIssue: UpdateSessionItIssueEnum, networking: UpdateSessionNetworkingEnum, csEducation: UpdateSessionCsEducationEnum, devTalk: UpdateSessionDevTalkEnum, title?: string, description?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateSession(sessionId, itIssue, networking, csEducation, devTalk, title, description, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SessionControllerApi.updateSession']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {CotatoUpdateSessionDescriptionRequest} cotatoUpdateSessionDescriptionRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async updateSessionDescription(cotatoUpdateSessionDescriptionRequest: CotatoUpdateSessionDescriptionRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateSessionDescription(cotatoUpdateSessionDescriptionRequest, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['SessionControllerApi.updateSessionDescription']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -519,16 +574,16 @@ export const SessionControllerApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
-         * @param {number} sessionId 
-         * @param {File} [sessionImage] 
+         * 세션 사진 순서 바꾸기
+         * @summary Session 수정 - 사진 순서
+         * @param {CotatoUpdateSessionPhotoOrderRequest} cotatoUpdateSessionPhotoOrderRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateSessionPhoto(sessionId: number, sessionImage?: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateSessionPhoto(sessionId, sessionImage, options);
+        async updateSessionPhotoOrder(cotatoUpdateSessionPhotoOrderRequest: CotatoUpdateSessionPhotoOrderRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateSessionPhotoOrder(cotatoUpdateSessionPhotoOrderRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['SessionControllerApi.updateSessionPhoto']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['SessionControllerApi.updateSessionPhotoOrder']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -542,11 +597,12 @@ export const SessionControllerApiFactory = function (configuration?: Configurati
     const localVarFp = SessionControllerApiFp(configuration)
     return {
         /**
-         * 
+         * 세션 추가하기
+         * @summary Session 추가하기
          * @param {number} generationId 
          * @param {string} title 
          * @param {string} description 
-         * @param {File} [sessionImage] 
+         * @param {Array<File>} [photos] 
          * @param {AddSessionItIssueEnum} [itIssue] 
          * @param {AddSessionNetworkingEnum} [networking] 
          * @param {AddSessionCsEducationEnum} [csEducation] 
@@ -554,8 +610,29 @@ export const SessionControllerApiFactory = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addSession(generationId: number, title: string, description: string, sessionImage?: File, itIssue?: AddSessionItIssueEnum, networking?: AddSessionNetworkingEnum, csEducation?: AddSessionCsEducationEnum, devTalk?: AddSessionDevTalkEnum, options?: any): AxiosPromise<CotatoAddSessionResponse> {
-            return localVarFp.addSession(generationId, title, description, sessionImage, itIssue, networking, csEducation, devTalk, options).then((request) => request(axios, basePath));
+        addSession(generationId: number, title: string, description: string, photos?: Array<File>, itIssue?: AddSessionItIssueEnum, networking?: AddSessionNetworkingEnum, csEducation?: AddSessionCsEducationEnum, devTalk?: AddSessionDevTalkEnum, options?: any): AxiosPromise<CotatoAddSessionResponse> {
+            return localVarFp.addSession(generationId, title, description, photos, itIssue, networking, csEducation, devTalk, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 세션 수정 시 사진 추가하기, photoId 반환
+         * @summary Session 수정 - 사진 추가하기
+         * @param {number} sessionId 
+         * @param {File} photo 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        additionalSessionPhoto(sessionId: number, photo: File, options?: any): AxiosPromise<CotatoAddSessionPhotoResponse> {
+            return localVarFp.additionalSessionPhoto(sessionId, photo, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 사진 삭제하기
+         * @summary Session 수정 - 사진 삭제하기
+         * @param {CotatoDeleteSessionPhotoRequest} cotatoDeleteSessionPhotoRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteSessionPhoto(cotatoDeleteSessionPhotoRequest: CotatoDeleteSessionPhotoRequest, options?: any): AxiosPromise<void> {
+            return localVarFp.deleteSessionPhoto(cotatoDeleteSessionPhotoRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -567,7 +644,8 @@ export const SessionControllerApiFactory = function (configuration?: Configurati
             return localVarFp.findAllCsOnSessionsByGenerationId(generationId, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Get Session Infos
+         * @summary Session 리스트 정보 얻기
          * @param {number} generationId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -578,28 +656,17 @@ export const SessionControllerApiFactory = function (configuration?: Configurati
         /**
          * 
          * @param {number} sessionId 
-         * @param {boolean} isPhotoUpdated 
          * @param {UpdateSessionItIssueEnum} itIssue 
          * @param {UpdateSessionNetworkingEnum} networking 
          * @param {UpdateSessionCsEducationEnum} csEducation 
          * @param {UpdateSessionDevTalkEnum} devTalk 
-         * @param {File} [sessionImage] 
          * @param {string} [title] 
          * @param {string} [description] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateSession(sessionId: number, isPhotoUpdated: boolean, itIssue: UpdateSessionItIssueEnum, networking: UpdateSessionNetworkingEnum, csEducation: UpdateSessionCsEducationEnum, devTalk: UpdateSessionDevTalkEnum, sessionImage?: File, title?: string, description?: string, options?: any): AxiosPromise<void> {
-            return localVarFp.updateSession(sessionId, isPhotoUpdated, itIssue, networking, csEducation, devTalk, sessionImage, title, description, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {CotatoUpdateSessionDescriptionRequest} cotatoUpdateSessionDescriptionRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateSessionDescription(cotatoUpdateSessionDescriptionRequest: CotatoUpdateSessionDescriptionRequest, options?: any): AxiosPromise<void> {
-            return localVarFp.updateSessionDescription(cotatoUpdateSessionDescriptionRequest, options).then((request) => request(axios, basePath));
+        updateSession(sessionId: number, itIssue: UpdateSessionItIssueEnum, networking: UpdateSessionNetworkingEnum, csEducation: UpdateSessionCsEducationEnum, devTalk: UpdateSessionDevTalkEnum, title?: string, description?: string, options?: any): AxiosPromise<void> {
+            return localVarFp.updateSession(sessionId, itIssue, networking, csEducation, devTalk, title, description, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -611,14 +678,14 @@ export const SessionControllerApiFactory = function (configuration?: Configurati
             return localVarFp.updateSessionNumber(cotatoUpdateSessionNumberRequest, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
-         * @param {number} sessionId 
-         * @param {File} [sessionImage] 
+         * 세션 사진 순서 바꾸기
+         * @summary Session 수정 - 사진 순서
+         * @param {CotatoUpdateSessionPhotoOrderRequest} cotatoUpdateSessionPhotoOrderRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateSessionPhoto(sessionId: number, sessionImage?: File, options?: any): AxiosPromise<void> {
-            return localVarFp.updateSessionPhoto(sessionId, sessionImage, options).then((request) => request(axios, basePath));
+        updateSessionPhotoOrder(cotatoUpdateSessionPhotoOrderRequest: CotatoUpdateSessionPhotoOrderRequest, options?: any): AxiosPromise<void> {
+            return localVarFp.updateSessionPhotoOrder(cotatoUpdateSessionPhotoOrderRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -631,11 +698,12 @@ export const SessionControllerApiFactory = function (configuration?: Configurati
  */
 export class SessionControllerApi extends BaseAPI {
     /**
-     * 
+     * 세션 추가하기
+     * @summary Session 추가하기
      * @param {number} generationId 
      * @param {string} title 
      * @param {string} description 
-     * @param {File} [sessionImage] 
+     * @param {Array<File>} [photos] 
      * @param {AddSessionItIssueEnum} [itIssue] 
      * @param {AddSessionNetworkingEnum} [networking] 
      * @param {AddSessionCsEducationEnum} [csEducation] 
@@ -644,8 +712,33 @@ export class SessionControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SessionControllerApi
      */
-    public addSession(generationId: number, title: string, description: string, sessionImage?: File, itIssue?: AddSessionItIssueEnum, networking?: AddSessionNetworkingEnum, csEducation?: AddSessionCsEducationEnum, devTalk?: AddSessionDevTalkEnum, options?: RawAxiosRequestConfig) {
-        return SessionControllerApiFp(this.configuration).addSession(generationId, title, description, sessionImage, itIssue, networking, csEducation, devTalk, options).then((request) => request(this.axios, this.basePath));
+    public addSession(generationId: number, title: string, description: string, photos?: Array<File>, itIssue?: AddSessionItIssueEnum, networking?: AddSessionNetworkingEnum, csEducation?: AddSessionCsEducationEnum, devTalk?: AddSessionDevTalkEnum, options?: RawAxiosRequestConfig) {
+        return SessionControllerApiFp(this.configuration).addSession(generationId, title, description, photos, itIssue, networking, csEducation, devTalk, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 세션 수정 시 사진 추가하기, photoId 반환
+     * @summary Session 수정 - 사진 추가하기
+     * @param {number} sessionId 
+     * @param {File} photo 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SessionControllerApi
+     */
+    public additionalSessionPhoto(sessionId: number, photo: File, options?: RawAxiosRequestConfig) {
+        return SessionControllerApiFp(this.configuration).additionalSessionPhoto(sessionId, photo, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 사진 삭제하기
+     * @summary Session 수정 - 사진 삭제하기
+     * @param {CotatoDeleteSessionPhotoRequest} cotatoDeleteSessionPhotoRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SessionControllerApi
+     */
+    public deleteSessionPhoto(cotatoDeleteSessionPhotoRequest: CotatoDeleteSessionPhotoRequest, options?: RawAxiosRequestConfig) {
+        return SessionControllerApiFp(this.configuration).deleteSessionPhoto(cotatoDeleteSessionPhotoRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -660,7 +753,8 @@ export class SessionControllerApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Get Session Infos
+     * @summary Session 리스트 정보 얻기
      * @param {number} generationId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -673,31 +767,18 @@ export class SessionControllerApi extends BaseAPI {
     /**
      * 
      * @param {number} sessionId 
-     * @param {boolean} isPhotoUpdated 
      * @param {UpdateSessionItIssueEnum} itIssue 
      * @param {UpdateSessionNetworkingEnum} networking 
      * @param {UpdateSessionCsEducationEnum} csEducation 
      * @param {UpdateSessionDevTalkEnum} devTalk 
-     * @param {File} [sessionImage] 
      * @param {string} [title] 
      * @param {string} [description] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SessionControllerApi
      */
-    public updateSession(sessionId: number, isPhotoUpdated: boolean, itIssue: UpdateSessionItIssueEnum, networking: UpdateSessionNetworkingEnum, csEducation: UpdateSessionCsEducationEnum, devTalk: UpdateSessionDevTalkEnum, sessionImage?: File, title?: string, description?: string, options?: RawAxiosRequestConfig) {
-        return SessionControllerApiFp(this.configuration).updateSession(sessionId, isPhotoUpdated, itIssue, networking, csEducation, devTalk, sessionImage, title, description, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {CotatoUpdateSessionDescriptionRequest} cotatoUpdateSessionDescriptionRequest 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SessionControllerApi
-     */
-    public updateSessionDescription(cotatoUpdateSessionDescriptionRequest: CotatoUpdateSessionDescriptionRequest, options?: RawAxiosRequestConfig) {
-        return SessionControllerApiFp(this.configuration).updateSessionDescription(cotatoUpdateSessionDescriptionRequest, options).then((request) => request(this.axios, this.basePath));
+    public updateSession(sessionId: number, itIssue: UpdateSessionItIssueEnum, networking: UpdateSessionNetworkingEnum, csEducation: UpdateSessionCsEducationEnum, devTalk: UpdateSessionDevTalkEnum, title?: string, description?: string, options?: RawAxiosRequestConfig) {
+        return SessionControllerApiFp(this.configuration).updateSession(sessionId, itIssue, networking, csEducation, devTalk, title, description, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -712,15 +793,15 @@ export class SessionControllerApi extends BaseAPI {
     }
 
     /**
-     * 
-     * @param {number} sessionId 
-     * @param {File} [sessionImage] 
+     * 세션 사진 순서 바꾸기
+     * @summary Session 수정 - 사진 순서
+     * @param {CotatoUpdateSessionPhotoOrderRequest} cotatoUpdateSessionPhotoOrderRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SessionControllerApi
      */
-    public updateSessionPhoto(sessionId: number, sessionImage?: File, options?: RawAxiosRequestConfig) {
-        return SessionControllerApiFp(this.configuration).updateSessionPhoto(sessionId, sessionImage, options).then((request) => request(this.axios, this.basePath));
+    public updateSessionPhotoOrder(cotatoUpdateSessionPhotoOrderRequest: CotatoUpdateSessionPhotoOrderRequest, options?: RawAxiosRequestConfig) {
+        return SessionControllerApiFp(this.configuration).updateSessionPhotoOrder(cotatoUpdateSessionPhotoOrderRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

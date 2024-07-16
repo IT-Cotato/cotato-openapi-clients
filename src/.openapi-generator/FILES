@@ -20,6 +20,7 @@ index.ts
 model/cotato-add-additional-answer-request.ts
 model/cotato-add-generation-request.ts
 model/cotato-add-generation-response.ts
+model/cotato-add-session-photo-response.ts
 model/cotato-add-session-response.ts
 model/cotato-all-education-response.ts
 model/cotato-all-quizzes-in-cs-quiz-response.ts
@@ -36,6 +37,7 @@ model/cotato-create-short-answer-request.ts
 model/cotato-create-short-quiz-request.ts
 model/cotato-cs-admin-quiz-response.ts
 model/cotato-cs-education-on-session-number-response.ts
+model/cotato-delete-session-photo-request.ts
 model/cotato-education-close-request.ts
 model/cotato-education-id-of-quiz-response.ts
 model/cotato-find-education-status-response.ts
@@ -70,6 +72,7 @@ model/cotato-reply-response.ts
 model/cotato-scorer-response.ts
 model/cotato-send-email-request.ts
 model/cotato-session-contents.ts
+model/cotato-session-list-photo-info-response.ts
 model/cotato-session-list-response.ts
 model/cotato-short-answer-response.ts
 model/cotato-short-quiz-response.ts
@@ -79,7 +82,9 @@ model/cotato-update-active-member-to-old-member-request.ts
 model/cotato-update-education-request.ts
 model/cotato-update-old-member-role-request.ts
 model/cotato-update-password-request.ts
-model/cotato-update-session-description-request.ts
+model/cotato-update-phone-number-request.ts
 model/cotato-update-session-number-request.ts
+model/cotato-update-session-photo-order-info-request.ts
+model/cotato-update-session-photo-order-request.ts
 model/cotato-winner-info-response.ts
 model/index.ts
