@@ -56,6 +56,12 @@ export interface CotatoMemberMyPageInfoResponse {
      * @memberof CotatoMemberMyPageInfoResponse
      */
     'phoneNumber'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CotatoMemberMyPageInfoResponse
+     */
+    'profileImage'?: string;
 }
 
 export const CotatoMemberMyPageInfoResponseMemberPositionEnum = {

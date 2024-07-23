@@ -18,7 +18,7 @@
 import type { CotatoSessionContents } from './cotato-session-contents';
 // May contain unused imports in some cases
 // @ts-ignore
-import type { CotatoSessionListPhotoInfoResponse } from './cotato-session-list-photo-info-response';
+import type { CotatoSessionListImageInfoResponse } from './cotato-session-list-image-info-response';
 
 /**
  * 
@@ -46,10 +46,10 @@ export interface CotatoSessionListResponse {
     'title'?: string;
     /**
      * 
-     * @type {Array<CotatoSessionListPhotoInfoResponse>}
+     * @type {Array<CotatoSessionListImageInfoResponse>}
      * @memberof CotatoSessionListResponse
      */
-    'photoInfos'?: Array<CotatoSessionListPhotoInfoResponse>;
+    'imageInfos'?: Array<CotatoSessionListImageInfoResponse>;
     /**
      * 
      * @type {string}

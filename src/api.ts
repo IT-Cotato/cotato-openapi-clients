@@ -14,6 +14,7 @@
 
 
 
+export * from './api/apiapi';
 export * from './api/admin-controller-api';
 export * from './api/auth-controller-api';
 export * from './api/education-controller-api';

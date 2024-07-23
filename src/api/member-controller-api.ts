@@ -37,6 +37,47 @@ export const MemberControllerApiAxiosParamCreator = function (configuration?: Co
     return {
         /**
          * 
+         * @summary 멤버 프로필 사진 삭제 API
+         * @param {string} authorization 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteProfileImage: async (authorization: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'authorization' is not null or undefined
+            assertParamExists('deleteProfileImage', 'authorization', authorization)
+            const localVarPath = `/v1/api/member/profile-image`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (authorization != null) {
+                localVarHeaderParameter['Authorization'] = String(authorization);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {string} authorization 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -159,8 +200,8 @@ export const MemberControllerApiAxiosParamCreator = function (configuration?: Co
             };
         },
         /**
-         * 멤버 전화번호 수정하기
-         * @summary 멤버 전화번호 수정
+         * 
+         * @summary 멤버 전화번호 수정 API
          * @param {string} authorization 
          * @param {CotatoUpdatePhoneNumberRequest} cotatoUpdatePhoneNumberRequest 
          * @param {*} [options] Override http request option.
@@ -205,6 +246,58 @@ export const MemberControllerApiAxiosParamCreator = function (configuration?: Co
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary 멤버 프로필 사진 수정 API
+         * @param {string} authorization 
+         * @param {File} image 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateProfileImage: async (authorization: string, image: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'authorization' is not null or undefined
+            assertParamExists('updateProfileImage', 'authorization', authorization)
+            // verify required parameter 'image' is not null or undefined
+            assertParamExists('updateProfileImage', 'image', image)
+            const localVarPath = `/v1/api/member/profile-image`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (authorization != null) {
+                localVarHeaderParameter['Authorization'] = String(authorization);
+            }
+
+
+            if (image !== undefined) { 
+                localVarFormParams.append('image', image as any);
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -215,6 +308,19 @@ export const MemberControllerApiAxiosParamCreator = function (configuration?: Co
 export const MemberControllerApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = MemberControllerApiAxiosParamCreator(configuration)
     return {
+        /**
+         * 
+         * @summary 멤버 프로필 사진 삭제 API
+         * @param {string} authorization 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteProfileImage(authorization: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteProfileImage(authorization, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MemberControllerApi.deleteProfileImage']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
         /**
          * 
          * @param {string} authorization 
@@ -253,8 +359,8 @@ export const MemberControllerApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 멤버 전화번호 수정하기
-         * @summary 멤버 전화번호 수정
+         * 
+         * @summary 멤버 전화번호 수정 API
          * @param {string} authorization 
          * @param {CotatoUpdatePhoneNumberRequest} cotatoUpdatePhoneNumberRequest 
          * @param {*} [options] Override http request option.
@@ -264,6 +370,20 @@ export const MemberControllerApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updatePhoneNumber(authorization, cotatoUpdatePhoneNumberRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MemberControllerApi.updatePhoneNumber']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary 멤버 프로필 사진 수정 API
+         * @param {string} authorization 
+         * @param {File} image 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateProfileImage(authorization: string, image: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateProfileImage(authorization, image, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MemberControllerApi.updateProfileImage']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -276,6 +396,16 @@ export const MemberControllerApiFp = function(configuration?: Configuration) {
 export const MemberControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     const localVarFp = MemberControllerApiFp(configuration)
     return {
+        /**
+         * 
+         * @summary 멤버 프로필 사진 삭제 API
+         * @param {string} authorization 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteProfileImage(authorization: string, options?: any): AxiosPromise<void> {
+            return localVarFp.deleteProfileImage(authorization, options).then((request) => request(axios, basePath));
+        },
         /**
          * 
          * @param {string} authorization 
@@ -305,8 +435,8 @@ export const MemberControllerApiFactory = function (configuration?: Configuratio
             return localVarFp.updatePassword(authorization, cotatoUpdatePasswordRequest, options).then((request) => request(axios, basePath));
         },
         /**
-         * 멤버 전화번호 수정하기
-         * @summary 멤버 전화번호 수정
+         * 
+         * @summary 멤버 전화번호 수정 API
          * @param {string} authorization 
          * @param {CotatoUpdatePhoneNumberRequest} cotatoUpdatePhoneNumberRequest 
          * @param {*} [options] Override http request option.
@@ -314,6 +444,17 @@ export const MemberControllerApiFactory = function (configuration?: Configuratio
          */
         updatePhoneNumber(authorization: string, cotatoUpdatePhoneNumberRequest: CotatoUpdatePhoneNumberRequest, options?: any): AxiosPromise<void> {
             return localVarFp.updatePhoneNumber(authorization, cotatoUpdatePhoneNumberRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 멤버 프로필 사진 수정 API
+         * @param {string} authorization 
+         * @param {File} image 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateProfileImage(authorization: string, image: File, options?: any): AxiosPromise<void> {
+            return localVarFp.updateProfileImage(authorization, image, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -325,6 +466,18 @@ export const MemberControllerApiFactory = function (configuration?: Configuratio
  * @extends {BaseAPI}
  */
 export class MemberControllerApi extends BaseAPI {
+    /**
+     * 
+     * @summary 멤버 프로필 사진 삭제 API
+     * @param {string} authorization 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MemberControllerApi
+     */
+    public deleteProfileImage(authorization: string, options?: RawAxiosRequestConfig) {
+        return MemberControllerApiFp(this.configuration).deleteProfileImage(authorization, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @param {string} authorization 
@@ -360,8 +513,8 @@ export class MemberControllerApi extends BaseAPI {
     }
 
     /**
-     * 멤버 전화번호 수정하기
-     * @summary 멤버 전화번호 수정
+     * 
+     * @summary 멤버 전화번호 수정 API
      * @param {string} authorization 
      * @param {CotatoUpdatePhoneNumberRequest} cotatoUpdatePhoneNumberRequest 
      * @param {*} [options] Override http request option.
@@ -370,6 +523,19 @@ export class MemberControllerApi extends BaseAPI {
      */
     public updatePhoneNumber(authorization: string, cotatoUpdatePhoneNumberRequest: CotatoUpdatePhoneNumberRequest, options?: RawAxiosRequestConfig) {
         return MemberControllerApiFp(this.configuration).updatePhoneNumber(authorization, cotatoUpdatePhoneNumberRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary 멤버 프로필 사진 수정 API
+     * @param {string} authorization 
+     * @param {File} image 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MemberControllerApi
+     */
+    public updateProfileImage(authorization: string, image: File, options?: RawAxiosRequestConfig) {
+        return MemberControllerApiFp(this.configuration).updateProfileImage(authorization, image, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
