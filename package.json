@@ -1,6 +1,6 @@
 {
   "name": "cotato-openapi-clients",
-  "version": "1.240701.0",
+  "version": "1.240701.0-attendance.0",
   "private": false,
   "dependencies": {
     "@openapitools/openapi-generator-cli": "^2.13.4",
