@@ -3,7 +3,10 @@
   "compilerOptions": {
     "module": "esnext",
     "outDir": "dist/mjs",
-    "target": "esnext"
-  }
+    "target": "esnext",
+    "declaration": true,     
+    "declarationDir": "dist/mjs",   
+    "emitDeclarationOnly": true
+  },
+  "include": ["src/**/*"]
 }
-

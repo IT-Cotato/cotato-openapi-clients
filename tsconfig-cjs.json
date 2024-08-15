@@ -1,8 +1,12 @@
 {
-    "extends": "./tsconfig-base.json",
-    "compilerOptions": {
-      "module": "commonjs",
-      "outDir": "dist/cjs",
-      "target": "es2015"
-    }
-  }
+  "extends": "./tsconfig-base.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "outDir": "dist/cjs",
+    "target": "es2015",
+    "declaration": true,             // 선언 파일 생성
+    "declarationDir": "dist/cjs",    // 선언 파일의 출력 디렉토리 설정
+    "emitDeclarationOnly": true      // JavaScript 파일을 생성하지 않고 선언 파일만 생성
+  },
+  "include": ["src/**/*"]
+}
