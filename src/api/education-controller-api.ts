@@ -531,87 +531,213 @@ export const EducationControllerApiFactory = function (configuration?: Configura
     return {
         /**
          * 
-         * @param {number} educationId 
+         * @param {EducationControllerApiCalculateKingMembersRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        calculateKingMembers(educationId: number, options?: any): AxiosPromise<void> {
-            return localVarFp.calculateKingMembers(educationId, options).then((request) => request(axios, basePath));
+        calculateKingMembers(requestParameters: EducationControllerApiCalculateKingMembersRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.calculateKingMembers(requestParameters.educationId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {number} educationId 
+         * @param {EducationControllerApiCalculateWinnerRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        calculateWinner(educationId: number, options?: any): AxiosPromise<void> {
-            return localVarFp.calculateWinner(educationId, options).then((request) => request(axios, basePath));
+        calculateWinner(requestParameters: EducationControllerApiCalculateWinnerRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.calculateWinner(requestParameters.educationId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {CotatoCreateEducationRequest} cotatoCreateEducationRequest 
+         * @param {EducationControllerApiCreateEducationRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createEducation(cotatoCreateEducationRequest: CotatoCreateEducationRequest, options?: any): AxiosPromise<CotatoCreateEducationResponse> {
-            return localVarFp.createEducation(cotatoCreateEducationRequest, options).then((request) => request(axios, basePath));
+        createEducation(requestParameters: EducationControllerApiCreateEducationRequest, options?: RawAxiosRequestConfig): AxiosPromise<CotatoCreateEducationResponse> {
+            return localVarFp.createEducation(requestParameters.cotatoCreateEducationRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {number} quizId 
+         * @param {EducationControllerApiFindEducationIdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findEducationId(quizId: number, options?: any): AxiosPromise<CotatoEducationIdOfQuizResponse> {
-            return localVarFp.findEducationId(quizId, options).then((request) => request(axios, basePath));
+        findEducationId(requestParameters: EducationControllerApiFindEducationIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<CotatoEducationIdOfQuizResponse> {
+            return localVarFp.findEducationId(requestParameters.quizId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {number} generationId 
+         * @param {EducationControllerApiFindEducationListByGenerationRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findEducationListByGeneration(generationId: number, options?: any): AxiosPromise<Array<CotatoAllEducationResponse>> {
-            return localVarFp.findEducationListByGeneration(generationId, options).then((request) => request(axios, basePath));
+        findEducationListByGeneration(requestParameters: EducationControllerApiFindEducationListByGenerationRequest, options?: RawAxiosRequestConfig): AxiosPromise<Array<CotatoAllEducationResponse>> {
+            return localVarFp.findEducationListByGeneration(requestParameters.generationId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {number} educationId 
+         * @param {EducationControllerApiFindEducationStatusRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findEducationStatus(educationId: number, options?: any): AxiosPromise<CotatoFindEducationStatusResponse> {
-            return localVarFp.findEducationStatus(educationId, options).then((request) => request(axios, basePath));
+        findEducationStatus(requestParameters: EducationControllerApiFindEducationStatusRequest, options?: RawAxiosRequestConfig): AxiosPromise<CotatoFindEducationStatusResponse> {
+            return localVarFp.findEducationStatus(requestParameters.educationId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {number} educationId 
+         * @param {EducationControllerApiFindFinalKingMembersRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findFinalKingMembers(educationId: number, options?: any): AxiosPromise<Array<CotatoKingMemberInfo>> {
-            return localVarFp.findFinalKingMembers(educationId, options).then((request) => request(axios, basePath));
+        findFinalKingMembers(requestParameters: EducationControllerApiFindFinalKingMembersRequest, options?: RawAxiosRequestConfig): AxiosPromise<Array<CotatoKingMemberInfo>> {
+            return localVarFp.findFinalKingMembers(requestParameters.educationId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {number} educationId 
+         * @param {EducationControllerApiFindWinnerRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findWinner(educationId: number, options?: any): AxiosPromise<CotatoWinnerInfoResponse> {
-            return localVarFp.findWinner(educationId, options).then((request) => request(axios, basePath));
+        findWinner(requestParameters: EducationControllerApiFindWinnerRequest, options?: RawAxiosRequestConfig): AxiosPromise<CotatoWinnerInfoResponse> {
+            return localVarFp.findWinner(requestParameters.educationId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {CotatoUpdateEducationRequest} cotatoUpdateEducationRequest 
+         * @param {EducationControllerApiUpdateEducationRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateEducation(cotatoUpdateEducationRequest: CotatoUpdateEducationRequest, options?: any): AxiosPromise<void> {
-            return localVarFp.updateEducation(cotatoUpdateEducationRequest, options).then((request) => request(axios, basePath));
+        updateEducation(requestParameters: EducationControllerApiUpdateEducationRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.updateEducation(requestParameters.cotatoUpdateEducationRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
+
+/**
+ * Request parameters for calculateKingMembers operation in EducationControllerApi.
+ * @export
+ * @interface EducationControllerApiCalculateKingMembersRequest
+ */
+export interface EducationControllerApiCalculateKingMembersRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof EducationControllerApiCalculateKingMembers
+     */
+    readonly educationId: number
+}
+
+/**
+ * Request parameters for calculateWinner operation in EducationControllerApi.
+ * @export
+ * @interface EducationControllerApiCalculateWinnerRequest
+ */
+export interface EducationControllerApiCalculateWinnerRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof EducationControllerApiCalculateWinner
+     */
+    readonly educationId: number
+}
+
+/**
+ * Request parameters for createEducation operation in EducationControllerApi.
+ * @export
+ * @interface EducationControllerApiCreateEducationRequest
+ */
+export interface EducationControllerApiCreateEducationRequest {
+    /**
+     * 
+     * @type {CotatoCreateEducationRequest}
+     * @memberof EducationControllerApiCreateEducation
+     */
+    readonly cotatoCreateEducationRequest: CotatoCreateEducationRequest
+}
+
+/**
+ * Request parameters for findEducationId operation in EducationControllerApi.
+ * @export
+ * @interface EducationControllerApiFindEducationIdRequest
+ */
+export interface EducationControllerApiFindEducationIdRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof EducationControllerApiFindEducationId
+     */
+    readonly quizId: number
+}
+
+/**
+ * Request parameters for findEducationListByGeneration operation in EducationControllerApi.
+ * @export
+ * @interface EducationControllerApiFindEducationListByGenerationRequest
+ */
+export interface EducationControllerApiFindEducationListByGenerationRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof EducationControllerApiFindEducationListByGeneration
+     */
+    readonly generationId: number
+}
+
+/**
+ * Request parameters for findEducationStatus operation in EducationControllerApi.
+ * @export
+ * @interface EducationControllerApiFindEducationStatusRequest
+ */
+export interface EducationControllerApiFindEducationStatusRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof EducationControllerApiFindEducationStatus
+     */
+    readonly educationId: number
+}
+
+/**
+ * Request parameters for findFinalKingMembers operation in EducationControllerApi.
+ * @export
+ * @interface EducationControllerApiFindFinalKingMembersRequest
+ */
+export interface EducationControllerApiFindFinalKingMembersRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof EducationControllerApiFindFinalKingMembers
+     */
+    readonly educationId: number
+}
+
+/**
+ * Request parameters for findWinner operation in EducationControllerApi.
+ * @export
+ * @interface EducationControllerApiFindWinnerRequest
+ */
+export interface EducationControllerApiFindWinnerRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof EducationControllerApiFindWinner
+     */
+    readonly educationId: number
+}
+
+/**
+ * Request parameters for updateEducation operation in EducationControllerApi.
+ * @export
+ * @interface EducationControllerApiUpdateEducationRequest
+ */
+export interface EducationControllerApiUpdateEducationRequest {
+    /**
+     * 
+     * @type {CotatoUpdateEducationRequest}
+     * @memberof EducationControllerApiUpdateEducation
+     */
+    readonly cotatoUpdateEducationRequest: CotatoUpdateEducationRequest
+}
 
 /**
  * EducationControllerApi - object-oriented interface
@@ -622,101 +748,101 @@ export const EducationControllerApiFactory = function (configuration?: Configura
 export class EducationControllerApi extends BaseAPI {
     /**
      * 
-     * @param {number} educationId 
+     * @param {EducationControllerApiCalculateKingMembersRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof EducationControllerApi
      */
-    public calculateKingMembers(educationId: number, options?: RawAxiosRequestConfig) {
-        return EducationControllerApiFp(this.configuration).calculateKingMembers(educationId, options).then((request) => request(this.axios, this.basePath));
+    public calculateKingMembers(requestParameters: EducationControllerApiCalculateKingMembersRequest, options?: RawAxiosRequestConfig) {
+        return EducationControllerApiFp(this.configuration).calculateKingMembers(requestParameters.educationId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {number} educationId 
+     * @param {EducationControllerApiCalculateWinnerRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof EducationControllerApi
      */
-    public calculateWinner(educationId: number, options?: RawAxiosRequestConfig) {
-        return EducationControllerApiFp(this.configuration).calculateWinner(educationId, options).then((request) => request(this.axios, this.basePath));
+    public calculateWinner(requestParameters: EducationControllerApiCalculateWinnerRequest, options?: RawAxiosRequestConfig) {
+        return EducationControllerApiFp(this.configuration).calculateWinner(requestParameters.educationId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {CotatoCreateEducationRequest} cotatoCreateEducationRequest 
+     * @param {EducationControllerApiCreateEducationRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof EducationControllerApi
      */
-    public createEducation(cotatoCreateEducationRequest: CotatoCreateEducationRequest, options?: RawAxiosRequestConfig) {
-        return EducationControllerApiFp(this.configuration).createEducation(cotatoCreateEducationRequest, options).then((request) => request(this.axios, this.basePath));
+    public createEducation(requestParameters: EducationControllerApiCreateEducationRequest, options?: RawAxiosRequestConfig) {
+        return EducationControllerApiFp(this.configuration).createEducation(requestParameters.cotatoCreateEducationRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {number} quizId 
+     * @param {EducationControllerApiFindEducationIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof EducationControllerApi
      */
-    public findEducationId(quizId: number, options?: RawAxiosRequestConfig) {
-        return EducationControllerApiFp(this.configuration).findEducationId(quizId, options).then((request) => request(this.axios, this.basePath));
+    public findEducationId(requestParameters: EducationControllerApiFindEducationIdRequest, options?: RawAxiosRequestConfig) {
+        return EducationControllerApiFp(this.configuration).findEducationId(requestParameters.quizId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {number} generationId 
+     * @param {EducationControllerApiFindEducationListByGenerationRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof EducationControllerApi
      */
-    public findEducationListByGeneration(generationId: number, options?: RawAxiosRequestConfig) {
-        return EducationControllerApiFp(this.configuration).findEducationListByGeneration(generationId, options).then((request) => request(this.axios, this.basePath));
+    public findEducationListByGeneration(requestParameters: EducationControllerApiFindEducationListByGenerationRequest, options?: RawAxiosRequestConfig) {
+        return EducationControllerApiFp(this.configuration).findEducationListByGeneration(requestParameters.generationId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {number} educationId 
+     * @param {EducationControllerApiFindEducationStatusRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof EducationControllerApi
      */
-    public findEducationStatus(educationId: number, options?: RawAxiosRequestConfig) {
-        return EducationControllerApiFp(this.configuration).findEducationStatus(educationId, options).then((request) => request(this.axios, this.basePath));
+    public findEducationStatus(requestParameters: EducationControllerApiFindEducationStatusRequest, options?: RawAxiosRequestConfig) {
+        return EducationControllerApiFp(this.configuration).findEducationStatus(requestParameters.educationId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {number} educationId 
+     * @param {EducationControllerApiFindFinalKingMembersRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof EducationControllerApi
      */
-    public findFinalKingMembers(educationId: number, options?: RawAxiosRequestConfig) {
-        return EducationControllerApiFp(this.configuration).findFinalKingMembers(educationId, options).then((request) => request(this.axios, this.basePath));
+    public findFinalKingMembers(requestParameters: EducationControllerApiFindFinalKingMembersRequest, options?: RawAxiosRequestConfig) {
+        return EducationControllerApiFp(this.configuration).findFinalKingMembers(requestParameters.educationId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {number} educationId 
+     * @param {EducationControllerApiFindWinnerRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof EducationControllerApi
      */
-    public findWinner(educationId: number, options?: RawAxiosRequestConfig) {
-        return EducationControllerApiFp(this.configuration).findWinner(educationId, options).then((request) => request(this.axios, this.basePath));
+    public findWinner(requestParameters: EducationControllerApiFindWinnerRequest, options?: RawAxiosRequestConfig) {
+        return EducationControllerApiFp(this.configuration).findWinner(requestParameters.educationId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {CotatoUpdateEducationRequest} cotatoUpdateEducationRequest 
+     * @param {EducationControllerApiUpdateEducationRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof EducationControllerApi
      */
-    public updateEducation(cotatoUpdateEducationRequest: CotatoUpdateEducationRequest, options?: RawAxiosRequestConfig) {
-        return EducationControllerApiFp(this.configuration).updateEducation(cotatoUpdateEducationRequest, options).then((request) => request(this.axios, this.basePath));
+    public updateEducation(requestParameters: EducationControllerApiUpdateEducationRequest, options?: RawAxiosRequestConfig) {
+        return EducationControllerApiFp(this.configuration).updateEducation(requestParameters.cotatoUpdateEducationRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

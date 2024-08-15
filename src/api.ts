@@ -14,10 +14,11 @@
 
 
 
+export * from './api/default-api';
+export * from './api/apiapi';
 export * from './api/admin-controller-api';
-export * from './api/auth-controller-api';
+export * from './api/attendance-admin-controller-api';
 export * from './api/education-controller-api';
-export * from './api/generation-controller-api';
 export * from './api/login-endpoint-api';
 export * from './api/member-controller-api';
 export * from './api/my-page-controller-api';

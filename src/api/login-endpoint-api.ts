@@ -100,15 +100,29 @@ export const LoginEndpointApiFactory = function (configuration?: Configuration, 
     return {
         /**
          * 
-         * @param {CotatoLoginPostRequest} [cotatoLoginPostRequest] 
+         * @param {LoginEndpointApiLoginPostRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        loginPost(cotatoLoginPostRequest?: CotatoLoginPostRequest, options?: any): AxiosPromise<void> {
-            return localVarFp.loginPost(cotatoLoginPostRequest, options).then((request) => request(axios, basePath));
+        loginPost(requestParameters: LoginEndpointApiLoginPostRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.loginPost(requestParameters.cotatoLoginPostRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
+
+/**
+ * Request parameters for loginPost operation in LoginEndpointApi.
+ * @export
+ * @interface LoginEndpointApiLoginPostRequest
+ */
+export interface LoginEndpointApiLoginPostRequest {
+    /**
+     * 
+     * @type {CotatoLoginPostRequest}
+     * @memberof LoginEndpointApiLoginPost
+     */
+    readonly cotatoLoginPostRequest?: CotatoLoginPostRequest
+}
 
 /**
  * LoginEndpointApi - object-oriented interface
@@ -119,13 +133,13 @@ export const LoginEndpointApiFactory = function (configuration?: Configuration, 
 export class LoginEndpointApi extends BaseAPI {
     /**
      * 
-     * @param {CotatoLoginPostRequest} [cotatoLoginPostRequest] 
+     * @param {LoginEndpointApiLoginPostRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LoginEndpointApi
      */
-    public loginPost(cotatoLoginPostRequest?: CotatoLoginPostRequest, options?: RawAxiosRequestConfig) {
-        return LoginEndpointApiFp(this.configuration).loginPost(cotatoLoginPostRequest, options).then((request) => request(this.axios, this.basePath));
+    public loginPost(requestParameters: LoginEndpointApiLoginPostRequest = {}, options?: RawAxiosRequestConfig) {
+        return LoginEndpointApiFp(this.configuration).loginPost(requestParameters.cotatoLoginPostRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

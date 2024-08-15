@@ -545,19 +545,19 @@ export const AdminControllerApiFactory = function (configuration?: Configuration
     return {
         /**
          * 
-         * @param {CotatoMemberApproveRequest} cotatoMemberApproveRequest 
+         * @param {AdminControllerApiApproveApplicantRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        approveApplicant(cotatoMemberApproveRequest: CotatoMemberApproveRequest, options?: any): AxiosPromise<void> {
-            return localVarFp.approveApplicant(cotatoMemberApproveRequest, options).then((request) => request(axios, basePath));
+        approveApplicant(requestParameters: AdminControllerApiApproveApplicantRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.approveApplicant(requestParameters.cotatoMemberApproveRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findApplicantList(options?: any): AxiosPromise<Array<CotatoApplyMemberInfoResponse>> {
+        findApplicantList(options?: RawAxiosRequestConfig): AxiosPromise<Array<CotatoApplyMemberInfoResponse>> {
             return localVarFp.findApplicantList(options).then((request) => request(axios, basePath));
         },
         /**
@@ -565,7 +565,7 @@ export const AdminControllerApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findCurrentActiveMembers(options?: any): AxiosPromise<Array<CotatoMemberEnrollInfoResponse>> {
+        findCurrentActiveMembers(options?: RawAxiosRequestConfig): AxiosPromise<Array<CotatoMemberEnrollInfoResponse>> {
             return localVarFp.findCurrentActiveMembers(options).then((request) => request(axios, basePath));
         },
         /**
@@ -573,7 +573,7 @@ export const AdminControllerApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findOldMembers(options?: any): AxiosPromise<Array<CotatoMemberEnrollInfoResponse>> {
+        findOldMembers(options?: RawAxiosRequestConfig): AxiosPromise<Array<CotatoMemberEnrollInfoResponse>> {
             return localVarFp.findOldMembers(options).then((request) => request(axios, basePath));
         },
         /**
@@ -581,56 +581,140 @@ export const AdminControllerApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findRejectApplicantList(options?: any): AxiosPromise<Array<CotatoApplyMemberInfoResponse>> {
+        findRejectApplicantList(options?: RawAxiosRequestConfig): AxiosPromise<Array<CotatoApplyMemberInfoResponse>> {
             return localVarFp.findRejectApplicantList(options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {CotatoMemberApproveRequest} cotatoMemberApproveRequest 
+         * @param {AdminControllerApiReapproveApplicantRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        reapproveApplicant(cotatoMemberApproveRequest: CotatoMemberApproveRequest, options?: any): AxiosPromise<void> {
-            return localVarFp.reapproveApplicant(cotatoMemberApproveRequest, options).then((request) => request(axios, basePath));
+        reapproveApplicant(requestParameters: AdminControllerApiReapproveApplicantRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.reapproveApplicant(requestParameters.cotatoMemberApproveRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {CotatoMemberRejectRequest} cotatoMemberRejectRequest 
+         * @param {AdminControllerApiRejectApplicantRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        rejectApplicant(cotatoMemberRejectRequest: CotatoMemberRejectRequest, options?: any): AxiosPromise<void> {
-            return localVarFp.rejectApplicant(cotatoMemberRejectRequest, options).then((request) => request(axios, basePath));
+        rejectApplicant(requestParameters: AdminControllerApiRejectApplicantRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.rejectApplicant(requestParameters.cotatoMemberRejectRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {CotatoUpdateActiveMemberRoleRequest} cotatoUpdateActiveMemberRoleRequest 
+         * @param {AdminControllerApiUpdateActiveMemberRoleRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateActiveMemberRole(cotatoUpdateActiveMemberRoleRequest: CotatoUpdateActiveMemberRoleRequest, options?: any): AxiosPromise<void> {
-            return localVarFp.updateActiveMemberRole(cotatoUpdateActiveMemberRoleRequest, options).then((request) => request(axios, basePath));
+        updateActiveMemberRole(requestParameters: AdminControllerApiUpdateActiveMemberRoleRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.updateActiveMemberRole(requestParameters.cotatoUpdateActiveMemberRoleRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {CotatoUpdateActiveMemberToOldMemberRequest} cotatoUpdateActiveMemberToOldMemberRequest 
+         * @param {AdminControllerApiUpdateActiveMembersToOldMembersRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateActiveMembersToOldMembers(cotatoUpdateActiveMemberToOldMemberRequest: CotatoUpdateActiveMemberToOldMemberRequest, options?: any): AxiosPromise<void> {
-            return localVarFp.updateActiveMembersToOldMembers(cotatoUpdateActiveMemberToOldMemberRequest, options).then((request) => request(axios, basePath));
+        updateActiveMembersToOldMembers(requestParameters: AdminControllerApiUpdateActiveMembersToOldMembersRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.updateActiveMembersToOldMembers(requestParameters.cotatoUpdateActiveMemberToOldMemberRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {CotatoUpdateOldMemberRoleRequest} cotatoUpdateOldMemberRoleRequest 
+         * @param {AdminControllerApiUpdateOldMemberToActiveGenerationRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateOldMemberToActiveGeneration(cotatoUpdateOldMemberRoleRequest: CotatoUpdateOldMemberRoleRequest, options?: any): AxiosPromise<void> {
-            return localVarFp.updateOldMemberToActiveGeneration(cotatoUpdateOldMemberRoleRequest, options).then((request) => request(axios, basePath));
+        updateOldMemberToActiveGeneration(requestParameters: AdminControllerApiUpdateOldMemberToActiveGenerationRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.updateOldMemberToActiveGeneration(requestParameters.cotatoUpdateOldMemberRoleRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
+
+/**
+ * Request parameters for approveApplicant operation in AdminControllerApi.
+ * @export
+ * @interface AdminControllerApiApproveApplicantRequest
+ */
+export interface AdminControllerApiApproveApplicantRequest {
+    /**
+     * 
+     * @type {CotatoMemberApproveRequest}
+     * @memberof AdminControllerApiApproveApplicant
+     */
+    readonly cotatoMemberApproveRequest: CotatoMemberApproveRequest
+}
+
+/**
+ * Request parameters for reapproveApplicant operation in AdminControllerApi.
+ * @export
+ * @interface AdminControllerApiReapproveApplicantRequest
+ */
+export interface AdminControllerApiReapproveApplicantRequest {
+    /**
+     * 
+     * @type {CotatoMemberApproveRequest}
+     * @memberof AdminControllerApiReapproveApplicant
+     */
+    readonly cotatoMemberApproveRequest: CotatoMemberApproveRequest
+}
+
+/**
+ * Request parameters for rejectApplicant operation in AdminControllerApi.
+ * @export
+ * @interface AdminControllerApiRejectApplicantRequest
+ */
+export interface AdminControllerApiRejectApplicantRequest {
+    /**
+     * 
+     * @type {CotatoMemberRejectRequest}
+     * @memberof AdminControllerApiRejectApplicant
+     */
+    readonly cotatoMemberRejectRequest: CotatoMemberRejectRequest
+}
+
+/**
+ * Request parameters for updateActiveMemberRole operation in AdminControllerApi.
+ * @export
+ * @interface AdminControllerApiUpdateActiveMemberRoleRequest
+ */
+export interface AdminControllerApiUpdateActiveMemberRoleRequest {
+    /**
+     * 
+     * @type {CotatoUpdateActiveMemberRoleRequest}
+     * @memberof AdminControllerApiUpdateActiveMemberRole
+     */
+    readonly cotatoUpdateActiveMemberRoleRequest: CotatoUpdateActiveMemberRoleRequest
+}
+
+/**
+ * Request parameters for updateActiveMembersToOldMembers operation in AdminControllerApi.
+ * @export
+ * @interface AdminControllerApiUpdateActiveMembersToOldMembersRequest
+ */
+export interface AdminControllerApiUpdateActiveMembersToOldMembersRequest {
+    /**
+     * 
+     * @type {CotatoUpdateActiveMemberToOldMemberRequest}
+     * @memberof AdminControllerApiUpdateActiveMembersToOldMembers
+     */
+    readonly cotatoUpdateActiveMemberToOldMemberRequest: CotatoUpdateActiveMemberToOldMemberRequest
+}
+
+/**
+ * Request parameters for updateOldMemberToActiveGeneration operation in AdminControllerApi.
+ * @export
+ * @interface AdminControllerApiUpdateOldMemberToActiveGenerationRequest
+ */
+export interface AdminControllerApiUpdateOldMemberToActiveGenerationRequest {
+    /**
+     * 
+     * @type {CotatoUpdateOldMemberRoleRequest}
+     * @memberof AdminControllerApiUpdateOldMemberToActiveGeneration
+     */
+    readonly cotatoUpdateOldMemberRoleRequest: CotatoUpdateOldMemberRoleRequest
+}
 
 /**
  * AdminControllerApi - object-oriented interface
@@ -641,13 +725,13 @@ export const AdminControllerApiFactory = function (configuration?: Configuration
 export class AdminControllerApi extends BaseAPI {
     /**
      * 
-     * @param {CotatoMemberApproveRequest} cotatoMemberApproveRequest 
+     * @param {AdminControllerApiApproveApplicantRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AdminControllerApi
      */
-    public approveApplicant(cotatoMemberApproveRequest: CotatoMemberApproveRequest, options?: RawAxiosRequestConfig) {
-        return AdminControllerApiFp(this.configuration).approveApplicant(cotatoMemberApproveRequest, options).then((request) => request(this.axios, this.basePath));
+    public approveApplicant(requestParameters: AdminControllerApiApproveApplicantRequest, options?: RawAxiosRequestConfig) {
+        return AdminControllerApiFp(this.configuration).approveApplicant(requestParameters.cotatoMemberApproveRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -692,57 +776,57 @@ export class AdminControllerApi extends BaseAPI {
 
     /**
      * 
-     * @param {CotatoMemberApproveRequest} cotatoMemberApproveRequest 
+     * @param {AdminControllerApiReapproveApplicantRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AdminControllerApi
      */
-    public reapproveApplicant(cotatoMemberApproveRequest: CotatoMemberApproveRequest, options?: RawAxiosRequestConfig) {
-        return AdminControllerApiFp(this.configuration).reapproveApplicant(cotatoMemberApproveRequest, options).then((request) => request(this.axios, this.basePath));
+    public reapproveApplicant(requestParameters: AdminControllerApiReapproveApplicantRequest, options?: RawAxiosRequestConfig) {
+        return AdminControllerApiFp(this.configuration).reapproveApplicant(requestParameters.cotatoMemberApproveRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {CotatoMemberRejectRequest} cotatoMemberRejectRequest 
+     * @param {AdminControllerApiRejectApplicantRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AdminControllerApi
      */
-    public rejectApplicant(cotatoMemberRejectRequest: CotatoMemberRejectRequest, options?: RawAxiosRequestConfig) {
-        return AdminControllerApiFp(this.configuration).rejectApplicant(cotatoMemberRejectRequest, options).then((request) => request(this.axios, this.basePath));
+    public rejectApplicant(requestParameters: AdminControllerApiRejectApplicantRequest, options?: RawAxiosRequestConfig) {
+        return AdminControllerApiFp(this.configuration).rejectApplicant(requestParameters.cotatoMemberRejectRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {CotatoUpdateActiveMemberRoleRequest} cotatoUpdateActiveMemberRoleRequest 
+     * @param {AdminControllerApiUpdateActiveMemberRoleRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AdminControllerApi
      */
-    public updateActiveMemberRole(cotatoUpdateActiveMemberRoleRequest: CotatoUpdateActiveMemberRoleRequest, options?: RawAxiosRequestConfig) {
-        return AdminControllerApiFp(this.configuration).updateActiveMemberRole(cotatoUpdateActiveMemberRoleRequest, options).then((request) => request(this.axios, this.basePath));
+    public updateActiveMemberRole(requestParameters: AdminControllerApiUpdateActiveMemberRoleRequest, options?: RawAxiosRequestConfig) {
+        return AdminControllerApiFp(this.configuration).updateActiveMemberRole(requestParameters.cotatoUpdateActiveMemberRoleRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {CotatoUpdateActiveMemberToOldMemberRequest} cotatoUpdateActiveMemberToOldMemberRequest 
+     * @param {AdminControllerApiUpdateActiveMembersToOldMembersRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AdminControllerApi
      */
-    public updateActiveMembersToOldMembers(cotatoUpdateActiveMemberToOldMemberRequest: CotatoUpdateActiveMemberToOldMemberRequest, options?: RawAxiosRequestConfig) {
-        return AdminControllerApiFp(this.configuration).updateActiveMembersToOldMembers(cotatoUpdateActiveMemberToOldMemberRequest, options).then((request) => request(this.axios, this.basePath));
+    public updateActiveMembersToOldMembers(requestParameters: AdminControllerApiUpdateActiveMembersToOldMembersRequest, options?: RawAxiosRequestConfig) {
+        return AdminControllerApiFp(this.configuration).updateActiveMembersToOldMembers(requestParameters.cotatoUpdateActiveMemberToOldMemberRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {CotatoUpdateOldMemberRoleRequest} cotatoUpdateOldMemberRoleRequest 
+     * @param {AdminControllerApiUpdateOldMemberToActiveGenerationRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AdminControllerApi
      */
-    public updateOldMemberToActiveGeneration(cotatoUpdateOldMemberRoleRequest: CotatoUpdateOldMemberRoleRequest, options?: RawAxiosRequestConfig) {
-        return AdminControllerApiFp(this.configuration).updateOldMemberToActiveGeneration(cotatoUpdateOldMemberRoleRequest, options).then((request) => request(this.axios, this.basePath));
+    public updateOldMemberToActiveGeneration(requestParameters: AdminControllerApiUpdateOldMemberToActiveGenerationRequest, options?: RawAxiosRequestConfig) {
+        return AdminControllerApiFp(this.configuration).updateOldMemberToActiveGeneration(requestParameters.cotatoUpdateOldMemberRoleRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

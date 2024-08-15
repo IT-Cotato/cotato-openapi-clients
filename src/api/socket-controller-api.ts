@@ -24,7 +24,7 @@ import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError
 // @ts-ignore
 import type { CotatoEducationCloseRequest } from '../model';
 // @ts-ignore
-import type { CotatoQuizOpenRequest } from '../model';
+import type { CotatoEducationOpenRequest } from '../model';
 // @ts-ignore
 import type { CotatoQuizSocketRequest } from '../model';
 // @ts-ignore
@@ -76,6 +76,45 @@ export const SocketControllerApiAxiosParamCreator = function (configuration?: Co
         },
         /**
          * 
+         * @param {CotatoEducationCloseRequest} cotatoEducationCloseRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        closeEducation: async (cotatoEducationCloseRequest: CotatoEducationCloseRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'cotatoEducationCloseRequest' is not null or undefined
+            assertParamExists('closeEducation', 'cotatoEducationCloseRequest', cotatoEducationCloseRequest)
+            const localVarPath = `/v1/api/socket/close/csquiz`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(cotatoEducationCloseRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {CotatoQuizSocketRequest} cotatoQuizSocketRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -115,13 +154,10 @@ export const SocketControllerApiAxiosParamCreator = function (configuration?: Co
         },
         /**
          * 
-         * @param {string} authorization 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        makeSocketToken: async (authorization: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'authorization' is not null or undefined
-            assertParamExists('makeSocketToken', 'authorization', authorization)
+        makeSocketToken: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/v1/api/socket/token`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -138,10 +174,6 @@ export const SocketControllerApiAxiosParamCreator = function (configuration?: Co
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-            if (authorization != null) {
-                localVarHeaderParameter['Authorization'] = String(authorization);
-            }
-
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -155,13 +187,13 @@ export const SocketControllerApiAxiosParamCreator = function (configuration?: Co
         },
         /**
          * 
-         * @param {CotatoQuizOpenRequest} cotatoQuizOpenRequest 
+         * @param {CotatoEducationOpenRequest} cotatoEducationOpenRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        openCSQuiz: async (cotatoQuizOpenRequest: CotatoQuizOpenRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'cotatoQuizOpenRequest' is not null or undefined
-            assertParamExists('openCSQuiz', 'cotatoQuizOpenRequest', cotatoQuizOpenRequest)
+        openEducation: async (cotatoEducationOpenRequest: CotatoEducationOpenRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'cotatoEducationOpenRequest' is not null or undefined
+            assertParamExists('openEducation', 'cotatoEducationOpenRequest', cotatoEducationOpenRequest)
             const localVarPath = `/v1/api/socket/start/csquiz`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -185,7 +217,7 @@ export const SocketControllerApiAxiosParamCreator = function (configuration?: Co
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(cotatoQuizOpenRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(cotatoEducationOpenRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -313,45 +345,6 @@ export const SocketControllerApiAxiosParamCreator = function (configuration?: Co
         },
         /**
          * 
-         * @param {CotatoEducationCloseRequest} cotatoEducationCloseRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        stopAllQuiz: async (cotatoEducationCloseRequest: CotatoEducationCloseRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'cotatoEducationCloseRequest' is not null or undefined
-            assertParamExists('stopAllQuiz', 'cotatoEducationCloseRequest', cotatoEducationCloseRequest)
-            const localVarPath = `/v1/api/socket/close/csquiz`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication bearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(cotatoEducationCloseRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @param {CotatoQuizSocketRequest} cotatoQuizSocketRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -413,6 +406,18 @@ export const SocketControllerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {CotatoEducationCloseRequest} cotatoEducationCloseRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async closeEducation(cotatoEducationCloseRequest: CotatoEducationCloseRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.closeEducation(cotatoEducationCloseRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SocketControllerApi.closeEducation']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {CotatoQuizSocketRequest} cotatoQuizSocketRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -425,26 +430,25 @@ export const SocketControllerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {string} authorization 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async makeSocketToken(authorization: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CotatoSocketTokenDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.makeSocketToken(authorization, options);
+        async makeSocketToken(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CotatoSocketTokenDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.makeSocketToken(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SocketControllerApi.makeSocketToken']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * 
-         * @param {CotatoQuizOpenRequest} cotatoQuizOpenRequest 
+         * @param {CotatoEducationOpenRequest} cotatoEducationOpenRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async openCSQuiz(cotatoQuizOpenRequest: CotatoQuizOpenRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.openCSQuiz(cotatoQuizOpenRequest, options);
+        async openEducation(cotatoEducationOpenRequest: CotatoEducationOpenRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.openEducation(cotatoEducationOpenRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['SocketControllerApi.openCSQuiz']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['SocketControllerApi.openEducation']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -485,18 +489,6 @@ export const SocketControllerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {CotatoEducationCloseRequest} cotatoEducationCloseRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async stopAllQuiz(cotatoEducationCloseRequest: CotatoEducationCloseRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.stopAllQuiz(cotatoEducationCloseRequest, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['SocketControllerApi.stopAllQuiz']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
          * @param {CotatoQuizSocketRequest} cotatoQuizSocketRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -519,87 +511,198 @@ export const SocketControllerApiFactory = function (configuration?: Configuratio
     return {
         /**
          * 
-         * @param {CotatoQuizSocketRequest} cotatoQuizSocketRequest 
+         * @param {SocketControllerApiAccessQuizRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        accessQuiz(cotatoQuizSocketRequest: CotatoQuizSocketRequest, options?: any): AxiosPromise<void> {
-            return localVarFp.accessQuiz(cotatoQuizSocketRequest, options).then((request) => request(axios, basePath));
+        accessQuiz(requestParameters: SocketControllerApiAccessQuizRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.accessQuiz(requestParameters.cotatoQuizSocketRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {CotatoQuizSocketRequest} cotatoQuizSocketRequest 
+         * @param {SocketControllerApiCloseEducationRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        denyQuiz(cotatoQuizSocketRequest: CotatoQuizSocketRequest, options?: any): AxiosPromise<void> {
-            return localVarFp.denyQuiz(cotatoQuizSocketRequest, options).then((request) => request(axios, basePath));
+        closeEducation(requestParameters: SocketControllerApiCloseEducationRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.closeEducation(requestParameters.cotatoEducationCloseRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {string} authorization 
+         * @param {SocketControllerApiDenyQuizRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        makeSocketToken(authorization: string, options?: any): AxiosPromise<CotatoSocketTokenDto> {
-            return localVarFp.makeSocketToken(authorization, options).then((request) => request(axios, basePath));
+        denyQuiz(requestParameters: SocketControllerApiDenyQuizRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.denyQuiz(requestParameters.cotatoQuizSocketRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {CotatoQuizOpenRequest} cotatoQuizOpenRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        openCSQuiz(cotatoQuizOpenRequest: CotatoQuizOpenRequest, options?: any): AxiosPromise<void> {
-            return localVarFp.openCSQuiz(cotatoQuizOpenRequest, options).then((request) => request(axios, basePath));
+        makeSocketToken(options?: RawAxiosRequestConfig): AxiosPromise<CotatoSocketTokenDto> {
+            return localVarFp.makeSocketToken(options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {number} educationId 
+         * @param {SocketControllerApiOpenEducationRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        sendKingCommand(educationId: number, options?: any): AxiosPromise<void> {
-            return localVarFp.sendKingCommand(educationId, options).then((request) => request(axios, basePath));
+        openEducation(requestParameters: SocketControllerApiOpenEducationRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.openEducation(requestParameters.cotatoEducationOpenRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {number} educationId 
+         * @param {SocketControllerApiSendKingCommandRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        sendWinnerCommand(educationId: number, options?: any): AxiosPromise<void> {
-            return localVarFp.sendWinnerCommand(educationId, options).then((request) => request(axios, basePath));
+        sendKingCommand(requestParameters: SocketControllerApiSendKingCommandRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.sendKingCommand(requestParameters.educationId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {CotatoQuizSocketRequest} cotatoQuizSocketRequest 
+         * @param {SocketControllerApiSendWinnerCommandRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        startQuizSolve(cotatoQuizSocketRequest: CotatoQuizSocketRequest, options?: any): AxiosPromise<void> {
-            return localVarFp.startQuizSolve(cotatoQuizSocketRequest, options).then((request) => request(axios, basePath));
+        sendWinnerCommand(requestParameters: SocketControllerApiSendWinnerCommandRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.sendWinnerCommand(requestParameters.educationId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {CotatoEducationCloseRequest} cotatoEducationCloseRequest 
+         * @param {SocketControllerApiStartQuizSolveRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        stopAllQuiz(cotatoEducationCloseRequest: CotatoEducationCloseRequest, options?: any): AxiosPromise<void> {
-            return localVarFp.stopAllQuiz(cotatoEducationCloseRequest, options).then((request) => request(axios, basePath));
+        startQuizSolve(requestParameters: SocketControllerApiStartQuizSolveRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.startQuizSolve(requestParameters.cotatoQuizSocketRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {CotatoQuizSocketRequest} cotatoQuizSocketRequest 
+         * @param {SocketControllerApiStopQuizSolveRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        stopQuizSolve(cotatoQuizSocketRequest: CotatoQuizSocketRequest, options?: any): AxiosPromise<void> {
-            return localVarFp.stopQuizSolve(cotatoQuizSocketRequest, options).then((request) => request(axios, basePath));
+        stopQuizSolve(requestParameters: SocketControllerApiStopQuizSolveRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.stopQuizSolve(requestParameters.cotatoQuizSocketRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
+
+/**
+ * Request parameters for accessQuiz operation in SocketControllerApi.
+ * @export
+ * @interface SocketControllerApiAccessQuizRequest
+ */
+export interface SocketControllerApiAccessQuizRequest {
+    /**
+     * 
+     * @type {CotatoQuizSocketRequest}
+     * @memberof SocketControllerApiAccessQuiz
+     */
+    readonly cotatoQuizSocketRequest: CotatoQuizSocketRequest
+}
+
+/**
+ * Request parameters for closeEducation operation in SocketControllerApi.
+ * @export
+ * @interface SocketControllerApiCloseEducationRequest
+ */
+export interface SocketControllerApiCloseEducationRequest {
+    /**
+     * 
+     * @type {CotatoEducationCloseRequest}
+     * @memberof SocketControllerApiCloseEducation
+     */
+    readonly cotatoEducationCloseRequest: CotatoEducationCloseRequest
+}
+
+/**
+ * Request parameters for denyQuiz operation in SocketControllerApi.
+ * @export
+ * @interface SocketControllerApiDenyQuizRequest
+ */
+export interface SocketControllerApiDenyQuizRequest {
+    /**
+     * 
+     * @type {CotatoQuizSocketRequest}
+     * @memberof SocketControllerApiDenyQuiz
+     */
+    readonly cotatoQuizSocketRequest: CotatoQuizSocketRequest
+}
+
+/**
+ * Request parameters for openEducation operation in SocketControllerApi.
+ * @export
+ * @interface SocketControllerApiOpenEducationRequest
+ */
+export interface SocketControllerApiOpenEducationRequest {
+    /**
+     * 
+     * @type {CotatoEducationOpenRequest}
+     * @memberof SocketControllerApiOpenEducation
+     */
+    readonly cotatoEducationOpenRequest: CotatoEducationOpenRequest
+}
+
+/**
+ * Request parameters for sendKingCommand operation in SocketControllerApi.
+ * @export
+ * @interface SocketControllerApiSendKingCommandRequest
+ */
+export interface SocketControllerApiSendKingCommandRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof SocketControllerApiSendKingCommand
+     */
+    readonly educationId: number
+}
+
+/**
+ * Request parameters for sendWinnerCommand operation in SocketControllerApi.
+ * @export
+ * @interface SocketControllerApiSendWinnerCommandRequest
+ */
+export interface SocketControllerApiSendWinnerCommandRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof SocketControllerApiSendWinnerCommand
+     */
+    readonly educationId: number
+}
+
+/**
+ * Request parameters for startQuizSolve operation in SocketControllerApi.
+ * @export
+ * @interface SocketControllerApiStartQuizSolveRequest
+ */
+export interface SocketControllerApiStartQuizSolveRequest {
+    /**
+     * 
+     * @type {CotatoQuizSocketRequest}
+     * @memberof SocketControllerApiStartQuizSolve
+     */
+    readonly cotatoQuizSocketRequest: CotatoQuizSocketRequest
+}
+
+/**
+ * Request parameters for stopQuizSolve operation in SocketControllerApi.
+ * @export
+ * @interface SocketControllerApiStopQuizSolveRequest
+ */
+export interface SocketControllerApiStopQuizSolveRequest {
+    /**
+     * 
+     * @type {CotatoQuizSocketRequest}
+     * @memberof SocketControllerApiStopQuizSolve
+     */
+    readonly cotatoQuizSocketRequest: CotatoQuizSocketRequest
+}
 
 /**
  * SocketControllerApi - object-oriented interface
@@ -610,101 +713,100 @@ export const SocketControllerApiFactory = function (configuration?: Configuratio
 export class SocketControllerApi extends BaseAPI {
     /**
      * 
-     * @param {CotatoQuizSocketRequest} cotatoQuizSocketRequest 
+     * @param {SocketControllerApiAccessQuizRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SocketControllerApi
      */
-    public accessQuiz(cotatoQuizSocketRequest: CotatoQuizSocketRequest, options?: RawAxiosRequestConfig) {
-        return SocketControllerApiFp(this.configuration).accessQuiz(cotatoQuizSocketRequest, options).then((request) => request(this.axios, this.basePath));
+    public accessQuiz(requestParameters: SocketControllerApiAccessQuizRequest, options?: RawAxiosRequestConfig) {
+        return SocketControllerApiFp(this.configuration).accessQuiz(requestParameters.cotatoQuizSocketRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {CotatoQuizSocketRequest} cotatoQuizSocketRequest 
+     * @param {SocketControllerApiCloseEducationRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SocketControllerApi
      */
-    public denyQuiz(cotatoQuizSocketRequest: CotatoQuizSocketRequest, options?: RawAxiosRequestConfig) {
-        return SocketControllerApiFp(this.configuration).denyQuiz(cotatoQuizSocketRequest, options).then((request) => request(this.axios, this.basePath));
+    public closeEducation(requestParameters: SocketControllerApiCloseEducationRequest, options?: RawAxiosRequestConfig) {
+        return SocketControllerApiFp(this.configuration).closeEducation(requestParameters.cotatoEducationCloseRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {string} authorization 
+     * @param {SocketControllerApiDenyQuizRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SocketControllerApi
      */
-    public makeSocketToken(authorization: string, options?: RawAxiosRequestConfig) {
-        return SocketControllerApiFp(this.configuration).makeSocketToken(authorization, options).then((request) => request(this.axios, this.basePath));
+    public denyQuiz(requestParameters: SocketControllerApiDenyQuizRequest, options?: RawAxiosRequestConfig) {
+        return SocketControllerApiFp(this.configuration).denyQuiz(requestParameters.cotatoQuizSocketRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {CotatoQuizOpenRequest} cotatoQuizOpenRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SocketControllerApi
      */
-    public openCSQuiz(cotatoQuizOpenRequest: CotatoQuizOpenRequest, options?: RawAxiosRequestConfig) {
-        return SocketControllerApiFp(this.configuration).openCSQuiz(cotatoQuizOpenRequest, options).then((request) => request(this.axios, this.basePath));
+    public makeSocketToken(options?: RawAxiosRequestConfig) {
+        return SocketControllerApiFp(this.configuration).makeSocketToken(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {number} educationId 
+     * @param {SocketControllerApiOpenEducationRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SocketControllerApi
      */
-    public sendKingCommand(educationId: number, options?: RawAxiosRequestConfig) {
-        return SocketControllerApiFp(this.configuration).sendKingCommand(educationId, options).then((request) => request(this.axios, this.basePath));
+    public openEducation(requestParameters: SocketControllerApiOpenEducationRequest, options?: RawAxiosRequestConfig) {
+        return SocketControllerApiFp(this.configuration).openEducation(requestParameters.cotatoEducationOpenRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {number} educationId 
+     * @param {SocketControllerApiSendKingCommandRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SocketControllerApi
      */
-    public sendWinnerCommand(educationId: number, options?: RawAxiosRequestConfig) {
-        return SocketControllerApiFp(this.configuration).sendWinnerCommand(educationId, options).then((request) => request(this.axios, this.basePath));
+    public sendKingCommand(requestParameters: SocketControllerApiSendKingCommandRequest, options?: RawAxiosRequestConfig) {
+        return SocketControllerApiFp(this.configuration).sendKingCommand(requestParameters.educationId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {CotatoQuizSocketRequest} cotatoQuizSocketRequest 
+     * @param {SocketControllerApiSendWinnerCommandRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SocketControllerApi
      */
-    public startQuizSolve(cotatoQuizSocketRequest: CotatoQuizSocketRequest, options?: RawAxiosRequestConfig) {
-        return SocketControllerApiFp(this.configuration).startQuizSolve(cotatoQuizSocketRequest, options).then((request) => request(this.axios, this.basePath));
+    public sendWinnerCommand(requestParameters: SocketControllerApiSendWinnerCommandRequest, options?: RawAxiosRequestConfig) {
+        return SocketControllerApiFp(this.configuration).sendWinnerCommand(requestParameters.educationId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {CotatoEducationCloseRequest} cotatoEducationCloseRequest 
+     * @param {SocketControllerApiStartQuizSolveRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SocketControllerApi
      */
-    public stopAllQuiz(cotatoEducationCloseRequest: CotatoEducationCloseRequest, options?: RawAxiosRequestConfig) {
-        return SocketControllerApiFp(this.configuration).stopAllQuiz(cotatoEducationCloseRequest, options).then((request) => request(this.axios, this.basePath));
+    public startQuizSolve(requestParameters: SocketControllerApiStartQuizSolveRequest, options?: RawAxiosRequestConfig) {
+        return SocketControllerApiFp(this.configuration).startQuizSolve(requestParameters.cotatoQuizSocketRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {CotatoQuizSocketRequest} cotatoQuizSocketRequest 
+     * @param {SocketControllerApiStopQuizSolveRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SocketControllerApi
      */
-    public stopQuizSolve(cotatoQuizSocketRequest: CotatoQuizSocketRequest, options?: RawAxiosRequestConfig) {
-        return SocketControllerApiFp(this.configuration).stopQuizSolve(cotatoQuizSocketRequest, options).then((request) => request(this.axios, this.basePath));
+    public stopQuizSolve(requestParameters: SocketControllerApiStopQuizSolveRequest, options?: RawAxiosRequestConfig) {
+        return SocketControllerApiFp(this.configuration).stopQuizSolve(requestParameters.cotatoQuizSocketRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

@@ -211,33 +211,75 @@ export const RecordControllerApiFactory = function (configuration?: Configuratio
     return {
         /**
          * 
-         * @param {number} quizId 
+         * @param {RecordControllerApiFindRecordsAndScorerByQuizRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findRecordsAndScorerByQuiz(quizId: number, options?: any): AxiosPromise<CotatoRecordsAndScorerResponse> {
-            return localVarFp.findRecordsAndScorerByQuiz(quizId, options).then((request) => request(axios, basePath));
+        findRecordsAndScorerByQuiz(requestParameters: RecordControllerApiFindRecordsAndScorerByQuizRequest, options?: RawAxiosRequestConfig): AxiosPromise<CotatoRecordsAndScorerResponse> {
+            return localVarFp.findRecordsAndScorerByQuiz(requestParameters.quizId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {CotatoRegradeRequest} cotatoRegradeRequest 
+         * @param {RecordControllerApiRegradeQuizRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        regradeQuiz(cotatoRegradeRequest: CotatoRegradeRequest, options?: any): AxiosPromise<void> {
-            return localVarFp.regradeQuiz(cotatoRegradeRequest, options).then((request) => request(axios, basePath));
+        regradeQuiz(requestParameters: RecordControllerApiRegradeQuizRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.regradeQuiz(requestParameters.cotatoRegradeRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {CotatoReplyRequest} cotatoReplyRequest 
+         * @param {RecordControllerApiReplyToQuizRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        replyToQuiz(cotatoReplyRequest: CotatoReplyRequest, options?: any): AxiosPromise<CotatoReplyResponse> {
-            return localVarFp.replyToQuiz(cotatoReplyRequest, options).then((request) => request(axios, basePath));
+        replyToQuiz(requestParameters: RecordControllerApiReplyToQuizRequest, options?: RawAxiosRequestConfig): AxiosPromise<CotatoReplyResponse> {
+            return localVarFp.replyToQuiz(requestParameters.cotatoReplyRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
+
+/**
+ * Request parameters for findRecordsAndScorerByQuiz operation in RecordControllerApi.
+ * @export
+ * @interface RecordControllerApiFindRecordsAndScorerByQuizRequest
+ */
+export interface RecordControllerApiFindRecordsAndScorerByQuizRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof RecordControllerApiFindRecordsAndScorerByQuiz
+     */
+    readonly quizId: number
+}
+
+/**
+ * Request parameters for regradeQuiz operation in RecordControllerApi.
+ * @export
+ * @interface RecordControllerApiRegradeQuizRequest
+ */
+export interface RecordControllerApiRegradeQuizRequest {
+    /**
+     * 
+     * @type {CotatoRegradeRequest}
+     * @memberof RecordControllerApiRegradeQuiz
+     */
+    readonly cotatoRegradeRequest: CotatoRegradeRequest
+}
+
+/**
+ * Request parameters for replyToQuiz operation in RecordControllerApi.
+ * @export
+ * @interface RecordControllerApiReplyToQuizRequest
+ */
+export interface RecordControllerApiReplyToQuizRequest {
+    /**
+     * 
+     * @type {CotatoReplyRequest}
+     * @memberof RecordControllerApiReplyToQuiz
+     */
+    readonly cotatoReplyRequest: CotatoReplyRequest
+}
 
 /**
  * RecordControllerApi - object-oriented interface
@@ -248,35 +290,35 @@ export const RecordControllerApiFactory = function (configuration?: Configuratio
 export class RecordControllerApi extends BaseAPI {
     /**
      * 
-     * @param {number} quizId 
+     * @param {RecordControllerApiFindRecordsAndScorerByQuizRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RecordControllerApi
      */
-    public findRecordsAndScorerByQuiz(quizId: number, options?: RawAxiosRequestConfig) {
-        return RecordControllerApiFp(this.configuration).findRecordsAndScorerByQuiz(quizId, options).then((request) => request(this.axios, this.basePath));
+    public findRecordsAndScorerByQuiz(requestParameters: RecordControllerApiFindRecordsAndScorerByQuizRequest, options?: RawAxiosRequestConfig) {
+        return RecordControllerApiFp(this.configuration).findRecordsAndScorerByQuiz(requestParameters.quizId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {CotatoRegradeRequest} cotatoRegradeRequest 
+     * @param {RecordControllerApiRegradeQuizRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RecordControllerApi
      */
-    public regradeQuiz(cotatoRegradeRequest: CotatoRegradeRequest, options?: RawAxiosRequestConfig) {
-        return RecordControllerApiFp(this.configuration).regradeQuiz(cotatoRegradeRequest, options).then((request) => request(this.axios, this.basePath));
+    public regradeQuiz(requestParameters: RecordControllerApiRegradeQuizRequest, options?: RawAxiosRequestConfig) {
+        return RecordControllerApiFp(this.configuration).regradeQuiz(requestParameters.cotatoRegradeRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {CotatoReplyRequest} cotatoReplyRequest 
+     * @param {RecordControllerApiReplyToQuizRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RecordControllerApi
      */
-    public replyToQuiz(cotatoReplyRequest: CotatoReplyRequest, options?: RawAxiosRequestConfig) {
-        return RecordControllerApiFp(this.configuration).replyToQuiz(cotatoReplyRequest, options).then((request) => request(this.axios, this.basePath));
+    public replyToQuiz(requestParameters: RecordControllerApiReplyToQuizRequest, options?: RawAxiosRequestConfig) {
+        return RecordControllerApiFp(this.configuration).replyToQuiz(requestParameters.cotatoReplyRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

@@ -441,71 +441,181 @@ export const QuizControllerApiFactory = function (configuration?: Configuration,
     return {
         /**
          * 
-         * @param {CotatoAddAdditionalAnswerRequest} cotatoAddAdditionalAnswerRequest 
+         * @param {QuizControllerApiAddAdditionalAnswerRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addAdditionalAnswer(cotatoAddAdditionalAnswerRequest: CotatoAddAdditionalAnswerRequest, options?: any): AxiosPromise<void> {
-            return localVarFp.addAdditionalAnswer(cotatoAddAdditionalAnswerRequest, options).then((request) => request(axios, basePath));
+        addAdditionalAnswer(requestParameters: QuizControllerApiAddAdditionalAnswerRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.addAdditionalAnswer(requestParameters.cotatoAddAdditionalAnswerRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {number} educationId 
-         * @param {Array<CotatoCreateMultipleQuizRequest>} [multiples] 
-         * @param {Array<CotatoCreateShortQuizRequest>} [shortQuizzes] 
+         * @param {QuizControllerApiAddAllQuizzesRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addAllQuizzes(educationId: number, multiples?: Array<CotatoCreateMultipleQuizRequest>, shortQuizzes?: Array<CotatoCreateShortQuizRequest>, options?: any): AxiosPromise<void> {
-            return localVarFp.addAllQuizzes(educationId, multiples, shortQuizzes, options).then((request) => request(axios, basePath));
+        addAllQuizzes(requestParameters: QuizControllerApiAddAllQuizzesRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.addAllQuizzes(requestParameters.educationId, requestParameters.multiples, requestParameters.shortQuizzes, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {number} educationId 
+         * @param {QuizControllerApiFindAllQuizzesForAdminCsQuizRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findAllQuizzesForAdminCsQuiz(educationId: number, options?: any): AxiosPromise<CotatoAllQuizzesInCsQuizResponse> {
-            return localVarFp.findAllQuizzesForAdminCsQuiz(educationId, options).then((request) => request(axios, basePath));
+        findAllQuizzesForAdminCsQuiz(requestParameters: QuizControllerApiFindAllQuizzesForAdminCsQuizRequest, options?: RawAxiosRequestConfig): AxiosPromise<CotatoAllQuizzesInCsQuizResponse> {
+            return localVarFp.findAllQuizzesForAdminCsQuiz(requestParameters.educationId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {number} educationId 
+         * @param {QuizControllerApiFindAllQuizzesForEducationTeamRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findAllQuizzesForEducationTeam(educationId: number, options?: any): AxiosPromise<CotatoAllQuizzesResponse> {
-            return localVarFp.findAllQuizzesForEducationTeam(educationId, options).then((request) => request(axios, basePath));
+        findAllQuizzesForEducationTeam(requestParameters: QuizControllerApiFindAllQuizzesForEducationTeamRequest, options?: RawAxiosRequestConfig): AxiosPromise<CotatoAllQuizzesResponse> {
+            return localVarFp.findAllQuizzesForEducationTeam(requestParameters.educationId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {number} quizId 
+         * @param {QuizControllerApiFindOneQuizForMemberRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findOneQuizForMember(quizId: number, options?: any): AxiosPromise<CotatoQuizResponse> {
-            return localVarFp.findOneQuizForMember(quizId, options).then((request) => request(axios, basePath));
+        findOneQuizForMember(requestParameters: QuizControllerApiFindOneQuizForMemberRequest, options?: RawAxiosRequestConfig): AxiosPromise<CotatoQuizResponse> {
+            return localVarFp.findOneQuizForMember(requestParameters.quizId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {number} quizId 
+         * @param {QuizControllerApiFindQuizForAdminCsQuizRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findQuizForAdminCsQuiz(quizId: number, options?: any): AxiosPromise<CotatoQuizInfoInCsQuizResponse> {
-            return localVarFp.findQuizForAdminCsQuiz(quizId, options).then((request) => request(axios, basePath));
+        findQuizForAdminCsQuiz(requestParameters: QuizControllerApiFindQuizForAdminCsQuizRequest, options?: RawAxiosRequestConfig): AxiosPromise<CotatoQuizInfoInCsQuizResponse> {
+            return localVarFp.findQuizForAdminCsQuiz(requestParameters.quizId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {number} educationId 
+         * @param {QuizControllerApiQuizResultsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        quizResults(educationId: number, options?: any): AxiosPromise<Array<CotatoQuizResultInfo>> {
-            return localVarFp.quizResults(educationId, options).then((request) => request(axios, basePath));
+        quizResults(requestParameters: QuizControllerApiQuizResultsRequest, options?: RawAxiosRequestConfig): AxiosPromise<Array<CotatoQuizResultInfo>> {
+            return localVarFp.quizResults(requestParameters.educationId, options).then((request) => request(axios, basePath));
         },
     };
 };
+
+/**
+ * Request parameters for addAdditionalAnswer operation in QuizControllerApi.
+ * @export
+ * @interface QuizControllerApiAddAdditionalAnswerRequest
+ */
+export interface QuizControllerApiAddAdditionalAnswerRequest {
+    /**
+     * 
+     * @type {CotatoAddAdditionalAnswerRequest}
+     * @memberof QuizControllerApiAddAdditionalAnswer
+     */
+    readonly cotatoAddAdditionalAnswerRequest: CotatoAddAdditionalAnswerRequest
+}
+
+/**
+ * Request parameters for addAllQuizzes operation in QuizControllerApi.
+ * @export
+ * @interface QuizControllerApiAddAllQuizzesRequest
+ */
+export interface QuizControllerApiAddAllQuizzesRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof QuizControllerApiAddAllQuizzes
+     */
+    readonly educationId: number
+
+    /**
+     * 
+     * @type {Array<CotatoCreateMultipleQuizRequest>}
+     * @memberof QuizControllerApiAddAllQuizzes
+     */
+    readonly multiples?: Array<CotatoCreateMultipleQuizRequest>
+
+    /**
+     * 
+     * @type {Array<CotatoCreateShortQuizRequest>}
+     * @memberof QuizControllerApiAddAllQuizzes
+     */
+    readonly shortQuizzes?: Array<CotatoCreateShortQuizRequest>
+}
+
+/**
+ * Request parameters for findAllQuizzesForAdminCsQuiz operation in QuizControllerApi.
+ * @export
+ * @interface QuizControllerApiFindAllQuizzesForAdminCsQuizRequest
+ */
+export interface QuizControllerApiFindAllQuizzesForAdminCsQuizRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof QuizControllerApiFindAllQuizzesForAdminCsQuiz
+     */
+    readonly educationId: number
+}
+
+/**
+ * Request parameters for findAllQuizzesForEducationTeam operation in QuizControllerApi.
+ * @export
+ * @interface QuizControllerApiFindAllQuizzesForEducationTeamRequest
+ */
+export interface QuizControllerApiFindAllQuizzesForEducationTeamRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof QuizControllerApiFindAllQuizzesForEducationTeam
+     */
+    readonly educationId: number
+}
+
+/**
+ * Request parameters for findOneQuizForMember operation in QuizControllerApi.
+ * @export
+ * @interface QuizControllerApiFindOneQuizForMemberRequest
+ */
+export interface QuizControllerApiFindOneQuizForMemberRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof QuizControllerApiFindOneQuizForMember
+     */
+    readonly quizId: number
+}
+
+/**
+ * Request parameters for findQuizForAdminCsQuiz operation in QuizControllerApi.
+ * @export
+ * @interface QuizControllerApiFindQuizForAdminCsQuizRequest
+ */
+export interface QuizControllerApiFindQuizForAdminCsQuizRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof QuizControllerApiFindQuizForAdminCsQuiz
+     */
+    readonly quizId: number
+}
+
+/**
+ * Request parameters for quizResults operation in QuizControllerApi.
+ * @export
+ * @interface QuizControllerApiQuizResultsRequest
+ */
+export interface QuizControllerApiQuizResultsRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof QuizControllerApiQuizResults
+     */
+    readonly educationId: number
+}
 
 /**
  * QuizControllerApi - object-oriented interface
@@ -516,81 +626,79 @@ export const QuizControllerApiFactory = function (configuration?: Configuration,
 export class QuizControllerApi extends BaseAPI {
     /**
      * 
-     * @param {CotatoAddAdditionalAnswerRequest} cotatoAddAdditionalAnswerRequest 
+     * @param {QuizControllerApiAddAdditionalAnswerRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof QuizControllerApi
      */
-    public addAdditionalAnswer(cotatoAddAdditionalAnswerRequest: CotatoAddAdditionalAnswerRequest, options?: RawAxiosRequestConfig) {
-        return QuizControllerApiFp(this.configuration).addAdditionalAnswer(cotatoAddAdditionalAnswerRequest, options).then((request) => request(this.axios, this.basePath));
+    public addAdditionalAnswer(requestParameters: QuizControllerApiAddAdditionalAnswerRequest, options?: RawAxiosRequestConfig) {
+        return QuizControllerApiFp(this.configuration).addAdditionalAnswer(requestParameters.cotatoAddAdditionalAnswerRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {number} educationId 
-     * @param {Array<CotatoCreateMultipleQuizRequest>} [multiples] 
-     * @param {Array<CotatoCreateShortQuizRequest>} [shortQuizzes] 
+     * @param {QuizControllerApiAddAllQuizzesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof QuizControllerApi
      */
-    public addAllQuizzes(educationId: number, multiples?: Array<CotatoCreateMultipleQuizRequest>, shortQuizzes?: Array<CotatoCreateShortQuizRequest>, options?: RawAxiosRequestConfig) {
-        return QuizControllerApiFp(this.configuration).addAllQuizzes(educationId, multiples, shortQuizzes, options).then((request) => request(this.axios, this.basePath));
+    public addAllQuizzes(requestParameters: QuizControllerApiAddAllQuizzesRequest, options?: RawAxiosRequestConfig) {
+        return QuizControllerApiFp(this.configuration).addAllQuizzes(requestParameters.educationId, requestParameters.multiples, requestParameters.shortQuizzes, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {number} educationId 
+     * @param {QuizControllerApiFindAllQuizzesForAdminCsQuizRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof QuizControllerApi
      */
-    public findAllQuizzesForAdminCsQuiz(educationId: number, options?: RawAxiosRequestConfig) {
-        return QuizControllerApiFp(this.configuration).findAllQuizzesForAdminCsQuiz(educationId, options).then((request) => request(this.axios, this.basePath));
+    public findAllQuizzesForAdminCsQuiz(requestParameters: QuizControllerApiFindAllQuizzesForAdminCsQuizRequest, options?: RawAxiosRequestConfig) {
+        return QuizControllerApiFp(this.configuration).findAllQuizzesForAdminCsQuiz(requestParameters.educationId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {number} educationId 
+     * @param {QuizControllerApiFindAllQuizzesForEducationTeamRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof QuizControllerApi
      */
-    public findAllQuizzesForEducationTeam(educationId: number, options?: RawAxiosRequestConfig) {
-        return QuizControllerApiFp(this.configuration).findAllQuizzesForEducationTeam(educationId, options).then((request) => request(this.axios, this.basePath));
+    public findAllQuizzesForEducationTeam(requestParameters: QuizControllerApiFindAllQuizzesForEducationTeamRequest, options?: RawAxiosRequestConfig) {
+        return QuizControllerApiFp(this.configuration).findAllQuizzesForEducationTeam(requestParameters.educationId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {number} quizId 
+     * @param {QuizControllerApiFindOneQuizForMemberRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof QuizControllerApi
      */
-    public findOneQuizForMember(quizId: number, options?: RawAxiosRequestConfig) {
-        return QuizControllerApiFp(this.configuration).findOneQuizForMember(quizId, options).then((request) => request(this.axios, this.basePath));
+    public findOneQuizForMember(requestParameters: QuizControllerApiFindOneQuizForMemberRequest, options?: RawAxiosRequestConfig) {
+        return QuizControllerApiFp(this.configuration).findOneQuizForMember(requestParameters.quizId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {number} quizId 
+     * @param {QuizControllerApiFindQuizForAdminCsQuizRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof QuizControllerApi
      */
-    public findQuizForAdminCsQuiz(quizId: number, options?: RawAxiosRequestConfig) {
-        return QuizControllerApiFp(this.configuration).findQuizForAdminCsQuiz(quizId, options).then((request) => request(this.axios, this.basePath));
+    public findQuizForAdminCsQuiz(requestParameters: QuizControllerApiFindQuizForAdminCsQuizRequest, options?: RawAxiosRequestConfig) {
+        return QuizControllerApiFp(this.configuration).findQuizForAdminCsQuiz(requestParameters.quizId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {number} educationId 
+     * @param {QuizControllerApiQuizResultsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof QuizControllerApi
      */
-    public quizResults(educationId: number, options?: RawAxiosRequestConfig) {
-        return QuizControllerApiFp(this.configuration).quizResults(educationId, options).then((request) => request(this.axios, this.basePath));
+    public quizResults(requestParameters: QuizControllerApiQuizResultsRequest, options?: RawAxiosRequestConfig) {
+        return QuizControllerApiFp(this.configuration).quizResults(requestParameters.educationId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
