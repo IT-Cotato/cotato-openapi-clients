@@ -78,13 +78,10 @@ export const MemberControllerApiAxiosParamCreator = function (configuration?: Co
         },
         /**
          * 
-         * @param {string} authorization 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findMemberInfo: async (authorization: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'authorization' is not null or undefined
-            assertParamExists('findMemberInfo', 'authorization', authorization)
+        findMemberInfo: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/v1/api/member/info`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -100,10 +97,6 @@ export const MemberControllerApiAxiosParamCreator = function (configuration?: Co
             // authentication bearerAuth required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-            if (authorization != null) {
-                localVarHeaderParameter['Authorization'] = String(authorization);
-            }
 
 
     
@@ -155,14 +148,11 @@ export const MemberControllerApiAxiosParamCreator = function (configuration?: Co
         },
         /**
          * 
-         * @param {string} authorization 
          * @param {CotatoUpdatePasswordRequest} cotatoUpdatePasswordRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updatePassword: async (authorization: string, cotatoUpdatePasswordRequest: CotatoUpdatePasswordRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'authorization' is not null or undefined
-            assertParamExists('updatePassword', 'authorization', authorization)
+        updatePassword: async (cotatoUpdatePasswordRequest: CotatoUpdatePasswordRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'cotatoUpdatePasswordRequest' is not null or undefined
             assertParamExists('updatePassword', 'cotatoUpdatePasswordRequest', cotatoUpdatePasswordRequest)
             const localVarPath = `/v1/api/member/update/password`;
@@ -181,10 +171,6 @@ export const MemberControllerApiAxiosParamCreator = function (configuration?: Co
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-            if (authorization != null) {
-                localVarHeaderParameter['Authorization'] = String(authorization);
-            }
-
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -202,14 +188,11 @@ export const MemberControllerApiAxiosParamCreator = function (configuration?: Co
         /**
          * 
          * @summary 멤버 전화번호 수정 API
-         * @param {string} authorization 
          * @param {CotatoUpdatePhoneNumberRequest} cotatoUpdatePhoneNumberRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updatePhoneNumber: async (authorization: string, cotatoUpdatePhoneNumberRequest: CotatoUpdatePhoneNumberRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'authorization' is not null or undefined
-            assertParamExists('updatePhoneNumber', 'authorization', authorization)
+        updatePhoneNumber: async (cotatoUpdatePhoneNumberRequest: CotatoUpdatePhoneNumberRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'cotatoUpdatePhoneNumberRequest' is not null or undefined
             assertParamExists('updatePhoneNumber', 'cotatoUpdatePhoneNumberRequest', cotatoUpdatePhoneNumberRequest)
             const localVarPath = `/v1/api/member/phone-number`;
@@ -227,10 +210,6 @@ export const MemberControllerApiAxiosParamCreator = function (configuration?: Co
             // authentication bearerAuth required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-            if (authorization != null) {
-                localVarHeaderParameter['Authorization'] = String(authorization);
-            }
 
 
     
@@ -323,12 +302,11 @@ export const MemberControllerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {string} authorization 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async findMemberInfo(authorization: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CotatoMemberInfoResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.findMemberInfo(authorization, options);
+        async findMemberInfo(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CotatoMemberInfoResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findMemberInfo(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MemberControllerApi.findMemberInfo']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -347,13 +325,12 @@ export const MemberControllerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {string} authorization 
          * @param {CotatoUpdatePasswordRequest} cotatoUpdatePasswordRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updatePassword(authorization: string, cotatoUpdatePasswordRequest: CotatoUpdatePasswordRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updatePassword(authorization, cotatoUpdatePasswordRequest, options);
+        async updatePassword(cotatoUpdatePasswordRequest: CotatoUpdatePasswordRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updatePassword(cotatoUpdatePasswordRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MemberControllerApi.updatePassword']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -361,13 +338,12 @@ export const MemberControllerApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary 멤버 전화번호 수정 API
-         * @param {string} authorization 
          * @param {CotatoUpdatePhoneNumberRequest} cotatoUpdatePhoneNumberRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updatePhoneNumber(authorization: string, cotatoUpdatePhoneNumberRequest: CotatoUpdatePhoneNumberRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updatePhoneNumber(authorization, cotatoUpdatePhoneNumberRequest, options);
+        async updatePhoneNumber(cotatoUpdatePhoneNumberRequest: CotatoUpdatePhoneNumberRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updatePhoneNumber(cotatoUpdatePhoneNumberRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MemberControllerApi.updatePhoneNumber']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -408,12 +384,11 @@ export const MemberControllerApiFactory = function (configuration?: Configuratio
         },
         /**
          * 
-         * @param {MemberControllerApiFindMemberInfoRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findMemberInfo(requestParameters: MemberControllerApiFindMemberInfoRequest, options?: RawAxiosRequestConfig): AxiosPromise<CotatoMemberInfoResponse> {
-            return localVarFp.findMemberInfo(requestParameters.authorization, options).then((request) => request(axios, basePath));
+        findMemberInfo(options?: RawAxiosRequestConfig): AxiosPromise<CotatoMemberInfoResponse> {
+            return localVarFp.findMemberInfo(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -431,7 +406,7 @@ export const MemberControllerApiFactory = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         updatePassword(requestParameters: MemberControllerApiUpdatePasswordRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.updatePassword(requestParameters.authorization, requestParameters.cotatoUpdatePasswordRequest, options).then((request) => request(axios, basePath));
+            return localVarFp.updatePassword(requestParameters.cotatoUpdatePasswordRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -441,7 +416,7 @@ export const MemberControllerApiFactory = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         updatePhoneNumber(requestParameters: MemberControllerApiUpdatePhoneNumberRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.updatePhoneNumber(requestParameters.authorization, requestParameters.cotatoUpdatePhoneNumberRequest, options).then((request) => request(axios, basePath));
+            return localVarFp.updatePhoneNumber(requestParameters.cotatoUpdatePhoneNumberRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -471,20 +446,6 @@ export interface MemberControllerApiDeleteProfileImageRequest {
 }
 
 /**
- * Request parameters for findMemberInfo operation in MemberControllerApi.
- * @export
- * @interface MemberControllerApiFindMemberInfoRequest
- */
-export interface MemberControllerApiFindMemberInfoRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof MemberControllerApiFindMemberInfo
-     */
-    readonly authorization: string
-}
-
-/**
  * Request parameters for findMyPageInfo operation in MemberControllerApi.
  * @export
  * @interface MemberControllerApiFindMyPageInfoRequest
@@ -506,13 +467,6 @@ export interface MemberControllerApiFindMyPageInfoRequest {
 export interface MemberControllerApiUpdatePasswordRequest {
     /**
      * 
-     * @type {string}
-     * @memberof MemberControllerApiUpdatePassword
-     */
-    readonly authorization: string
-
-    /**
-     * 
      * @type {CotatoUpdatePasswordRequest}
      * @memberof MemberControllerApiUpdatePassword
      */
@@ -525,13 +479,6 @@ export interface MemberControllerApiUpdatePasswordRequest {
  * @interface MemberControllerApiUpdatePhoneNumberRequest
  */
 export interface MemberControllerApiUpdatePhoneNumberRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof MemberControllerApiUpdatePhoneNumber
-     */
-    readonly authorization: string
-
     /**
      * 
      * @type {CotatoUpdatePhoneNumberRequest}
@@ -582,13 +529,12 @@ export class MemberControllerApi extends BaseAPI {
 
     /**
      * 
-     * @param {MemberControllerApiFindMemberInfoRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MemberControllerApi
      */
-    public findMemberInfo(requestParameters: MemberControllerApiFindMemberInfoRequest, options?: RawAxiosRequestConfig) {
-        return MemberControllerApiFp(this.configuration).findMemberInfo(requestParameters.authorization, options).then((request) => request(this.axios, this.basePath));
+    public findMemberInfo(options?: RawAxiosRequestConfig) {
+        return MemberControllerApiFp(this.configuration).findMemberInfo(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -610,7 +556,7 @@ export class MemberControllerApi extends BaseAPI {
      * @memberof MemberControllerApi
      */
     public updatePassword(requestParameters: MemberControllerApiUpdatePasswordRequest, options?: RawAxiosRequestConfig) {
-        return MemberControllerApiFp(this.configuration).updatePassword(requestParameters.authorization, requestParameters.cotatoUpdatePasswordRequest, options).then((request) => request(this.axios, this.basePath));
+        return MemberControllerApiFp(this.configuration).updatePassword(requestParameters.cotatoUpdatePasswordRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -622,7 +568,7 @@ export class MemberControllerApi extends BaseAPI {
      * @memberof MemberControllerApi
      */
     public updatePhoneNumber(requestParameters: MemberControllerApiUpdatePhoneNumberRequest, options?: RawAxiosRequestConfig) {
-        return MemberControllerApiFp(this.configuration).updatePhoneNumber(requestParameters.authorization, requestParameters.cotatoUpdatePhoneNumberRequest, options).then((request) => request(this.axios, this.basePath));
+        return MemberControllerApiFp(this.configuration).updatePhoneNumber(requestParameters.cotatoUpdatePhoneNumberRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

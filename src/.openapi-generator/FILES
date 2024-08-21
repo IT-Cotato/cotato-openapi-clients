@@ -3,7 +3,6 @@
 api.ts
 api/admin-controller-api.ts
 api/apiapi.ts
-api/attendance-admin-controller-api.ts
 api/default-api.ts
 api/education-controller-api.ts
 api/login-endpoint-api.ts
@@ -11,7 +10,6 @@ api/member-controller-api.ts
 api/my-page-controller-api.ts
 api/quiz-controller-api.ts
 api/record-controller-api.ts
-api/session-controller-api.ts
 api/socket-controller-api.ts
 base.ts
 common.ts
@@ -33,6 +31,7 @@ model/cotato-attendance-member-info.ts
 model/cotato-attendance-record-response.ts
 model/cotato-attendance-response.ts
 model/cotato-attendance-statistic.ts
+model/cotato-attendance-time-response.ts
 model/cotato-attendances-response.ts
 model/cotato-change-generation-period-request.ts
 model/cotato-change-recruiting-status-request.ts
@@ -78,6 +77,10 @@ model/cotato-offline-attendance-request.ts
 model/cotato-online-attendance-request.ts
 model/cotato-policies-response.ts
 model/cotato-policy-info-response.ts
+model/cotato-project-detail-response.ts
+model/cotato-project-image-info-response.ts
+model/cotato-project-member-info-response.ts
+model/cotato-project-summary-response.ts
 model/cotato-quiz-info-in-cs-quiz-response.ts
 model/cotato-quiz-response.ts
 model/cotato-quiz-result-info.ts
@@ -96,6 +99,7 @@ model/cotato-session-list-response.ts
 model/cotato-short-answer-response.ts
 model/cotato-short-quiz-response.ts
 model/cotato-socket-token-dto.ts
+model/cotato-sse-emitter.ts
 model/cotato-update-active-member-role-request.ts
 model/cotato-update-active-member-to-old-member-request.ts
 model/cotato-update-attendance-request.ts

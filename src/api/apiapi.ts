@@ -48,9 +48,15 @@ import type { CotatoMemberEmailResponse } from '../model';
 // @ts-ignore
 import type { CotatoPoliciesResponse } from '../model';
 // @ts-ignore
+import type { CotatoProjectDetailResponse } from '../model';
+// @ts-ignore
+import type { CotatoProjectSummaryResponse } from '../model';
+// @ts-ignore
 import type { CotatoReissueResponse } from '../model';
 // @ts-ignore
 import type { CotatoSendEmailRequest } from '../model';
+// @ts-ignore
+import type { CotatoSseEmitter } from '../model';
 /**
  * APIApi - axios parameter creator
  * @export
@@ -296,12 +302,84 @@ export const APIApiAxiosParamCreator = function (configuration?: Configuration) 
         },
         /**
          * 
+         * @summary 프로젝트 목록 조회 API
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllProjectSummaries: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v2/api/projects`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary 회원 가입 시 정책 목록 반환 API
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         getPolicies: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/v2/api/policies`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 특정 프로젝트 상세 정보 조회 API
+         * @param {number} projectId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getProjectDetail: async (projectId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('getProjectDetail', 'projectId', projectId)
+            const localVarPath = `/v2/api/projects/{projectId}`
+                .replace(`{${"projectId"}}`, encodeURIComponent(String(projectId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -485,6 +563,40 @@ export const APIApiAxiosParamCreator = function (configuration?: Configuration) 
         },
         /**
          * 
+         * @summary 최초 로그인 시 출결 알림 구독 API
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        subscribeAttendance: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v2/api/events/attendances`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {string} refreshToken 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -651,6 +763,18 @@ export const APIApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary 프로젝트 목록 조회 API
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllProjectSummaries(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CotatoProjectSummaryResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllProjectSummaries(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['APIApi.getAllProjectSummaries']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary 회원 가입 시 정책 목록 반환 API
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -659,6 +783,19 @@ export const APIApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getPolicies(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['APIApi.getPolicies']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary 특정 프로젝트 상세 정보 조회 API
+         * @param {number} projectId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getProjectDetail(projectId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CotatoProjectDetailResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getProjectDetail(projectId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['APIApi.getProjectDetail']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -709,6 +846,18 @@ export const APIApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.sendSignUpVerificationCode1(cotatoSendEmailRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['APIApi.sendSignUpVerificationCode1']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary 최초 로그인 시 출결 알림 구독 API
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async subscribeAttendance(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CotatoSseEmitter>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.subscribeAttendance(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['APIApi.subscribeAttendance']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -802,12 +951,31 @@ export const APIApiFactory = function (configuration?: Configuration, basePath?:
         },
         /**
          * 
+         * @summary 프로젝트 목록 조회 API
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllProjectSummaries(options?: RawAxiosRequestConfig): AxiosPromise<Array<CotatoProjectSummaryResponse>> {
+            return localVarFp.getAllProjectSummaries(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary 회원 가입 시 정책 목록 반환 API
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         getPolicies(options?: RawAxiosRequestConfig): AxiosPromise<CotatoPoliciesResponse> {
             return localVarFp.getPolicies(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 특정 프로젝트 상세 정보 조회 API
+         * @param {APIApiGetProjectDetailRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getProjectDetail(requestParameters: APIApiGetProjectDetailRequest, options?: RawAxiosRequestConfig): AxiosPromise<CotatoProjectDetailResponse> {
+            return localVarFp.getProjectDetail(requestParameters.projectId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -845,6 +1013,15 @@ export const APIApiFactory = function (configuration?: Configuration, basePath?:
          */
         sendSignUpVerificationCode1(requestParameters: APIApiSendSignUpVerificationCode1Request, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.sendSignUpVerificationCode1(requestParameters.cotatoSendEmailRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 최초 로그인 시 출결 알림 구독 API
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        subscribeAttendance(options?: RawAxiosRequestConfig): AxiosPromise<CotatoSseEmitter> {
+            return localVarFp.subscribeAttendance(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -942,6 +1119,20 @@ export interface APIApiFindEmailRequest {
      * @memberof APIApiFindEmail
      */
     readonly phone: string
+}
+
+/**
+ * Request parameters for getProjectDetail operation in APIApi.
+ * @export
+ * @interface APIApiGetProjectDetailRequest
+ */
+export interface APIApiGetProjectDetailRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof APIApiGetProjectDetail
+     */
+    readonly projectId: number
 }
 
 /**
@@ -1103,6 +1294,17 @@ export class APIApi extends BaseAPI {
 
     /**
      * 
+     * @summary 프로젝트 목록 조회 API
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof APIApi
+     */
+    public getAllProjectSummaries(options?: RawAxiosRequestConfig) {
+        return APIApiFp(this.configuration).getAllProjectSummaries(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary 회원 가입 시 정책 목록 반환 API
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1110,6 +1312,18 @@ export class APIApi extends BaseAPI {
      */
     public getPolicies(options?: RawAxiosRequestConfig) {
         return APIApiFp(this.configuration).getPolicies(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary 특정 프로젝트 상세 정보 조회 API
+     * @param {APIApiGetProjectDetailRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof APIApi
+     */
+    public getProjectDetail(requestParameters: APIApiGetProjectDetailRequest, options?: RawAxiosRequestConfig) {
+        return APIApiFp(this.configuration).getProjectDetail(requestParameters.projectId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1155,6 +1369,17 @@ export class APIApi extends BaseAPI {
      */
     public sendSignUpVerificationCode1(requestParameters: APIApiSendSignUpVerificationCode1Request, options?: RawAxiosRequestConfig) {
         return APIApiFp(this.configuration).sendSignUpVerificationCode1(requestParameters.cotatoSendEmailRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary 최초 로그인 시 출결 알림 구독 API
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof APIApi
+     */
+    public subscribeAttendance(options?: RawAxiosRequestConfig) {
+        return APIApiFp(this.configuration).subscribeAttendance(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

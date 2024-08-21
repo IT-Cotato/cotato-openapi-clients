@@ -17,13 +17,11 @@
 export * from './api/default-api';
 export * from './api/apiapi';
 export * from './api/admin-controller-api';
-export * from './api/attendance-admin-controller-api';
 export * from './api/education-controller-api';
 export * from './api/login-endpoint-api';
 export * from './api/member-controller-api';
 export * from './api/my-page-controller-api';
 export * from './api/quiz-controller-api';
 export * from './api/record-controller-api';
-export * from './api/session-controller-api';
 export * from './api/socket-controller-api';
 

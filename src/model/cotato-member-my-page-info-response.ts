@@ -49,7 +49,7 @@ export interface CotatoMemberMyPageInfoResponse {
      * @type {string}
      * @memberof CotatoMemberMyPageInfoResponse
      */
-    'memberPosition'?: CotatoMemberMyPageInfoResponseMemberPositionEnum;
+    'position'?: CotatoMemberMyPageInfoResponsePositionEnum;
     /**
      * 
      * @type {string}
@@ -64,7 +64,7 @@ export interface CotatoMemberMyPageInfoResponse {
     'profileImage'?: string;
 }
 
-export const CotatoMemberMyPageInfoResponseMemberPositionEnum = {
+export const CotatoMemberMyPageInfoResponsePositionEnum = {
     None: 'NONE',
     Be: 'BE',
     Fe: 'FE',
@@ -72,6 +72,6 @@ export const CotatoMemberMyPageInfoResponseMemberPositionEnum = {
     Pm: 'PM'
 } as const;
 
-export type CotatoMemberMyPageInfoResponseMemberPositionEnum = typeof CotatoMemberMyPageInfoResponseMemberPositionEnum[keyof typeof CotatoMemberMyPageInfoResponseMemberPositionEnum];
+export type CotatoMemberMyPageInfoResponsePositionEnum = typeof CotatoMemberMyPageInfoResponsePositionEnum[keyof typeof CotatoMemberMyPageInfoResponsePositionEnum];
 
 

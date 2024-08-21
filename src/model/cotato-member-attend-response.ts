@@ -21,6 +21,18 @@
  */
 export interface CotatoMemberAttendResponse {
     /**
+     * 세션 PK
+     * @type {number}
+     * @memberof CotatoMemberAttendResponse
+     */
+    'sessionId'?: number;
+    /**
+     * 출석 PK
+     * @type {number}
+     * @memberof CotatoMemberAttendResponse
+     */
+    'attendanceId'?: number;
+    /**
      * 멤버 PK
      * @type {number}
      * @memberof CotatoMemberAttendResponse
@@ -49,7 +61,7 @@ export interface CotatoMemberAttendResponse {
      * @type {string}
      * @memberof CotatoMemberAttendResponse
      */
-    'attendanceType'?: CotatoMemberAttendResponseAttendanceTypeEnum;
+    'attendanceType'?: CotatoMemberAttendResponseAttendanceTypeEnum | null;
     /**
      * 마감된 출석에 대한 출결 결과
      * @type {string}

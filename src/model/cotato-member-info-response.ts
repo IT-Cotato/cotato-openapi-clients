@@ -31,7 +31,7 @@ export interface CotatoMemberInfoResponse {
      * @type {string}
      * @memberof CotatoMemberInfoResponse
      */
-    'memberName'?: string;
+    'name'?: string;
     /**
      * 
      * @type {string}

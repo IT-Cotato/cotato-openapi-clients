@@ -64,6 +64,18 @@ export interface CotatoSessionListResponse {
     'generationId'?: number;
     /**
      * 
+     * @type {string}
+     * @memberof CotatoSessionListResponse
+     */
+    'placeName'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CotatoSessionListResponse
+     */
+    'sessionDate'?: string;
+    /**
+     * 
      * @type {CotatoSessionContents}
      * @memberof CotatoSessionListResponse
      */

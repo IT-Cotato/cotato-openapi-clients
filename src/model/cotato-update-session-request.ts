@@ -13,6 +13,12 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import type { CotatoAttendanceDeadLineDto } from './cotato-attendance-dead-line-dto';
+// May contain unused imports in some cases
+// @ts-ignore
+import type { CotatoLocation } from './cotato-location';
 
 /**
  * 
@@ -38,6 +44,30 @@ export interface CotatoUpdateSessionRequest {
      * @memberof CotatoUpdateSessionRequest
      */
     'description'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CotatoUpdateSessionRequest
+     */
+    'sessionDate': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CotatoUpdateSessionRequest
+     */
+    'placeName'?: string;
+    /**
+     * 
+     * @type {CotatoLocation}
+     * @memberof CotatoUpdateSessionRequest
+     */
+    'location'?: CotatoLocation;
+    /**
+     * 
+     * @type {CotatoAttendanceDeadLineDto}
+     * @memberof CotatoUpdateSessionRequest
+     */
+    'attendTime'?: CotatoAttendanceDeadLineDto;
     /**
      * 
      * @type {string}

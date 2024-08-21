@@ -31,7 +31,7 @@ export interface CotatoMemberEnrollInfoResponse {
      * @type {string}
      * @memberof CotatoMemberEnrollInfoResponse
      */
-    'memberName'?: string;
+    'name'?: string;
     /**
      * 
      * @type {string}
