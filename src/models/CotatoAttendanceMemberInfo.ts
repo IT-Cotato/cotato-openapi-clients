@@ -30,7 +30,7 @@ export interface CotatoAttendanceMemberInfo {
      * @type {string}
      * @memberof CotatoAttendanceMemberInfo
      */
-    memberName?: string;
+    name?: string;
     /**
      * 
      * @type {string}
@@ -71,7 +71,7 @@ export function CotatoAttendanceMemberInfoFromJSONTyped(json: any, ignoreDiscrim
     return {
         
         'memberId': json['memberId'] == null ? undefined : json['memberId'],
-        'memberName': json['memberName'] == null ? undefined : json['memberName'],
+        'name': json['name'] == null ? undefined : json['name'],
         'position': json['position'] == null ? undefined : json['position'],
     };
 }
@@ -83,7 +83,7 @@ export function CotatoAttendanceMemberInfoToJSON(value?: CotatoAttendanceMemberI
     return {
         
         'memberId': value['memberId'],
-        'memberName': value['memberName'],
+        'name': value['name'],
         'position': value['position'],
     };
 }

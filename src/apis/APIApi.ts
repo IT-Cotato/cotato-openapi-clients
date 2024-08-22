@@ -20,6 +20,8 @@ import type {
   CotatoChangeGenerationPeriodRequest,
   CotatoChangeRecruitingStatusRequest,
   CotatoCheckMemberPoliciesRequest,
+  CotatoCreateProjectRequest,
+  CotatoCreateProjectResponse,
   CotatoFindMemberPolicyResponse,
   CotatoFindPasswordResponse,
   CotatoGenerationInfoResponse,
@@ -45,6 +47,10 @@ import {
     CotatoChangeRecruitingStatusRequestToJSON,
     CotatoCheckMemberPoliciesRequestFromJSON,
     CotatoCheckMemberPoliciesRequestToJSON,
+    CotatoCreateProjectRequestFromJSON,
+    CotatoCreateProjectRequestToJSON,
+    CotatoCreateProjectResponseFromJSON,
+    CotatoCreateProjectResponseToJSON,
     CotatoFindMemberPolicyResponseFromJSON,
     CotatoFindMemberPolicyResponseToJSON,
     CotatoFindPasswordResponseFromJSON,
@@ -87,6 +93,16 @@ export interface ChangeRecruitingStatusRequest {
 
 export interface CheckPoliciesRequest {
     cotatoCheckMemberPoliciesRequest: CotatoCheckMemberPoliciesRequest;
+}
+
+export interface CreateProjectRequest {
+    cotatoCreateProjectRequest: CotatoCreateProjectRequest;
+}
+
+export interface CreateProjectImageRequest {
+    projectId?: number;
+    logoImage?: Blob;
+    thumbNailImage?: Blob;
 }
 
 export interface FindEmailRequest {
@@ -290,6 +306,114 @@ export class APIApi extends runtime.BaseAPI {
      */
     async checkPolicies(requestParameters: CheckPoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.checkPoliciesRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * 프로젝트 등록 API
+     */
+    async createProjectRaw(requestParameters: CreateProjectRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoCreateProjectResponse>> {
+        if (requestParameters['cotatoCreateProjectRequest'] == null) {
+            throw new runtime.RequiredError(
+                'cotatoCreateProjectRequest',
+                'Required parameter "cotatoCreateProjectRequest" was null or undefined when calling createProject().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v2/api/projects`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CotatoCreateProjectRequestToJSON(requestParameters['cotatoCreateProjectRequest']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CotatoCreateProjectResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 프로젝트 등록 API
+     */
+    async createProject(requestParameters: CreateProjectRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoCreateProjectResponse> {
+        const response = await this.createProjectRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 프로젝트 사진 등록 API
+     */
+    async createProjectImageRaw(requestParameters: CreateProjectImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const consumes: runtime.Consume[] = [
+            { contentType: 'multipart/form-data' },
+        ];
+        // @ts-ignore: canConsumeForm may be unused
+        const canConsumeForm = runtime.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): any };
+        let useForm = false;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        useForm = canConsumeForm;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        useForm = canConsumeForm;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new URLSearchParams();
+        }
+
+        if (requestParameters['projectId'] != null) {
+            formParams.append('projectId', requestParameters['projectId'] as any);
+        }
+
+        if (requestParameters['logoImage'] != null) {
+            formParams.append('logoImage', requestParameters['logoImage'] as any);
+        }
+
+        if (requestParameters['thumbNailImage'] != null) {
+            formParams.append('thumbNailImage', requestParameters['thumbNailImage'] as any);
+        }
+
+        const response = await this.request({
+            path: `/v2/api/projects/images`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * 프로젝트 사진 등록 API
+     */
+    async createProjectImage(requestParameters: CreateProjectImageRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.createProjectImageRaw(requestParameters, initOverrides);
     }
 
     /**

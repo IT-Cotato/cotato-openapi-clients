@@ -30,7 +30,7 @@ export interface CotatoWinnerInfoResponse {
      * @type {string}
      * @memberof CotatoWinnerInfoResponse
      */
-    memberName?: string;
+    name?: string;
     /**
      * 
      * @type {number}
@@ -48,21 +48,21 @@ export interface CotatoWinnerInfoResponse {
      * @type {string}
      * @memberof CotatoWinnerInfoResponse
      */
-    memberPosition?: CotatoWinnerInfoResponseMemberPositionEnum;
+    position?: CotatoWinnerInfoResponsePositionEnum;
 }
 
 
 /**
  * @export
  */
-export const CotatoWinnerInfoResponseMemberPositionEnum = {
+export const CotatoWinnerInfoResponsePositionEnum = {
     None: 'NONE',
     Be: 'BE',
     Fe: 'FE',
     Design: 'DESIGN',
     Pm: 'PM'
 } as const;
-export type CotatoWinnerInfoResponseMemberPositionEnum = typeof CotatoWinnerInfoResponseMemberPositionEnum[keyof typeof CotatoWinnerInfoResponseMemberPositionEnum];
+export type CotatoWinnerInfoResponsePositionEnum = typeof CotatoWinnerInfoResponsePositionEnum[keyof typeof CotatoWinnerInfoResponsePositionEnum];
 
 
 /**
@@ -83,10 +83,10 @@ export function CotatoWinnerInfoResponseFromJSONTyped(json: any, ignoreDiscrimin
     return {
         
         'memberId': json['memberId'] == null ? undefined : json['memberId'],
-        'memberName': json['memberName'] == null ? undefined : json['memberName'],
+        'name': json['name'] == null ? undefined : json['name'],
         'educationId': json['educationId'] == null ? undefined : json['educationId'],
         'backFourNumber': json['backFourNumber'] == null ? undefined : json['backFourNumber'],
-        'memberPosition': json['memberPosition'] == null ? undefined : json['memberPosition'],
+        'position': json['position'] == null ? undefined : json['position'],
     };
 }
 
@@ -97,10 +97,10 @@ export function CotatoWinnerInfoResponseToJSON(value?: CotatoWinnerInfoResponse 
     return {
         
         'memberId': value['memberId'],
-        'memberName': value['memberName'],
+        'name': value['name'],
         'educationId': value['educationId'],
         'backFourNumber': value['backFourNumber'],
-        'memberPosition': value['memberPosition'],
+        'position': value['position'],
     };
 }
 

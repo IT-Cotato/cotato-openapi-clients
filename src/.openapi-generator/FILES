@@ -36,6 +36,8 @@ models/CotatoCreateChoiceRequest.ts
 models/CotatoCreateEducationRequest.ts
 models/CotatoCreateEducationResponse.ts
 models/CotatoCreateMultipleQuizRequest.ts
+models/CotatoCreateProjectRequest.ts
+models/CotatoCreateProjectResponse.ts
 models/CotatoCreateShortAnswerRequest.ts
 models/CotatoCreateShortQuizRequest.ts
 models/CotatoCsAdminQuizResponse.ts
@@ -74,6 +76,7 @@ models/CotatoPolicyInfoResponse.ts
 models/CotatoProjectDetailResponse.ts
 models/CotatoProjectImageInfoResponse.ts
 models/CotatoProjectMemberInfoResponse.ts
+models/CotatoProjectMemberRequest.ts
 models/CotatoProjectSummaryResponse.ts
 models/CotatoQuizInfoInCsQuizResponse.ts
 models/CotatoQuizResponse.ts

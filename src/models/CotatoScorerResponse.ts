@@ -36,7 +36,7 @@ export interface CotatoScorerResponse {
      * @type {string}
      * @memberof CotatoScorerResponse
      */
-    memberName?: string;
+    name?: string;
     /**
      * 
      * @type {string}
@@ -64,7 +64,7 @@ export function CotatoScorerResponseFromJSONTyped(json: any, ignoreDiscriminator
         
         'scorerId': json['scorerId'] == null ? undefined : json['scorerId'],
         'memberId': json['memberId'] == null ? undefined : json['memberId'],
-        'memberName': json['memberName'] == null ? undefined : json['memberName'],
+        'name': json['name'] == null ? undefined : json['name'],
         'backFourNumber': json['backFourNumber'] == null ? undefined : json['backFourNumber'],
     };
 }
@@ -77,7 +77,7 @@ export function CotatoScorerResponseToJSON(value?: CotatoScorerResponse | null):
         
         'scorerId': value['scorerId'],
         'memberId': value['memberId'],
-        'memberName': value['memberName'],
+        'name': value['name'],
         'backFourNumber': value['backFourNumber'],
     };
 }

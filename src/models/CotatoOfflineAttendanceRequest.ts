@@ -37,7 +37,7 @@ export interface CotatoOfflineAttendanceRequest {
      * @type {Date}
      * @memberof CotatoOfflineAttendanceRequest
      */
-    requestTime?: Date;
+    requestTime: Date;
     /**
      * 
      * @type {CotatoLocation}
@@ -51,6 +51,7 @@ export interface CotatoOfflineAttendanceRequest {
  */
 export function instanceOfCotatoOfflineAttendanceRequest(value: object): value is CotatoOfflineAttendanceRequest {
     if (!('attendanceId' in value) || value['attendanceId'] === undefined) return false;
+    if (!('requestTime' in value) || value['requestTime'] === undefined) return false;
     if (!('location' in value) || value['location'] === undefined) return false;
     return true;
 }
@@ -66,7 +67,7 @@ export function CotatoOfflineAttendanceRequestFromJSONTyped(json: any, ignoreDis
     return {
         
         'attendanceId': json['attendanceId'],
-        'requestTime': json['requestTime'] == null ? undefined : (new Date(json['requestTime'])),
+        'requestTime': (new Date(json['requestTime'])),
         'location': CotatoLocationFromJSON(json['location']),
     };
 }
@@ -78,7 +79,7 @@ export function CotatoOfflineAttendanceRequestToJSON(value?: CotatoOfflineAttend
     return {
         
         'attendanceId': value['attendanceId'],
-        'requestTime': value['requestTime'] == null ? undefined : ((value['requestTime']).toISOString()),
+        'requestTime': ((value['requestTime']).toISOString()),
         'location': CotatoLocationToJSON(value['location']),
     };
 }

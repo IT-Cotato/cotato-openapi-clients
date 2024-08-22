@@ -54,25 +54,7 @@ export interface CotatoProjectSummaryResponse {
      * @type {string}
      * @memberof CotatoProjectSummaryResponse
      */
-    imageUrl?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CotatoProjectSummaryResponse
-     */
-    githubUrl?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CotatoProjectSummaryResponse
-     */
-    behanceUrl?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CotatoProjectSummaryResponse
-     */
-    projectUrl?: string;
+    logoUrl?: string;
 }
 
 /**
@@ -97,10 +79,7 @@ export function CotatoProjectSummaryResponseFromJSONTyped(json: any, ignoreDiscr
         'introduction': json['introduction'] == null ? undefined : json['introduction'],
         'generationId': json['generationId'] == null ? undefined : json['generationId'],
         'generationNumber': json['generationNumber'] == null ? undefined : json['generationNumber'],
-        'imageUrl': json['imageUrl'] == null ? undefined : json['imageUrl'],
-        'githubUrl': json['githubUrl'] == null ? undefined : json['githubUrl'],
-        'behanceUrl': json['behanceUrl'] == null ? undefined : json['behanceUrl'],
-        'projectUrl': json['projectUrl'] == null ? undefined : json['projectUrl'],
+        'logoUrl': json['logoUrl'] == null ? undefined : json['logoUrl'],
     };
 }
 
@@ -115,10 +94,7 @@ export function CotatoProjectSummaryResponseToJSON(value?: CotatoProjectSummaryR
         'introduction': value['introduction'],
         'generationId': value['generationId'],
         'generationNumber': value['generationNumber'],
-        'imageUrl': value['imageUrl'],
-        'githubUrl': value['githubUrl'],
-        'behanceUrl': value['behanceUrl'],
-        'projectUrl': value['projectUrl'],
+        'logoUrl': value['logoUrl'],
     };
 }
 

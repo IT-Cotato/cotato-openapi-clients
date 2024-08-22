@@ -42,7 +42,7 @@ export interface CotatoRecordResponse {
      * @type {string}
      * @memberof CotatoRecordResponse
      */
-    memberName?: string;
+    name?: string;
     /**
      * 
      * @type {string}
@@ -77,7 +77,7 @@ export function CotatoRecordResponseFromJSONTyped(json: any, ignoreDiscriminator
         'recordId': json['recordId'] == null ? undefined : json['recordId'],
         'ticketNumber': json['ticketNumber'] == null ? undefined : json['ticketNumber'],
         'memberId': json['memberId'] == null ? undefined : json['memberId'],
-        'memberName': json['memberName'] == null ? undefined : json['memberName'],
+        'name': json['name'] == null ? undefined : json['name'],
         'backFourNumber': json['backFourNumber'] == null ? undefined : json['backFourNumber'],
         'reply': json['reply'] == null ? undefined : json['reply'],
     };
@@ -92,7 +92,7 @@ export function CotatoRecordResponseToJSON(value?: CotatoRecordResponse | null):
         'recordId': value['recordId'],
         'ticketNumber': value['ticketNumber'],
         'memberId': value['memberId'],
-        'memberName': value['memberName'],
+        'name': value['name'],
         'backFourNumber': value['backFourNumber'],
         'reply': value['reply'],
     };
