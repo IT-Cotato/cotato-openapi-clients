@@ -1,6 +1,6 @@
 {
   "name": "cotato-openapi-clients",
-  "version": "2.240822.0",
+  "version": "2.240823.0",
   "private": false,
   "dependencies": {
     "@openapitools/openapi-generator-cli": "^2.13.4",
@@ -25,9 +25,8 @@
     "build": "rm -fr dist/* && tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && ./fixup.sh",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-"open-api": "cross-env node -r dotenv/config setup.cjs && cross-env openapi-generator-cli generate -i http://43.201.196.189:8082/v3/api-docs -g typescript-fetch -o ./src -c ./openapi.json --skip-validate-spec --additional-properties=modelNamePrefix=Cotato,importFileExtension=.js && node post-process.cjs"
+    "open-api": "cross-env node -r dotenv/config setup.cjs && cross-env openapi-generator-cli generate -i http://43.201.196.189:8082/v3/api-docs -g typescript-fetch -o ./src -c ./openapi.json --skip-validate-spec --additional-properties=modelNamePrefix=Cotato,importFileExtension=.js && node post-process.cjs"
   },
-
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -55,7 +54,7 @@
   "license": "ISC",
   "exports": {
     ".": {
-       "import": "./dist/mjs/index.js",
+      "import": "./dist/mjs/index.js",
       "require": "./dist/cjs/index.js"
     }
   }
