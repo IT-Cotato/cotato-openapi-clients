@@ -55,6 +55,24 @@ export interface CotatoProjectSummaryResponse {
      * @memberof CotatoProjectSummaryResponse
      */
     logoUrl?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CotatoProjectSummaryResponse
+     */
+    githubUrl?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CotatoProjectSummaryResponse
+     */
+    behanceUrl?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CotatoProjectSummaryResponse
+     */
+    projectUrl?: string;
 }
 
 /**
@@ -80,6 +98,9 @@ export function CotatoProjectSummaryResponseFromJSONTyped(json: any, ignoreDiscr
         'generationId': json['generationId'] == null ? undefined : json['generationId'],
         'generationNumber': json['generationNumber'] == null ? undefined : json['generationNumber'],
         'logoUrl': json['logoUrl'] == null ? undefined : json['logoUrl'],
+        'githubUrl': json['githubUrl'] == null ? undefined : json['githubUrl'],
+        'behanceUrl': json['behanceUrl'] == null ? undefined : json['behanceUrl'],
+        'projectUrl': json['projectUrl'] == null ? undefined : json['projectUrl'],
     };
 }
 
@@ -95,6 +116,9 @@ export function CotatoProjectSummaryResponseToJSON(value?: CotatoProjectSummaryR
         'generationId': value['generationId'],
         'generationNumber': value['generationNumber'],
         'logoUrl': value['logoUrl'],
+        'githubUrl': value['githubUrl'],
+        'behanceUrl': value['behanceUrl'],
+        'projectUrl': value['projectUrl'],
     };
 }
 
