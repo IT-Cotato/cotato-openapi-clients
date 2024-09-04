@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../runtime.js';
+import type { CotatoCheckPolicyRequest } from './CotatoCheckPolicyRequest.js';
+import {
+    CotatoCheckPolicyRequestFromJSON,
+    CotatoCheckPolicyRequestFromJSONTyped,
+    CotatoCheckPolicyRequestToJSON,
+} from './CotatoCheckPolicyRequest.js';
+
 /**
  * 
  * @export
@@ -43,6 +50,12 @@ export interface CotatoJoinRequest {
      * @memberof CotatoJoinRequest
      */
     phoneNumber: string;
+    /**
+     * 동의 표시한 정책 목록
+     * @type {Array<CotatoCheckPolicyRequest>}
+     * @memberof CotatoJoinRequest
+     */
+    policies?: Array<CotatoCheckPolicyRequest>;
 }
 
 /**
@@ -70,6 +83,7 @@ export function CotatoJoinRequestFromJSONTyped(json: any, ignoreDiscriminator: b
         'password': json['password'],
         'name': json['name'],
         'phoneNumber': json['phoneNumber'],
+        'policies': json['policies'] == null ? undefined : ((json['policies'] as Array<any>).map(CotatoCheckPolicyRequestFromJSON)),
     };
 }
 
@@ -83,6 +97,7 @@ export function CotatoJoinRequestToJSON(value?: CotatoJoinRequest | null): any {
         'password': value['password'],
         'name': value['name'],
         'phoneNumber': value['phoneNumber'],
+        'policies': value['policies'] == null ? undefined : ((value['policies'] as Array<any>).map(CotatoCheckPolicyRequestToJSON)),
     };
 }
 

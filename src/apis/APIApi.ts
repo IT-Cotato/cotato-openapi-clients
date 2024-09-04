@@ -537,7 +537,7 @@ export class APIApi extends runtime.BaseAPI {
     }
 
     /**
-     * 회원 가입 시 정책 목록 반환 API
+     * 회원 가입 시 보여줘야 할 정책 목록 반환 API
      */
     async getPoliciesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoPoliciesResponse>> {
         const queryParameters: any = {};
@@ -563,7 +563,7 @@ export class APIApi extends runtime.BaseAPI {
     }
 
     /**
-     * 회원 가입 시 정책 목록 반환 API
+     * 회원 가입 시 보여줘야 할 정책 목록 반환 API
      */
     async getPolicies(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoPoliciesResponse> {
         const response = await this.getPoliciesRaw(initOverrides);
