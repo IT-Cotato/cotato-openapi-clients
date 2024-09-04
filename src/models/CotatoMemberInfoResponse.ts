@@ -43,6 +43,12 @@ export interface CotatoMemberInfoResponse {
      * @memberof CotatoMemberInfoResponse
      */
     role?: CotatoMemberInfoResponseRoleEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof CotatoMemberInfoResponse
+     */
+    position?: CotatoMemberInfoResponsePositionEnum;
 }
 
 
@@ -58,6 +64,18 @@ export const CotatoMemberInfoResponseRoleEnum = {
     Education: 'EDUCATION'
 } as const;
 export type CotatoMemberInfoResponseRoleEnum = typeof CotatoMemberInfoResponseRoleEnum[keyof typeof CotatoMemberInfoResponseRoleEnum];
+
+/**
+ * @export
+ */
+export const CotatoMemberInfoResponsePositionEnum = {
+    None: 'NONE',
+    Be: 'BE',
+    Fe: 'FE',
+    Design: 'DESIGN',
+    Pm: 'PM'
+} as const;
+export type CotatoMemberInfoResponsePositionEnum = typeof CotatoMemberInfoResponsePositionEnum[keyof typeof CotatoMemberInfoResponsePositionEnum];
 
 
 /**
@@ -81,6 +99,7 @@ export function CotatoMemberInfoResponseFromJSONTyped(json: any, ignoreDiscrimin
         'name': json['name'] == null ? undefined : json['name'],
         'backFourNumber': json['backFourNumber'] == null ? undefined : json['backFourNumber'],
         'role': json['role'] == null ? undefined : json['role'],
+        'position': json['position'] == null ? undefined : json['position'],
     };
 }
 
@@ -94,6 +113,7 @@ export function CotatoMemberInfoResponseToJSON(value?: CotatoMemberInfoResponse 
         'name': value['name'],
         'backFourNumber': value['backFourNumber'],
         'role': value['role'],
+        'position': value['position'],
     };
 }
 

@@ -28,12 +28,6 @@ import {
 export interface CotatoCheckMemberPoliciesRequest {
     /**
      * 
-     * @type {number}
-     * @memberof CotatoCheckMemberPoliciesRequest
-     */
-    memberId: number;
-    /**
-     * 
      * @type {Array<CotatoCheckPolicyRequest>}
      * @memberof CotatoCheckMemberPoliciesRequest
      */
@@ -44,7 +38,6 @@ export interface CotatoCheckMemberPoliciesRequest {
  * Check if a given object implements the CotatoCheckMemberPoliciesRequest interface.
  */
 export function instanceOfCotatoCheckMemberPoliciesRequest(value: object): value is CotatoCheckMemberPoliciesRequest {
-    if (!('memberId' in value) || value['memberId'] === undefined) return false;
     if (!('policies' in value) || value['policies'] === undefined) return false;
     return true;
 }
@@ -59,7 +52,6 @@ export function CotatoCheckMemberPoliciesRequestFromJSONTyped(json: any, ignoreD
     }
     return {
         
-        'memberId': json['memberId'],
         'policies': ((json['policies'] as Array<any>).map(CotatoCheckPolicyRequestFromJSON)),
     };
 }
@@ -70,7 +62,6 @@ export function CotatoCheckMemberPoliciesRequestToJSON(value?: CotatoCheckMember
     }
     return {
         
-        'memberId': value['memberId'],
         'policies': ((value['policies'] as Array<any>).map(CotatoCheckPolicyRequestToJSON)),
     };
 }

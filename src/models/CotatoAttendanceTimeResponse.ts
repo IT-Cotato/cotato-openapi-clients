@@ -13,6 +13,12 @@
  */
 
 import { mapValues } from '../runtime.js';
+import type { CotatoLocation } from './CotatoLocation.js';
+import {
+    CotatoLocationFromJSON,
+    CotatoLocationFromJSONTyped,
+    CotatoLocationToJSON,
+} from './CotatoLocation.js';
 import type { CotatoLocalTime } from './CotatoLocalTime.js';
 import {
     CotatoLocalTimeFromJSON,
@@ -44,6 +50,12 @@ export interface CotatoAttendanceTimeResponse {
      * @memberof CotatoAttendanceTimeResponse
      */
     lateDeadLine?: CotatoLocalTime;
+    /**
+     * 
+     * @type {CotatoLocation}
+     * @memberof CotatoAttendanceTimeResponse
+     */
+    location?: CotatoLocation;
 }
 
 /**
@@ -66,6 +78,7 @@ export function CotatoAttendanceTimeResponseFromJSONTyped(json: any, ignoreDiscr
         'sessionId': json['sessionId'] == null ? undefined : json['sessionId'],
         'attendanceDeadLine': json['attendanceDeadLine'] == null ? undefined : CotatoLocalTimeFromJSON(json['attendanceDeadLine']),
         'lateDeadLine': json['lateDeadLine'] == null ? undefined : CotatoLocalTimeFromJSON(json['lateDeadLine']),
+        'location': json['location'] == null ? undefined : CotatoLocationFromJSON(json['location']),
     };
 }
 
@@ -78,6 +91,7 @@ export function CotatoAttendanceTimeResponseToJSON(value?: CotatoAttendanceTimeR
         'sessionId': value['sessionId'],
         'attendanceDeadLine': CotatoLocalTimeToJSON(value['attendanceDeadLine']),
         'lateDeadLine': CotatoLocalTimeToJSON(value['lateDeadLine']),
+        'location': CotatoLocationToJSON(value['location']),
     };
 }
 
