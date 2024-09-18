@@ -14,7 +14,7 @@
 
 import { mapValues } from '../runtime.js';
 /**
- * 
+ * 지각 마감 시간, 해당 시간 이후 결석 처리
  * @export
  * @interface CotatoLocalTime
  */

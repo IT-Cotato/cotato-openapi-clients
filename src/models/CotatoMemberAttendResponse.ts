@@ -48,7 +48,7 @@ export interface CotatoMemberAttendResponse {
      * @type {Date}
      * @memberof CotatoMemberAttendResponse
      */
-    sessionDate?: Date;
+    sessionDateTime?: Date;
     /**
      * 출결 진행 여부
      * @type {string}
@@ -123,7 +123,7 @@ export function CotatoMemberAttendResponseFromJSONTyped(json: any, ignoreDiscrim
         'attendanceId': json['attendanceId'] == null ? undefined : json['attendanceId'],
         'memberId': json['memberId'] == null ? undefined : json['memberId'],
         'sessionTitle': json['sessionTitle'] == null ? undefined : json['sessionTitle'],
-        'sessionDate': json['sessionDate'] == null ? undefined : (new Date(json['sessionDate'])),
+        'sessionDateTime': json['sessionDateTime'] == null ? undefined : (new Date(json['sessionDateTime'])),
         'isOpened': json['isOpened'] == null ? undefined : json['isOpened'],
         'attendanceType': json['attendanceType'] == null ? undefined : json['attendanceType'],
         'attendanceResult': json['attendanceResult'] == null ? undefined : json['attendanceResult'],
@@ -140,7 +140,7 @@ export function CotatoMemberAttendResponseToJSON(value?: CotatoMemberAttendRespo
         'attendanceId': value['attendanceId'],
         'memberId': value['memberId'],
         'sessionTitle': value['sessionTitle'],
-        'sessionDate': value['sessionDate'] == null ? undefined : ((value['sessionDate']).toISOString().substring(0,10)),
+        'sessionDateTime': value['sessionDateTime'] == null ? undefined : ((value['sessionDateTime']).toISOString()),
         'isOpened': value['isOpened'],
         'attendanceType': value['attendanceType'],
         'attendanceResult': value['attendanceResult'],

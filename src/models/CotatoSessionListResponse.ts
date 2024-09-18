@@ -79,7 +79,7 @@ export interface CotatoSessionListResponse {
      * @type {Date}
      * @memberof CotatoSessionListResponse
      */
-    sessionDate?: Date;
+    sessionDateTime?: Date;
     /**
      * 
      * @type {CotatoSessionContents}
@@ -112,7 +112,7 @@ export function CotatoSessionListResponseFromJSONTyped(json: any, ignoreDiscrimi
         'description': json['description'] == null ? undefined : json['description'],
         'generationId': json['generationId'] == null ? undefined : json['generationId'],
         'placeName': json['placeName'] == null ? undefined : json['placeName'],
-        'sessionDate': json['sessionDate'] == null ? undefined : (new Date(json['sessionDate'])),
+        'sessionDateTime': json['sessionDateTime'] == null ? undefined : (new Date(json['sessionDateTime'])),
         'sessionContents': json['sessionContents'] == null ? undefined : CotatoSessionContentsFromJSON(json['sessionContents']),
     };
 }
@@ -130,7 +130,7 @@ export function CotatoSessionListResponseToJSON(value?: CotatoSessionListRespons
         'description': value['description'],
         'generationId': value['generationId'],
         'placeName': value['placeName'],
-        'sessionDate': value['sessionDate'] == null ? undefined : ((value['sessionDate']).toISOString().substring(0,10)),
+        'sessionDateTime': value['sessionDateTime'] == null ? undefined : ((value['sessionDateTime']).toISOString()),
         'sessionContents': CotatoSessionContentsToJSON(value['sessionContents']),
     };
 }

@@ -55,7 +55,7 @@ export interface CotatoUpdateSessionRequest {
      * @type {Date}
      * @memberof CotatoUpdateSessionRequest
      */
-    sessionDate: Date;
+    sessionDateTime: Date;
     /**
      * 
      * @type {string}
@@ -143,7 +143,7 @@ export type CotatoUpdateSessionRequestDevTalkEnum = typeof CotatoUpdateSessionRe
  */
 export function instanceOfCotatoUpdateSessionRequest(value: object): value is CotatoUpdateSessionRequest {
     if (!('sessionId' in value) || value['sessionId'] === undefined) return false;
-    if (!('sessionDate' in value) || value['sessionDate'] === undefined) return false;
+    if (!('sessionDateTime' in value) || value['sessionDateTime'] === undefined) return false;
     if (!('itIssue' in value) || value['itIssue'] === undefined) return false;
     if (!('networking' in value) || value['networking'] === undefined) return false;
     if (!('csEducation' in value) || value['csEducation'] === undefined) return false;
@@ -164,7 +164,7 @@ export function CotatoUpdateSessionRequestFromJSONTyped(json: any, ignoreDiscrim
         'sessionId': json['sessionId'],
         'title': json['title'] == null ? undefined : json['title'],
         'description': json['description'] == null ? undefined : json['description'],
-        'sessionDate': (new Date(json['sessionDate'])),
+        'sessionDateTime': (new Date(json['sessionDateTime'])),
         'placeName': json['placeName'] == null ? undefined : json['placeName'],
         'location': json['location'] == null ? undefined : CotatoLocationFromJSON(json['location']),
         'attendTime': json['attendTime'] == null ? undefined : CotatoAttendanceDeadLineDtoFromJSON(json['attendTime']),
@@ -184,7 +184,7 @@ export function CotatoUpdateSessionRequestToJSON(value?: CotatoUpdateSessionRequ
         'sessionId': value['sessionId'],
         'title': value['title'],
         'description': value['description'],
-        'sessionDate': ((value['sessionDate']).toISOString().substring(0,10)),
+        'sessionDateTime': ((value['sessionDateTime']).toISOString()),
         'placeName': value['placeName'],
         'location': CotatoLocationToJSON(value['location']),
         'attendTime': CotatoAttendanceDeadLineDtoToJSON(value['attendTime']),

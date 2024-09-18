@@ -30,7 +30,6 @@ import type {
   CotatoSessionListResponse,
   CotatoUpdateAttendanceRequest,
   CotatoUpdateSessionImageOrderRequest,
-  CotatoUpdateSessionNumberRequest,
   CotatoUpdateSessionRequest,
 } from '../models/index.js';
 import {
@@ -64,8 +63,6 @@ import {
     CotatoUpdateAttendanceRequestToJSON,
     CotatoUpdateSessionImageOrderRequestFromJSON,
     CotatoUpdateSessionImageOrderRequestToJSON,
-    CotatoUpdateSessionNumberRequestFromJSON,
-    CotatoUpdateSessionNumberRequestToJSON,
     CotatoUpdateSessionRequestFromJSON,
     CotatoUpdateSessionRequestToJSON,
 } from '../models/index.js';
@@ -74,7 +71,7 @@ export interface AddSessionRequest {
     generationId: number;
     title: string;
     description: string;
-    sessionDate: Date;
+    sessionDateTime: Date;
     images?: Array<Blob>;
     latitude?: number;
     longitude?: number;
@@ -90,6 +87,7 @@ export interface AddSessionRequest {
 export interface AdditionalSessionImageRequest {
     sessionId: number;
     image: Blob;
+    order: number;
 }
 
 export interface DeleteSessionImageRequest {
@@ -145,10 +143,6 @@ export interface UpdateSessionImageOrderRequest {
     cotatoUpdateSessionImageOrderRequest: CotatoUpdateSessionImageOrderRequest;
 }
 
-export interface UpdateSessionNumberRequest {
-    cotatoUpdateSessionNumberRequest: CotatoUpdateSessionNumberRequest;
-}
-
 /**
  * 
  */
@@ -179,10 +173,10 @@ export class DefaultApi extends runtime.BaseAPI {
             );
         }
 
-        if (requestParameters['sessionDate'] == null) {
+        if (requestParameters['sessionDateTime'] == null) {
             throw new runtime.RequiredError(
-                'sessionDate',
-                'Required parameter "sessionDate" was null or undefined when calling addSession().'
+                'sessionDateTime',
+                'Required parameter "sessionDateTime" was null or undefined when calling addSession().'
             );
         }
 
@@ -244,8 +238,8 @@ export class DefaultApi extends runtime.BaseAPI {
             formParams.append('placeName', requestParameters['placeName'] as any);
         }
 
-        if (requestParameters['sessionDate'] != null) {
-            formParams.append('sessionDate', requestParameters['sessionDate'] as any);
+        if (requestParameters['sessionDateTime'] != null) {
+            formParams.append('sessionDateTime', requestParameters['sessionDateTime'] as any);
         }
 
         if (requestParameters['attendanceDeadLine'] != null) {
@@ -309,6 +303,13 @@ export class DefaultApi extends runtime.BaseAPI {
             );
         }
 
+        if (requestParameters['order'] == null) {
+            throw new runtime.RequiredError(
+                'order',
+                'Required parameter "order" was null or undefined when calling additionalSessionImage().'
+            );
+        }
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -343,6 +344,10 @@ export class DefaultApi extends runtime.BaseAPI {
 
         if (requestParameters['image'] != null) {
             formParams.append('image', requestParameters['image'] as any);
+        }
+
+        if (requestParameters['order'] != null) {
+            formParams.append('order', requestParameters['order'] as any);
         }
 
         const response = await this.request({
@@ -937,49 +942,6 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async updateSessionImageOrder(requestParameters: UpdateSessionImageOrderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.updateSessionImageOrderRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     * 세션 숫자 변경 API
-     */
-    async updateSessionNumberRaw(requestParameters: UpdateSessionNumberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['cotatoUpdateSessionNumberRequest'] == null) {
-            throw new runtime.RequiredError(
-                'cotatoUpdateSessionNumberRequest',
-                'Required parameter "cotatoUpdateSessionNumberRequest" was null or undefined when calling updateSessionNumber().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearerAuth", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/v1/api/session/number`,
-            method: 'PATCH',
-            headers: headerParameters,
-            query: queryParameters,
-            body: CotatoUpdateSessionNumberRequestToJSON(requestParameters['cotatoUpdateSessionNumberRequest']),
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     * 세션 숫자 변경 API
-     */
-    async updateSessionNumber(requestParameters: UpdateSessionNumberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.updateSessionNumberRaw(requestParameters, initOverrides);
     }
 
 }

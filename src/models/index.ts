@@ -96,6 +96,5 @@ export * from './CotatoUpdatePasswordRequest.js';
 export * from './CotatoUpdatePhoneNumberRequest.js';
 export * from './CotatoUpdateSessionImageOrderInfoRequest.js';
 export * from './CotatoUpdateSessionImageOrderRequest.js';
-export * from './CotatoUpdateSessionNumberRequest.js';
 export * from './CotatoUpdateSessionRequest.js';
 export * from './CotatoWinnerInfoResponse.js';

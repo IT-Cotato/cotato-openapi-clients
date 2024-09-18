@@ -106,7 +106,6 @@ models/CotatoUpdatePasswordRequest.ts
 models/CotatoUpdatePhoneNumberRequest.ts
 models/CotatoUpdateSessionImageOrderInfoRequest.ts
 models/CotatoUpdateSessionImageOrderRequest.ts
-models/CotatoUpdateSessionNumberRequest.ts
 models/CotatoUpdateSessionRequest.ts
 models/CotatoWinnerInfoResponse.ts
 models/index.ts
