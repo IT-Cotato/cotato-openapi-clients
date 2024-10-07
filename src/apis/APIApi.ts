@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * CS-QUIZ 프로젝트 API 명세서
- * quiz api 명세서
+ * COTATO 프로젝트 API 명세서
+ * api 명세서
  *
  * The version of the OpenAPI document: v1
  * 
@@ -103,6 +103,7 @@ export interface CreateProjectImageRequest {
     projectId?: number;
     logoImage?: Blob;
     thumbNailImage?: Blob;
+    detailImages?: Array<Blob>;
 }
 
 export interface FindEmailRequest {
@@ -380,6 +381,8 @@ export class APIApi extends runtime.BaseAPI {
         useForm = canConsumeForm;
         // use FormData to transmit files using content-type "multipart/form-data"
         useForm = canConsumeForm;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        useForm = canConsumeForm;
         if (useForm) {
             formParams = new FormData();
         } else {
@@ -398,6 +401,12 @@ export class APIApi extends runtime.BaseAPI {
             formParams.append('thumbNailImage', requestParameters['thumbNailImage'] as any);
         }
 
+        if (requestParameters['detailImages'] != null) {
+            requestParameters['detailImages'].forEach((element) => {
+                formParams.append('detailImages', element as any);
+            })
+        }
+
         const response = await this.request({
             path: `/v2/api/projects/images`,
             method: 'POST',
@@ -414,6 +423,38 @@ export class APIApi extends runtime.BaseAPI {
      */
     async createProjectImage(requestParameters: CreateProjectImageRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.createProjectImageRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     */
+    async findCurrentGenerationRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoGenerationInfoResponse>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v1/api/generation/current`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CotatoGenerationInfoResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async findCurrentGeneration(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoGenerationInfoResponse> {
+        const response = await this.findCurrentGenerationRaw(initOverrides);
+        return await response.value();
     }
 
     /**

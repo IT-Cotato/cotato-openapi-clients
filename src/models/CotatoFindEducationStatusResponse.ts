@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * CS-QUIZ 프로젝트 API 명세서
- * quiz api 명세서
+ * COTATO 프로젝트 API 명세서
+ * api 명세서
  *
  * The version of the OpenAPI document: v1
  * 
