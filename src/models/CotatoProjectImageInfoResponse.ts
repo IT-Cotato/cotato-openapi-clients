@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * CS-QUIZ 프로젝트 API 명세서
- * quiz api 명세서
+ * COTATO 프로젝트 API 명세서
+ * api 명세서
  *
  * The version of the OpenAPI document: v1
  * 
@@ -37,6 +37,12 @@ export interface CotatoProjectImageInfoResponse {
      * @memberof CotatoProjectImageInfoResponse
      */
     projectImageType?: CotatoProjectImageInfoResponseProjectImageTypeEnum;
+    /**
+     * 
+     * @type {number}
+     * @memberof CotatoProjectImageInfoResponse
+     */
+    imageOrder?: number;
 }
 
 
@@ -71,6 +77,7 @@ export function CotatoProjectImageInfoResponseFromJSONTyped(json: any, ignoreDis
         'imageId': json['imageId'] == null ? undefined : json['imageId'],
         'imageUrl': json['imageUrl'] == null ? undefined : json['imageUrl'],
         'projectImageType': json['projectImageType'] == null ? undefined : json['projectImageType'],
+        'imageOrder': json['imageOrder'] == null ? undefined : json['imageOrder'],
     };
 }
 
@@ -83,6 +90,7 @@ export function CotatoProjectImageInfoResponseToJSON(value?: CotatoProjectImageI
         'imageId': value['imageId'],
         'imageUrl': value['imageUrl'],
         'projectImageType': value['projectImageType'],
+        'imageOrder': value['imageOrder'],
     };
 }
 
