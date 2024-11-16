@@ -73,7 +73,8 @@ export const CotatoMemberEnrollInfoResponseRoleEnum = {
     Member: 'MEMBER',
     OldMember: 'OLD_MEMBER',
     Admin: 'ADMIN',
-    Education: 'EDUCATION'
+    Education: 'EDUCATION',
+    Operation: 'OPERATION'
 } as const;
 export type CotatoMemberEnrollInfoResponseRoleEnum = typeof CotatoMemberEnrollInfoResponseRoleEnum[keyof typeof CotatoMemberEnrollInfoResponseRoleEnum];
 

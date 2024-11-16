@@ -42,7 +42,7 @@ export interface CotatoAttendanceResponse {
      * @type {Date}
      * @memberof CotatoAttendanceResponse
      */
-    sessionDate?: Date;
+    sessionDateTime?: Date;
     /**
      * 
      * @type {string}
@@ -85,7 +85,7 @@ export function CotatoAttendanceResponseFromJSONTyped(json: any, ignoreDiscrimin
         'sessionId': json['sessionId'] == null ? undefined : json['sessionId'],
         'attendanceId': json['attendanceId'] == null ? undefined : json['attendanceId'],
         'sessionTitle': json['sessionTitle'] == null ? undefined : json['sessionTitle'],
-        'sessionDate': json['sessionDate'] == null ? undefined : (new Date(json['sessionDate'])),
+        'sessionDateTime': json['sessionDateTime'] == null ? undefined : (new Date(json['sessionDateTime'])),
         'openStatus': json['openStatus'] == null ? undefined : json['openStatus'],
     };
 }
@@ -99,7 +99,7 @@ export function CotatoAttendanceResponseToJSON(value?: CotatoAttendanceResponse 
         'sessionId': value['sessionId'],
         'attendanceId': value['attendanceId'],
         'sessionTitle': value['sessionTitle'],
-        'sessionDate': value['sessionDate'] == null ? undefined : ((value['sessionDate']).toISOString().substring(0,10)),
+        'sessionDateTime': value['sessionDateTime'] == null ? undefined : ((value['sessionDateTime']).toISOString()),
         'openStatus': value['openStatus'],
     };
 }

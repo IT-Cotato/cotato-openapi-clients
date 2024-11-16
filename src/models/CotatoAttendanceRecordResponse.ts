@@ -13,12 +13,6 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { CotatoAttendanceStatistic } from './CotatoAttendanceStatistic.js';
-import {
-    CotatoAttendanceStatisticFromJSON,
-    CotatoAttendanceStatisticFromJSONTyped,
-    CotatoAttendanceStatisticToJSON,
-} from './CotatoAttendanceStatistic.js';
 import type { CotatoAttendanceMemberInfo } from './CotatoAttendanceMemberInfo.js';
 import {
     CotatoAttendanceMemberInfoFromJSON,
@@ -40,11 +34,24 @@ export interface CotatoAttendanceRecordResponse {
     memberInfo?: CotatoAttendanceMemberInfo;
     /**
      * 
-     * @type {CotatoAttendanceStatistic}
+     * @type {string}
      * @memberof CotatoAttendanceRecordResponse
      */
-    statistic?: CotatoAttendanceStatistic;
+    result?: CotatoAttendanceRecordResponseResultEnum;
 }
+
+
+/**
+ * @export
+ */
+export const CotatoAttendanceRecordResponseResultEnum = {
+    Offline: 'OFFLINE',
+    Online: 'ONLINE',
+    Late: 'LATE',
+    Absent: 'ABSENT'
+} as const;
+export type CotatoAttendanceRecordResponseResultEnum = typeof CotatoAttendanceRecordResponseResultEnum[keyof typeof CotatoAttendanceRecordResponseResultEnum];
+
 
 /**
  * Check if a given object implements the CotatoAttendanceRecordResponse interface.
@@ -64,7 +71,7 @@ export function CotatoAttendanceRecordResponseFromJSONTyped(json: any, ignoreDis
     return {
         
         'memberInfo': json['memberInfo'] == null ? undefined : CotatoAttendanceMemberInfoFromJSON(json['memberInfo']),
-        'statistic': json['statistic'] == null ? undefined : CotatoAttendanceStatisticFromJSON(json['statistic']),
+        'result': json['result'] == null ? undefined : json['result'],
     };
 }
 
@@ -75,7 +82,7 @@ export function CotatoAttendanceRecordResponseToJSON(value?: CotatoAttendanceRec
     return {
         
         'memberInfo': CotatoAttendanceMemberInfoToJSON(value['memberInfo']),
-        'statistic': CotatoAttendanceStatisticToJSON(value['statistic']),
+        'result': value['result'],
     };
 }
 

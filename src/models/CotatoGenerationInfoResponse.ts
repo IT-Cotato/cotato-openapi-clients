@@ -37,6 +37,18 @@ export interface CotatoGenerationInfoResponse {
      * @memberof CotatoGenerationInfoResponse
      */
     sessionCount?: number;
+    /**
+     * 
+     * @type {Date}
+     * @memberof CotatoGenerationInfoResponse
+     */
+    startDate?: Date;
+    /**
+     * 
+     * @type {Date}
+     * @memberof CotatoGenerationInfoResponse
+     */
+    endDate?: Date;
 }
 
 /**
@@ -59,6 +71,8 @@ export function CotatoGenerationInfoResponseFromJSONTyped(json: any, ignoreDiscr
         'generationId': json['generationId'] == null ? undefined : json['generationId'],
         'generationNumber': json['generationNumber'] == null ? undefined : json['generationNumber'],
         'sessionCount': json['sessionCount'] == null ? undefined : json['sessionCount'],
+        'startDate': json['startDate'] == null ? undefined : (new Date(json['startDate'])),
+        'endDate': json['endDate'] == null ? undefined : (new Date(json['endDate'])),
     };
 }
 
@@ -71,6 +85,8 @@ export function CotatoGenerationInfoResponseToJSON(value?: CotatoGenerationInfoR
         'generationId': value['generationId'],
         'generationNumber': value['generationNumber'],
         'sessionCount': value['sessionCount'],
+        'startDate': value['startDate'] == null ? undefined : ((value['startDate']).toISOString().substring(0,10)),
+        'endDate': value['endDate'] == null ? undefined : ((value['endDate']).toISOString().substring(0,10)),
     };
 }
 

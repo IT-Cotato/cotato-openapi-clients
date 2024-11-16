@@ -50,6 +50,7 @@ models/CotatoFindEducationStatusResponse.ts
 models/CotatoFindMemberPolicyResponse.ts
 models/CotatoFindPasswordResponse.ts
 models/CotatoGenerationInfoResponse.ts
+models/CotatoGenerationMemberAttendanceRecordResponse.ts
 models/CotatoHallOfFameInfo.ts
 models/CotatoHallOfFameResponse.ts
 models/CotatoJoinRequest.ts
@@ -93,12 +94,14 @@ models/CotatoSendEmailRequest.ts
 models/CotatoSessionContents.ts
 models/CotatoSessionListImageInfoResponse.ts
 models/CotatoSessionListResponse.ts
+models/CotatoSessionWithAttendanceResponse.ts
 models/CotatoShortAnswerResponse.ts
 models/CotatoShortQuizResponse.ts
 models/CotatoSocketTokenDto.ts
 models/CotatoSseEmitter.ts
 models/CotatoUpdateActiveMemberRoleRequest.ts
 models/CotatoUpdateActiveMemberToOldMemberRequest.ts
+models/CotatoUpdateAttendanceRecordRequest.ts
 models/CotatoUpdateAttendanceRequest.ts
 models/CotatoUpdateEducationRequest.ts
 models/CotatoUpdateOldMemberRoleRequest.ts

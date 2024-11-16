@@ -31,10 +31,6 @@ import {
     CotatoUpdatePhoneNumberRequestToJSON,
 } from '../models/index.js';
 
-export interface DeleteProfileImageRequest {
-    authorization: string;
-}
-
 export interface FindMyPageInfoRequest {
     memberId: number;
 }
@@ -48,7 +44,6 @@ export interface UpdatePhoneNumberRequest {
 }
 
 export interface UpdateProfileImageRequest {
-    authorization: string;
     image: Blob;
 }
 
@@ -60,21 +55,10 @@ export class MemberControllerApi extends runtime.BaseAPI {
     /**
      * 멤버 프로필 사진 삭제 API
      */
-    async deleteProfileImageRaw(requestParameters: DeleteProfileImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['authorization'] == null) {
-            throw new runtime.RequiredError(
-                'authorization',
-                'Required parameter "authorization" was null or undefined when calling deleteProfileImage().'
-            );
-        }
-
+    async deleteProfileImageRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters['authorization'] != null) {
-            headerParameters['Authorization'] = String(requestParameters['authorization']);
-        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -97,8 +81,8 @@ export class MemberControllerApi extends runtime.BaseAPI {
     /**
      * 멤버 프로필 사진 삭제 API
      */
-    async deleteProfileImage(requestParameters: DeleteProfileImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.deleteProfileImageRaw(requestParameters, initOverrides);
+    async deleteProfileImage(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteProfileImageRaw(initOverrides);
     }
 
     /**
@@ -260,13 +244,6 @@ export class MemberControllerApi extends runtime.BaseAPI {
      * 멤버 프로필 사진 수정 API
      */
     async updateProfileImageRaw(requestParameters: UpdateProfileImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['authorization'] == null) {
-            throw new runtime.RequiredError(
-                'authorization',
-                'Required parameter "authorization" was null or undefined when calling updateProfileImage().'
-            );
-        }
-
         if (requestParameters['image'] == null) {
             throw new runtime.RequiredError(
                 'image',
@@ -277,10 +254,6 @@ export class MemberControllerApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters['authorization'] != null) {
-            headerParameters['Authorization'] = String(requestParameters['authorization']);
-        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;

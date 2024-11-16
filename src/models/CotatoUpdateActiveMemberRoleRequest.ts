@@ -43,7 +43,8 @@ export const CotatoUpdateActiveMemberRoleRequestRoleEnum = {
     Member: 'MEMBER',
     OldMember: 'OLD_MEMBER',
     Admin: 'ADMIN',
-    Education: 'EDUCATION'
+    Education: 'EDUCATION',
+    Operation: 'OPERATION'
 } as const;
 export type CotatoUpdateActiveMemberRoleRequestRoleEnum = typeof CotatoUpdateActiveMemberRoleRequestRoleEnum[keyof typeof CotatoUpdateActiveMemberRoleRequestRoleEnum];
 

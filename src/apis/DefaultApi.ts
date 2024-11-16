@@ -23,11 +23,14 @@ import type {
   CotatoAttendancesResponse,
   CotatoCsEducationOnSessionNumberResponse,
   CotatoDeleteSessionImageRequest,
+  CotatoGenerationMemberAttendanceRecordResponse,
   CotatoLocalTime,
   CotatoMemberAttendanceRecordsResponse,
   CotatoOfflineAttendanceRequest,
   CotatoOnlineAttendanceRequest,
   CotatoSessionListResponse,
+  CotatoSessionWithAttendanceResponse,
+  CotatoUpdateAttendanceRecordRequest,
   CotatoUpdateAttendanceRequest,
   CotatoUpdateSessionImageOrderRequest,
   CotatoUpdateSessionRequest,
@@ -49,6 +52,8 @@ import {
     CotatoCsEducationOnSessionNumberResponseToJSON,
     CotatoDeleteSessionImageRequestFromJSON,
     CotatoDeleteSessionImageRequestToJSON,
+    CotatoGenerationMemberAttendanceRecordResponseFromJSON,
+    CotatoGenerationMemberAttendanceRecordResponseToJSON,
     CotatoLocalTimeFromJSON,
     CotatoLocalTimeToJSON,
     CotatoMemberAttendanceRecordsResponseFromJSON,
@@ -59,6 +64,10 @@ import {
     CotatoOnlineAttendanceRequestToJSON,
     CotatoSessionListResponseFromJSON,
     CotatoSessionListResponseToJSON,
+    CotatoSessionWithAttendanceResponseFromJSON,
+    CotatoSessionWithAttendanceResponseToJSON,
+    CotatoUpdateAttendanceRecordRequestFromJSON,
+    CotatoUpdateAttendanceRecordRequestToJSON,
     CotatoUpdateAttendanceRequestFromJSON,
     CotatoUpdateAttendanceRequestToJSON,
     CotatoUpdateSessionImageOrderRequestFromJSON,
@@ -94,6 +103,10 @@ export interface DeleteSessionImageRequest {
     cotatoDeleteSessionImageRequest: CotatoDeleteSessionImageRequest;
 }
 
+export interface DownloadAttendanceRecordsAsExcelBySessionsRequest {
+    attendanceIds: Array<number>;
+}
+
 export interface FindAllCsOnSessionsByGenerationIdRequest {
     generationId: number;
 }
@@ -104,7 +117,6 @@ export interface FindAllRecordsByGenerationRequest {
 
 export interface FindAttendanceRecordsRequest {
     generationId: number;
-    month?: number;
 }
 
 export interface FindAttendanceRecordsByAttendanceRequest {
@@ -117,6 +129,10 @@ export interface FindAttendanceTimeInfoRequest {
 
 export interface FindAttendancesByGenerationRequest {
     generationId: number;
+}
+
+export interface FindSessionRequest {
+    id: number;
 }
 
 export interface FindSessionsByGenerationIdRequest {
@@ -133,6 +149,11 @@ export interface SubmitOnlineAttendanceRecordRequest {
 
 export interface UpdateAttendanceRequest {
     cotatoUpdateAttendanceRequest: CotatoUpdateAttendanceRequest;
+}
+
+export interface UpdateAttendanceRecordsRequest {
+    attendanceId: number;
+    cotatoUpdateAttendanceRecordRequest: CotatoUpdateAttendanceRecordRequest;
 }
 
 export interface UpdateSessionRequest {
@@ -413,6 +434,56 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
+     * 세션별 출석 기록 엑셀 다운로드 API
+     */
+    async downloadAttendanceRecordsAsExcelBySessionsRaw(requestParameters: DownloadAttendanceRecordsAsExcelBySessionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        if (requestParameters['attendanceIds'] == null) {
+            throw new runtime.RequiredError(
+                'attendanceIds',
+                'Required parameter "attendanceIds" was null or undefined when calling downloadAttendanceRecordsAsExcelBySessions().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['attendanceIds'] != null) {
+            queryParameters['attendanceIds'] = requestParameters['attendanceIds'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v2/api/attendances/excel`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     * 세션별 출석 기록 엑셀 다운로드 API
+     */
+    async downloadAttendanceRecordsAsExcelBySessions(requestParameters: DownloadAttendanceRecordsAsExcelBySessionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.downloadAttendanceRecordsAsExcelBySessionsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 세션과 교육 연계 제거 시 삭제 예정
      * CS ON인 세션 목록 반환 API
      */
     async findAllCsOnSessionsByGenerationIdRaw(requestParameters: FindAllCsOnSessionsByGenerationIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<CotatoCsEducationOnSessionNumberResponse>>> {
@@ -450,6 +521,7 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
+     * 세션과 교육 연계 제거 시 삭제 예정
      * CS ON인 세션 목록 반환 API
      */
     async findAllCsOnSessionsByGenerationId(requestParameters: FindAllCsOnSessionsByGenerationIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<CotatoCsEducationOnSessionNumberResponse>> {
@@ -503,9 +575,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * 회원 출결사항 기간 단위 조회 API
+     * 회원 출결사항 기수 단위 조회 API
      */
-    async findAttendanceRecordsRaw(requestParameters: FindAttendanceRecordsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<CotatoAttendanceRecordResponse>>> {
+    async findAttendanceRecordsRaw(requestParameters: FindAttendanceRecordsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<CotatoGenerationMemberAttendanceRecordResponse>>> {
         if (requestParameters['generationId'] == null) {
             throw new runtime.RequiredError(
                 'generationId',
@@ -517,10 +589,6 @@ export class DefaultApi extends runtime.BaseAPI {
 
         if (requestParameters['generationId'] != null) {
             queryParameters['generationId'] = requestParameters['generationId'];
-        }
-
-        if (requestParameters['month'] != null) {
-            queryParameters['month'] = requestParameters['month'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -540,13 +608,13 @@ export class DefaultApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(CotatoAttendanceRecordResponseFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(CotatoGenerationMemberAttendanceRecordResponseFromJSON));
     }
 
     /**
-     * 회원 출결사항 기간 단위 조회 API
+     * 회원 출결사항 기수 단위 조회 API
      */
-    async findAttendanceRecords(requestParameters: FindAttendanceRecordsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<CotatoAttendanceRecordResponse>> {
+    async findAttendanceRecords(requestParameters: FindAttendanceRecordsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<CotatoGenerationMemberAttendanceRecordResponse>> {
         const response = await this.findAttendanceRecordsRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -679,6 +747,47 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async findAttendancesByGeneration(requestParameters: FindAttendancesByGenerationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoAttendancesResponse> {
         const response = await this.findAttendancesByGenerationRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 세션 단건 조회 API
+     */
+    async findSessionRaw(requestParameters: FindSessionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoSessionWithAttendanceResponse>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling findSession().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v1/api/session/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CotatoSessionWithAttendanceResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 세션 단건 조회 API
+     */
+    async findSession(requestParameters: FindSessionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoSessionWithAttendanceResponse> {
+        const response = await this.findSessionRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -856,6 +965,56 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async updateAttendance(requestParameters: UpdateAttendanceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.updateAttendanceRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * 회원 출결사항 수정 API
+     */
+    async updateAttendanceRecordsRaw(requestParameters: UpdateAttendanceRecordsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['attendanceId'] == null) {
+            throw new runtime.RequiredError(
+                'attendanceId',
+                'Required parameter "attendanceId" was null or undefined when calling updateAttendanceRecords().'
+            );
+        }
+
+        if (requestParameters['cotatoUpdateAttendanceRecordRequest'] == null) {
+            throw new runtime.RequiredError(
+                'cotatoUpdateAttendanceRecordRequest',
+                'Required parameter "cotatoUpdateAttendanceRecordRequest" was null or undefined when calling updateAttendanceRecords().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v2/api/attendances/{attendance-id}/records`.replace(`{${"attendance-id"}}`, encodeURIComponent(String(requestParameters['attendanceId']))),
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CotatoUpdateAttendanceRecordRequestToJSON(requestParameters['cotatoUpdateAttendanceRecordRequest']),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * 회원 출결사항 수정 API
+     */
+    async updateAttendanceRecords(requestParameters: UpdateAttendanceRecordsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.updateAttendanceRecordsRaw(requestParameters, initOverrides);
     }
 
     /**

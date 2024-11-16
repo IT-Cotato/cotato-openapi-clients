@@ -111,6 +111,10 @@ export interface FindEmailRequest {
     phone: string;
 }
 
+export interface FindGenerationByIdRequest {
+    generationId: number;
+}
+
 export interface GetProjectDetailRequest {
     projectId: number;
 }
@@ -426,6 +430,7 @@ export class APIApi extends runtime.BaseAPI {
     }
 
     /**
+     * 현재 날짜 기준 세션 정보 반환 API
      */
     async findCurrentGenerationRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoGenerationInfoResponse>> {
         const queryParameters: any = {};
@@ -451,6 +456,7 @@ export class APIApi extends runtime.BaseAPI {
     }
 
     /**
+     * 현재 날짜 기준 세션 정보 반환 API
      */
     async findCurrentGeneration(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoGenerationInfoResponse> {
         const response = await this.findCurrentGenerationRaw(initOverrides);
@@ -508,6 +514,47 @@ export class APIApi extends runtime.BaseAPI {
      */
     async findEmail(requestParameters: FindEmailRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoMemberEmailResponse> {
         const response = await this.findEmailRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 기수 단건 조회 API
+     */
+    async findGenerationByIdRaw(requestParameters: FindGenerationByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoGenerationInfoResponse>> {
+        if (requestParameters['generationId'] == null) {
+            throw new runtime.RequiredError(
+                'generationId',
+                'Required parameter "generationId" was null or undefined when calling findGenerationById().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v1/api/generation/{generationId}`.replace(`{${"generationId"}}`, encodeURIComponent(String(requestParameters['generationId']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CotatoGenerationInfoResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 기수 단건 조회 API
+     */
+    async findGenerationById(requestParameters: FindGenerationByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoGenerationInfoResponse> {
+        const response = await this.findGenerationByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -55,7 +55,7 @@ export interface CotatoJoinRequest {
      * @type {Array<CotatoCheckPolicyRequest>}
      * @memberof CotatoJoinRequest
      */
-    policies?: Array<CotatoCheckPolicyRequest>;
+    policies: Array<CotatoCheckPolicyRequest>;
 }
 
 /**
@@ -66,6 +66,7 @@ export function instanceOfCotatoJoinRequest(value: object): value is CotatoJoinR
     if (!('password' in value) || value['password'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('phoneNumber' in value) || value['phoneNumber'] === undefined) return false;
+    if (!('policies' in value) || value['policies'] === undefined) return false;
     return true;
 }
 
@@ -83,7 +84,7 @@ export function CotatoJoinRequestFromJSONTyped(json: any, ignoreDiscriminator: b
         'password': json['password'],
         'name': json['name'],
         'phoneNumber': json['phoneNumber'],
-        'policies': json['policies'] == null ? undefined : ((json['policies'] as Array<any>).map(CotatoCheckPolicyRequestFromJSON)),
+        'policies': ((json['policies'] as Array<any>).map(CotatoCheckPolicyRequestFromJSON)),
     };
 }
 
@@ -97,7 +98,7 @@ export function CotatoJoinRequestToJSON(value?: CotatoJoinRequest | null): any {
         'password': value['password'],
         'name': value['name'],
         'phoneNumber': value['phoneNumber'],
-        'policies': value['policies'] == null ? undefined : ((value['policies'] as Array<any>).map(CotatoCheckPolicyRequestToJSON)),
+        'policies': ((value['policies'] as Array<any>).map(CotatoCheckPolicyRequestToJSON)),
     };
 }
 
