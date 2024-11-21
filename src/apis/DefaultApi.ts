@@ -24,7 +24,6 @@ import type {
   CotatoCsEducationOnSessionNumberResponse,
   CotatoDeleteSessionImageRequest,
   CotatoGenerationMemberAttendanceRecordResponse,
-  CotatoLocalTime,
   CotatoMemberAttendanceRecordsResponse,
   CotatoOfflineAttendanceRequest,
   CotatoOnlineAttendanceRequest,
@@ -54,8 +53,6 @@ import {
     CotatoDeleteSessionImageRequestToJSON,
     CotatoGenerationMemberAttendanceRecordResponseFromJSON,
     CotatoGenerationMemberAttendanceRecordResponseToJSON,
-    CotatoLocalTimeFromJSON,
-    CotatoLocalTimeToJSON,
     CotatoMemberAttendanceRecordsResponseFromJSON,
     CotatoMemberAttendanceRecordsResponseToJSON,
     CotatoOfflineAttendanceRequestFromJSON,
@@ -85,8 +82,8 @@ export interface AddSessionRequest {
     latitude?: number;
     longitude?: number;
     placeName?: string;
-    attendanceDeadLine?: CotatoLocalTime;
-    lateDeadLine?: CotatoLocalTime;
+    attendanceDeadLine?: Date;
+    lateDeadLine?: Date;
     itIssue?: AddSessionItIssueEnum;
     networking?: AddSessionNetworkingEnum;
     csEducation?: AddSessionCsEducationEnum;
@@ -264,12 +261,12 @@ export class DefaultApi extends runtime.BaseAPI {
         }
 
         if (requestParameters['attendanceDeadLine'] != null) {
-            formParams.append('attendanceDeadLine', new Blob([JSON.stringify(CotatoLocalTimeToJSON(requestParameters['attendanceDeadLine']))], { type: "application/json", }));
-                    }
+            formParams.append('attendanceDeadLine', requestParameters['attendanceDeadLine'] as any);
+        }
 
         if (requestParameters['lateDeadLine'] != null) {
-            formParams.append('lateDeadLine', new Blob([JSON.stringify(CotatoLocalTimeToJSON(requestParameters['lateDeadLine']))], { type: "application/json", }));
-                    }
+            formParams.append('lateDeadLine', requestParameters['lateDeadLine'] as any);
+        }
 
         if (requestParameters['itIssue'] != null) {
             formParams.append('itIssue', requestParameters['itIssue'] as any);

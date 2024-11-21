@@ -19,12 +19,6 @@ import {
     CotatoLocationFromJSONTyped,
     CotatoLocationToJSON,
 } from './CotatoLocation.js';
-import type { CotatoLocalTime } from './CotatoLocalTime.js';
-import {
-    CotatoLocalTimeFromJSON,
-    CotatoLocalTimeFromJSONTyped,
-    CotatoLocalTimeToJSON,
-} from './CotatoLocalTime.js';
 
 /**
  * 
@@ -40,16 +34,16 @@ export interface CotatoAttendanceTimeResponse {
     sessionId?: number;
     /**
      * 
-     * @type {CotatoLocalTime}
+     * @type {Date}
      * @memberof CotatoAttendanceTimeResponse
      */
-    attendanceDeadLine?: CotatoLocalTime;
+    attendanceDeadLine: Date;
     /**
      * 
-     * @type {CotatoLocalTime}
+     * @type {Date}
      * @memberof CotatoAttendanceTimeResponse
      */
-    lateDeadLine?: CotatoLocalTime;
+    lateDeadLine: Date;
     /**
      * 
      * @type {CotatoLocation}
@@ -62,6 +56,8 @@ export interface CotatoAttendanceTimeResponse {
  * Check if a given object implements the CotatoAttendanceTimeResponse interface.
  */
 export function instanceOfCotatoAttendanceTimeResponse(value: object): value is CotatoAttendanceTimeResponse {
+    if (!('attendanceDeadLine' in value) || value['attendanceDeadLine'] === undefined) return false;
+    if (!('lateDeadLine' in value) || value['lateDeadLine'] === undefined) return false;
     return true;
 }
 
@@ -76,8 +72,8 @@ export function CotatoAttendanceTimeResponseFromJSONTyped(json: any, ignoreDiscr
     return {
         
         'sessionId': json['sessionId'] == null ? undefined : json['sessionId'],
-        'attendanceDeadLine': json['attendanceDeadLine'] == null ? undefined : CotatoLocalTimeFromJSON(json['attendanceDeadLine']),
-        'lateDeadLine': json['lateDeadLine'] == null ? undefined : CotatoLocalTimeFromJSON(json['lateDeadLine']),
+        'attendanceDeadLine': (new Date(json['attendanceDeadLine'])),
+        'lateDeadLine': (new Date(json['lateDeadLine'])),
         'location': json['location'] == null ? undefined : CotatoLocationFromJSON(json['location']),
     };
 }
@@ -89,8 +85,8 @@ export function CotatoAttendanceTimeResponseToJSON(value?: CotatoAttendanceTimeR
     return {
         
         'sessionId': value['sessionId'],
-        'attendanceDeadLine': CotatoLocalTimeToJSON(value['attendanceDeadLine']),
-        'lateDeadLine': CotatoLocalTimeToJSON(value['lateDeadLine']),
+        'attendanceDeadLine': ((value['attendanceDeadLine']).toISOString()),
+        'lateDeadLine': ((value['lateDeadLine']).toISOString()),
         'location': CotatoLocationToJSON(value['location']),
     };
 }

@@ -56,7 +56,6 @@ models/CotatoHallOfFameResponse.ts
 models/CotatoJoinRequest.ts
 models/CotatoJoinResponse.ts
 models/CotatoKingMemberInfo.ts
-models/CotatoLocalTime.ts
 models/CotatoLocation.ts
 models/CotatoLoginPostRequest.ts
 models/CotatoLogoutRequest.ts

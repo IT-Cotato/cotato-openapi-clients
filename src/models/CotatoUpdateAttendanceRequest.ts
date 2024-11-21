@@ -49,7 +49,7 @@ export interface CotatoUpdateAttendanceRequest {
      * @type {CotatoAttendanceDeadLineDto}
      * @memberof CotatoUpdateAttendanceRequest
      */
-    attendTime?: CotatoAttendanceDeadLineDto;
+    attendTime: CotatoAttendanceDeadLineDto;
 }
 
 /**
@@ -57,6 +57,7 @@ export interface CotatoUpdateAttendanceRequest {
  */
 export function instanceOfCotatoUpdateAttendanceRequest(value: object): value is CotatoUpdateAttendanceRequest {
     if (!('attendanceId' in value) || value['attendanceId'] === undefined) return false;
+    if (!('attendTime' in value) || value['attendTime'] === undefined) return false;
     return true;
 }
 
@@ -72,7 +73,7 @@ export function CotatoUpdateAttendanceRequestFromJSONTyped(json: any, ignoreDisc
         
         'attendanceId': json['attendanceId'],
         'location': json['location'] == null ? undefined : CotatoLocationFromJSON(json['location']),
-        'attendTime': json['attendTime'] == null ? undefined : CotatoAttendanceDeadLineDtoFromJSON(json['attendTime']),
+        'attendTime': CotatoAttendanceDeadLineDtoFromJSON(json['attendTime']),
     };
 }
 

@@ -46,7 +46,6 @@ export * from './CotatoHallOfFameResponse.js';
 export * from './CotatoJoinRequest.js';
 export * from './CotatoJoinResponse.js';
 export * from './CotatoKingMemberInfo.js';
-export * from './CotatoLocalTime.js';
 export * from './CotatoLocation.js';
 export * from './CotatoLoginPostRequest.js';
 export * from './CotatoLogoutRequest.js';

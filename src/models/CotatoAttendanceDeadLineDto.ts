@@ -13,13 +13,6 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { CotatoLocalTime } from './CotatoLocalTime.js';
-import {
-    CotatoLocalTimeFromJSON,
-    CotatoLocalTimeFromJSONTyped,
-    CotatoLocalTimeToJSON,
-} from './CotatoLocalTime.js';
-
 /**
  * 
  * @export
@@ -28,16 +21,16 @@ import {
 export interface CotatoAttendanceDeadLineDto {
     /**
      * 
-     * @type {CotatoLocalTime}
+     * @type {Date}
      * @memberof CotatoAttendanceDeadLineDto
      */
-    attendanceDeadLine?: CotatoLocalTime;
+    attendanceDeadLine?: Date;
     /**
      * 
-     * @type {CotatoLocalTime}
+     * @type {Date}
      * @memberof CotatoAttendanceDeadLineDto
      */
-    lateDeadLine?: CotatoLocalTime;
+    lateDeadLine?: Date;
 }
 
 /**
@@ -57,8 +50,8 @@ export function CotatoAttendanceDeadLineDtoFromJSONTyped(json: any, ignoreDiscri
     }
     return {
         
-        'attendanceDeadLine': json['attendanceDeadLine'] == null ? undefined : CotatoLocalTimeFromJSON(json['attendanceDeadLine']),
-        'lateDeadLine': json['lateDeadLine'] == null ? undefined : CotatoLocalTimeFromJSON(json['lateDeadLine']),
+        'attendanceDeadLine': json['attendanceDeadLine'] == null ? undefined : (new Date(json['attendanceDeadLine'])),
+        'lateDeadLine': json['lateDeadLine'] == null ? undefined : (new Date(json['lateDeadLine'])),
     };
 }
 
@@ -68,8 +61,8 @@ export function CotatoAttendanceDeadLineDtoToJSON(value?: CotatoAttendanceDeadLi
     }
     return {
         
-        'attendanceDeadLine': CotatoLocalTimeToJSON(value['attendanceDeadLine']),
-        'lateDeadLine': CotatoLocalTimeToJSON(value['lateDeadLine']),
+        'attendanceDeadLine': value['attendanceDeadLine'] == null ? undefined : ((value['attendanceDeadLine']).toISOString()),
+        'lateDeadLine': value['lateDeadLine'] == null ? undefined : ((value['lateDeadLine']).toISOString()),
     };
 }
 

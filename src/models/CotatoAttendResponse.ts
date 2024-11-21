@@ -39,6 +39,8 @@ export interface CotatoAttendResponse {
  */
 export const CotatoAttendResponseStatusEnum = {
     Present: 'PRESENT',
+    Online: 'ONLINE',
+    Offline: 'OFFLINE',
     Late: 'LATE',
     Absent: 'ABSENT'
 } as const;

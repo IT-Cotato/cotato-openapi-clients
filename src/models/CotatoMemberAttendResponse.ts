@@ -88,7 +88,7 @@ export type CotatoMemberAttendResponseIsOpenedEnum = typeof CotatoMemberAttendRe
 export const CotatoMemberAttendResponseAttendanceTypeEnum = {
     Offline: 'OFFLINE',
     Online: 'ONLINE',
-    Absent: 'ABSENT'
+    NoAttend: 'NO_ATTEND'
 } as const;
 export type CotatoMemberAttendResponseAttendanceTypeEnum = typeof CotatoMemberAttendResponseAttendanceTypeEnum[keyof typeof CotatoMemberAttendResponseAttendanceTypeEnum];
 
@@ -97,6 +97,8 @@ export type CotatoMemberAttendResponseAttendanceTypeEnum = typeof CotatoMemberAt
  */
 export const CotatoMemberAttendResponseAttendanceResultEnum = {
     Present: 'PRESENT',
+    Online: 'ONLINE',
+    Offline: 'OFFLINE',
     Late: 'LATE',
     Absent: 'ABSENT'
 } as const;
