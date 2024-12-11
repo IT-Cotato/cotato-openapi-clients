@@ -45,7 +45,6 @@ export interface CotatoAttendanceRecordResponse {
  * @export
  */
 export const CotatoAttendanceRecordResponseResultEnum = {
-    Present: 'PRESENT',
     Online: 'ONLINE',
     Offline: 'OFFLINE',
     Late: 'LATE',

@@ -24,7 +24,6 @@ import {
 
 export interface FindHallOfFameRequest {
     generationId: number;
-    authorization: string;
 }
 
 /**
@@ -42,13 +41,6 @@ export class MyPageControllerApi extends runtime.BaseAPI {
             );
         }
 
-        if (requestParameters['authorization'] == null) {
-            throw new runtime.RequiredError(
-                'authorization',
-                'Required parameter "authorization" was null or undefined when calling findHallOfFame().'
-            );
-        }
-
         const queryParameters: any = {};
 
         if (requestParameters['generationId'] != null) {
@@ -56,10 +48,6 @@ export class MyPageControllerApi extends runtime.BaseAPI {
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters['authorization'] != null) {
-            headerParameters['Authorization'] = String(requestParameters['authorization']);
-        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;

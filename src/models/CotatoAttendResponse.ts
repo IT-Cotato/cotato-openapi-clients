@@ -24,7 +24,7 @@ export interface CotatoAttendResponse {
      * @type {string}
      * @memberof CotatoAttendResponse
      */
-    status?: CotatoAttendResponseStatusEnum;
+    result?: CotatoAttendResponseResultEnum;
     /**
      * 
      * @type {string}
@@ -37,14 +37,13 @@ export interface CotatoAttendResponse {
 /**
  * @export
  */
-export const CotatoAttendResponseStatusEnum = {
-    Present: 'PRESENT',
+export const CotatoAttendResponseResultEnum = {
     Online: 'ONLINE',
     Offline: 'OFFLINE',
     Late: 'LATE',
     Absent: 'ABSENT'
 } as const;
-export type CotatoAttendResponseStatusEnum = typeof CotatoAttendResponseStatusEnum[keyof typeof CotatoAttendResponseStatusEnum];
+export type CotatoAttendResponseResultEnum = typeof CotatoAttendResponseResultEnum[keyof typeof CotatoAttendResponseResultEnum];
 
 
 /**
@@ -64,7 +63,7 @@ export function CotatoAttendResponseFromJSONTyped(json: any, ignoreDiscriminator
     }
     return {
         
-        'status': json['status'] == null ? undefined : json['status'],
+        'result': json['result'] == null ? undefined : json['result'],
         'message': json['message'] == null ? undefined : json['message'],
     };
 }
@@ -75,7 +74,7 @@ export function CotatoAttendResponseToJSON(value?: CotatoAttendResponse | null):
     }
     return {
         
-        'status': value['status'],
+        'result': value['result'],
         'message': value['message'],
     };
 }

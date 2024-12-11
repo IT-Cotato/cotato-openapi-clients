@@ -24,19 +24,41 @@ export interface CotatoAddSessionResponse {
      * @type {number}
      * @memberof CotatoAddSessionResponse
      */
-    sessionId?: number;
+    sessionId: number;
     /**
      * 
      * @type {number}
      * @memberof CotatoAddSessionResponse
      */
-    sessionNumber?: number;
+    sessionNumber: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CotatoAddSessionResponse
+     */
+    sessionType: CotatoAddSessionResponseSessionTypeEnum;
 }
+
+
+/**
+ * @export
+ */
+export const CotatoAddSessionResponseSessionTypeEnum = {
+    NoAttend: 'NO_ATTEND',
+    Online: 'ONLINE',
+    Offline: 'OFFLINE',
+    All: 'ALL'
+} as const;
+export type CotatoAddSessionResponseSessionTypeEnum = typeof CotatoAddSessionResponseSessionTypeEnum[keyof typeof CotatoAddSessionResponseSessionTypeEnum];
+
 
 /**
  * Check if a given object implements the CotatoAddSessionResponse interface.
  */
 export function instanceOfCotatoAddSessionResponse(value: object): value is CotatoAddSessionResponse {
+    if (!('sessionId' in value) || value['sessionId'] === undefined) return false;
+    if (!('sessionNumber' in value) || value['sessionNumber'] === undefined) return false;
+    if (!('sessionType' in value) || value['sessionType'] === undefined) return false;
     return true;
 }
 
@@ -50,8 +72,9 @@ export function CotatoAddSessionResponseFromJSONTyped(json: any, ignoreDiscrimin
     }
     return {
         
-        'sessionId': json['sessionId'] == null ? undefined : json['sessionId'],
-        'sessionNumber': json['sessionNumber'] == null ? undefined : json['sessionNumber'],
+        'sessionId': json['sessionId'],
+        'sessionNumber': json['sessionNumber'],
+        'sessionType': json['sessionType'],
     };
 }
 
@@ -63,6 +86,7 @@ export function CotatoAddSessionResponseToJSON(value?: CotatoAddSessionResponse 
         
         'sessionId': value['sessionId'],
         'sessionNumber': value['sessionNumber'],
+        'sessionType': value['sessionType'],
     };
 }
 

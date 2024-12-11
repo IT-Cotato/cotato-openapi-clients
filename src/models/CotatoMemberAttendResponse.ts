@@ -24,19 +24,19 @@ export interface CotatoMemberAttendResponse {
      * @type {number}
      * @memberof CotatoMemberAttendResponse
      */
-    sessionId?: number;
+    sessionId: number;
     /**
      * 출석 PK
      * @type {number}
      * @memberof CotatoMemberAttendResponse
      */
-    attendanceId?: number;
+    attendanceId: number;
     /**
      * 멤버 PK
      * @type {number}
      * @memberof CotatoMemberAttendResponse
      */
-    memberId?: number;
+    memberId: number;
     /**
      * 세션 타이틀
      * @type {string}
@@ -54,7 +54,7 @@ export interface CotatoMemberAttendResponse {
      * @type {string}
      * @memberof CotatoMemberAttendResponse
      */
-    isOpened?: CotatoMemberAttendResponseIsOpenedEnum;
+    openStatus?: CotatoMemberAttendResponseOpenStatusEnum;
     /**
      * 출결 형식
      * @type {string}
@@ -66,21 +66,21 @@ export interface CotatoMemberAttendResponse {
      * @type {string}
      * @memberof CotatoMemberAttendResponse
      */
-    attendanceResult?: CotatoMemberAttendResponseAttendanceResultEnum;
+    result?: CotatoMemberAttendResponseResultEnum;
 }
 
 
 /**
  * @export
  */
-export const CotatoMemberAttendResponseIsOpenedEnum = {
+export const CotatoMemberAttendResponseOpenStatusEnum = {
     Closed: 'CLOSED',
     Open: 'OPEN',
     Late: 'LATE',
     Absent: 'ABSENT',
     Before: 'BEFORE'
 } as const;
-export type CotatoMemberAttendResponseIsOpenedEnum = typeof CotatoMemberAttendResponseIsOpenedEnum[keyof typeof CotatoMemberAttendResponseIsOpenedEnum];
+export type CotatoMemberAttendResponseOpenStatusEnum = typeof CotatoMemberAttendResponseOpenStatusEnum[keyof typeof CotatoMemberAttendResponseOpenStatusEnum];
 
 /**
  * @export
@@ -95,20 +95,22 @@ export type CotatoMemberAttendResponseAttendanceTypeEnum = typeof CotatoMemberAt
 /**
  * @export
  */
-export const CotatoMemberAttendResponseAttendanceResultEnum = {
-    Present: 'PRESENT',
+export const CotatoMemberAttendResponseResultEnum = {
     Online: 'ONLINE',
     Offline: 'OFFLINE',
     Late: 'LATE',
     Absent: 'ABSENT'
 } as const;
-export type CotatoMemberAttendResponseAttendanceResultEnum = typeof CotatoMemberAttendResponseAttendanceResultEnum[keyof typeof CotatoMemberAttendResponseAttendanceResultEnum];
+export type CotatoMemberAttendResponseResultEnum = typeof CotatoMemberAttendResponseResultEnum[keyof typeof CotatoMemberAttendResponseResultEnum];
 
 
 /**
  * Check if a given object implements the CotatoMemberAttendResponse interface.
  */
 export function instanceOfCotatoMemberAttendResponse(value: object): value is CotatoMemberAttendResponse {
+    if (!('sessionId' in value) || value['sessionId'] === undefined) return false;
+    if (!('attendanceId' in value) || value['attendanceId'] === undefined) return false;
+    if (!('memberId' in value) || value['memberId'] === undefined) return false;
     return true;
 }
 
@@ -122,14 +124,14 @@ export function CotatoMemberAttendResponseFromJSONTyped(json: any, ignoreDiscrim
     }
     return {
         
-        'sessionId': json['sessionId'] == null ? undefined : json['sessionId'],
-        'attendanceId': json['attendanceId'] == null ? undefined : json['attendanceId'],
-        'memberId': json['memberId'] == null ? undefined : json['memberId'],
+        'sessionId': json['sessionId'],
+        'attendanceId': json['attendanceId'],
+        'memberId': json['memberId'],
         'sessionTitle': json['sessionTitle'] == null ? undefined : json['sessionTitle'],
         'sessionDateTime': json['sessionDateTime'] == null ? undefined : (new Date(json['sessionDateTime'])),
-        'isOpened': json['isOpened'] == null ? undefined : json['isOpened'],
+        'openStatus': json['openStatus'] == null ? undefined : json['openStatus'],
         'attendanceType': json['attendanceType'] == null ? undefined : json['attendanceType'],
-        'attendanceResult': json['attendanceResult'] == null ? undefined : json['attendanceResult'],
+        'result': json['result'] == null ? undefined : json['result'],
     };
 }
 
@@ -144,9 +146,9 @@ export function CotatoMemberAttendResponseToJSON(value?: CotatoMemberAttendRespo
         'memberId': value['memberId'],
         'sessionTitle': value['sessionTitle'],
         'sessionDateTime': value['sessionDateTime'] == null ? undefined : ((value['sessionDateTime']).toISOString()),
-        'isOpened': value['isOpened'],
+        'openStatus': value['openStatus'],
         'attendanceType': value['attendanceType'],
-        'attendanceResult': value['attendanceResult'],
+        'result': value['result'],
     };
 }
 

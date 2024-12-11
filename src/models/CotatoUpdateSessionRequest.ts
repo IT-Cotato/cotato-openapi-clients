@@ -76,6 +76,18 @@ export interface CotatoUpdateSessionRequest {
     attendTime?: CotatoAttendanceDeadLineDto;
     /**
      * 
+     * @type {boolean}
+     * @memberof CotatoUpdateSessionRequest
+     */
+    isOffline?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CotatoUpdateSessionRequest
+     */
+    isOnline?: boolean;
+    /**
+     * 
      * @type {string}
      * @memberof CotatoUpdateSessionRequest
      */
@@ -168,6 +180,8 @@ export function CotatoUpdateSessionRequestFromJSONTyped(json: any, ignoreDiscrim
         'placeName': json['placeName'] == null ? undefined : json['placeName'],
         'location': json['location'] == null ? undefined : CotatoLocationFromJSON(json['location']),
         'attendTime': json['attendTime'] == null ? undefined : CotatoAttendanceDeadLineDtoFromJSON(json['attendTime']),
+        'isOffline': json['isOffline'] == null ? undefined : json['isOffline'],
+        'isOnline': json['isOnline'] == null ? undefined : json['isOnline'],
         'itIssue': json['itIssue'],
         'networking': json['networking'],
         'csEducation': json['csEducation'],
@@ -188,6 +202,8 @@ export function CotatoUpdateSessionRequestToJSON(value?: CotatoUpdateSessionRequ
         'placeName': value['placeName'],
         'location': CotatoLocationToJSON(value['location']),
         'attendTime': CotatoAttendanceDeadLineDtoToJSON(value['attendTime']),
+        'isOffline': value['isOffline'],
+        'isOnline': value['isOnline'],
         'itIssue': value['itIssue'],
         'networking': value['networking'],
         'csEducation': value['csEducation'],

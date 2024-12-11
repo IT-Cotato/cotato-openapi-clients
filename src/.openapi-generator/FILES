@@ -26,6 +26,7 @@ models/CotatoAttendanceRecordResponse.ts
 models/CotatoAttendanceResponse.ts
 models/CotatoAttendanceStatistic.ts
 models/CotatoAttendanceTimeResponse.ts
+models/CotatoAttendanceWithSessionResponse.ts
 models/CotatoAttendancesResponse.ts
 models/CotatoChangeGenerationPeriodRequest.ts
 models/CotatoChangeRecruitingStatusRequest.ts
@@ -35,6 +36,7 @@ models/CotatoChoiceResponse.ts
 models/CotatoCreateChoiceRequest.ts
 models/CotatoCreateEducationRequest.ts
 models/CotatoCreateEducationResponse.ts
+models/CotatoCreateGenerationMemberRequest.ts
 models/CotatoCreateMultipleQuizRequest.ts
 models/CotatoCreateProjectRequest.ts
 models/CotatoCreateProjectResponse.ts
@@ -42,6 +44,7 @@ models/CotatoCreateShortAnswerRequest.ts
 models/CotatoCreateShortQuizRequest.ts
 models/CotatoCsAdminQuizResponse.ts
 models/CotatoCsEducationOnSessionNumberResponse.ts
+models/CotatoDeleteGenerationMemberRequest.ts
 models/CotatoDeleteSessionImageRequest.ts
 models/CotatoEducationCloseRequest.ts
 models/CotatoEducationIdOfQuizResponse.ts
@@ -51,6 +54,8 @@ models/CotatoFindMemberPolicyResponse.ts
 models/CotatoFindPasswordResponse.ts
 models/CotatoGenerationInfoResponse.ts
 models/CotatoGenerationMemberAttendanceRecordResponse.ts
+models/CotatoGenerationMemberInfo.ts
+models/CotatoGenerationMemberInfoResponse.ts
 models/CotatoHallOfFameInfo.ts
 models/CotatoHallOfFameResponse.ts
 models/CotatoJoinRequest.ts
@@ -103,6 +108,7 @@ models/CotatoUpdateActiveMemberToOldMemberRequest.ts
 models/CotatoUpdateAttendanceRecordRequest.ts
 models/CotatoUpdateAttendanceRequest.ts
 models/CotatoUpdateEducationRequest.ts
+models/CotatoUpdateGenerationMemberRoleRequest.ts
 models/CotatoUpdateOldMemberRoleRequest.ts
 models/CotatoUpdatePasswordRequest.ts
 models/CotatoUpdatePhoneNumberRequest.ts

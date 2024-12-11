@@ -31,7 +31,7 @@ export interface CotatoMemberAttendanceRecordsResponse {
      * @type {number}
      * @memberof CotatoMemberAttendanceRecordsResponse
      */
-    generationId?: number;
+    generationId: number;
     /**
      * 
      * @type {Array<CotatoMemberAttendResponse>}
@@ -44,6 +44,7 @@ export interface CotatoMemberAttendanceRecordsResponse {
  * Check if a given object implements the CotatoMemberAttendanceRecordsResponse interface.
  */
 export function instanceOfCotatoMemberAttendanceRecordsResponse(value: object): value is CotatoMemberAttendanceRecordsResponse {
+    if (!('generationId' in value) || value['generationId'] === undefined) return false;
     return true;
 }
 
@@ -57,7 +58,7 @@ export function CotatoMemberAttendanceRecordsResponseFromJSONTyped(json: any, ig
     }
     return {
         
-        'generationId': json['generationId'] == null ? undefined : json['generationId'],
+        'generationId': json['generationId'],
         'memberAttendResponses': json['memberAttendResponses'] == null ? undefined : ((json['memberAttendResponses'] as Array<any>).map(CotatoMemberAttendResponseFromJSON)),
     };
 }

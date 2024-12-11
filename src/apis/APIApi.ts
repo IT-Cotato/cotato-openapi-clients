@@ -20,11 +20,14 @@ import type {
   CotatoChangeGenerationPeriodRequest,
   CotatoChangeRecruitingStatusRequest,
   CotatoCheckMemberPoliciesRequest,
+  CotatoCreateGenerationMemberRequest,
   CotatoCreateProjectRequest,
   CotatoCreateProjectResponse,
+  CotatoDeleteGenerationMemberRequest,
   CotatoFindMemberPolicyResponse,
   CotatoFindPasswordResponse,
   CotatoGenerationInfoResponse,
+  CotatoGenerationMemberInfoResponse,
   CotatoJoinRequest,
   CotatoJoinResponse,
   CotatoLogoutRequest,
@@ -35,6 +38,7 @@ import type {
   CotatoReissueResponse,
   CotatoSendEmailRequest,
   CotatoSseEmitter,
+  CotatoUpdateGenerationMemberRoleRequest,
 } from '../models/index.js';
 import {
     CotatoAddGenerationRequestFromJSON,
@@ -47,16 +51,22 @@ import {
     CotatoChangeRecruitingStatusRequestToJSON,
     CotatoCheckMemberPoliciesRequestFromJSON,
     CotatoCheckMemberPoliciesRequestToJSON,
+    CotatoCreateGenerationMemberRequestFromJSON,
+    CotatoCreateGenerationMemberRequestToJSON,
     CotatoCreateProjectRequestFromJSON,
     CotatoCreateProjectRequestToJSON,
     CotatoCreateProjectResponseFromJSON,
     CotatoCreateProjectResponseToJSON,
+    CotatoDeleteGenerationMemberRequestFromJSON,
+    CotatoDeleteGenerationMemberRequestToJSON,
     CotatoFindMemberPolicyResponseFromJSON,
     CotatoFindMemberPolicyResponseToJSON,
     CotatoFindPasswordResponseFromJSON,
     CotatoFindPasswordResponseToJSON,
     CotatoGenerationInfoResponseFromJSON,
     CotatoGenerationInfoResponseToJSON,
+    CotatoGenerationMemberInfoResponseFromJSON,
+    CotatoGenerationMemberInfoResponseToJSON,
     CotatoJoinRequestFromJSON,
     CotatoJoinRequestToJSON,
     CotatoJoinResponseFromJSON,
@@ -77,10 +87,16 @@ import {
     CotatoSendEmailRequestToJSON,
     CotatoSseEmitterFromJSON,
     CotatoSseEmitterToJSON,
+    CotatoUpdateGenerationMemberRoleRequestFromJSON,
+    CotatoUpdateGenerationMemberRoleRequestToJSON,
 } from '../models/index.js';
 
 export interface AddGenerationRequest {
     cotatoAddGenerationRequest: CotatoAddGenerationRequest;
+}
+
+export interface AddGenerationMemberRequest {
+    cotatoCreateGenerationMemberRequest: CotatoCreateGenerationMemberRequest;
 }
 
 export interface ChangeGenerationPeriodRequest {
@@ -106,12 +122,20 @@ export interface CreateProjectImageRequest {
     detailImages?: Array<Blob>;
 }
 
+export interface DeleteGenerationMemberRequest {
+    cotatoDeleteGenerationMemberRequest: CotatoDeleteGenerationMemberRequest;
+}
+
 export interface FindEmailRequest {
     name: string;
     phone: string;
 }
 
 export interface FindGenerationByIdRequest {
+    generationId: number;
+}
+
+export interface FindGenerationMemberRequest {
     generationId: number;
 }
 
@@ -128,12 +152,20 @@ export interface LogoutRequest {
     cotatoLogoutRequest: CotatoLogoutRequest;
 }
 
+export interface SendEventRequest {
+    attendanceId: number;
+}
+
 export interface SendSignUpVerificationCode1Request {
     cotatoSendEmailRequest: CotatoSendEmailRequest;
 }
 
 export interface TokenReissueRequest {
     refreshToken: string;
+}
+
+export interface UpdateGenerationMemberRoleRequest {
+    cotatoUpdateGenerationMemberRoleRequest: CotatoUpdateGenerationMemberRoleRequest;
 }
 
 export interface VerifyCode1Request {
@@ -186,6 +218,47 @@ export class APIApi extends runtime.BaseAPI {
     async addGeneration(requestParameters: AddGenerationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoAddGenerationResponse> {
         const response = await this.addGenerationRaw(requestParameters, initOverrides);
         return await response.value();
+    }
+
+    /**
+     */
+    async addGenerationMemberRaw(requestParameters: AddGenerationMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['cotatoCreateGenerationMemberRequest'] == null) {
+            throw new runtime.RequiredError(
+                'cotatoCreateGenerationMemberRequest',
+                'Required parameter "cotatoCreateGenerationMemberRequest" was null or undefined when calling addGenerationMember().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v2/api/generation-member`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CotatoCreateGenerationMemberRequestToJSON(requestParameters['cotatoCreateGenerationMemberRequest']),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async addGenerationMember(requestParameters: AddGenerationMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.addGenerationMemberRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -430,6 +503,47 @@ export class APIApi extends runtime.BaseAPI {
     }
 
     /**
+     */
+    async deleteGenerationMemberRaw(requestParameters: DeleteGenerationMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['cotatoDeleteGenerationMemberRequest'] == null) {
+            throw new runtime.RequiredError(
+                'cotatoDeleteGenerationMemberRequest',
+                'Required parameter "cotatoDeleteGenerationMemberRequest" was null or undefined when calling deleteGenerationMember().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v2/api/generation-member`,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CotatoDeleteGenerationMemberRequestToJSON(requestParameters['cotatoDeleteGenerationMemberRequest']),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async deleteGenerationMember(requestParameters: DeleteGenerationMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteGenerationMemberRaw(requestParameters, initOverrides);
+    }
+
+    /**
      * 현재 날짜 기준 세션 정보 반환 API
      */
     async findCurrentGenerationRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoGenerationInfoResponse>> {
@@ -555,6 +669,49 @@ export class APIApi extends runtime.BaseAPI {
      */
     async findGenerationById(requestParameters: FindGenerationByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoGenerationInfoResponse> {
         const response = await this.findGenerationByIdRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async findGenerationMemberRaw(requestParameters: FindGenerationMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoGenerationMemberInfoResponse>> {
+        if (requestParameters['generationId'] == null) {
+            throw new runtime.RequiredError(
+                'generationId',
+                'Required parameter "generationId" was null or undefined when calling findGenerationMember().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['generationId'] != null) {
+            queryParameters['generationId'] = requestParameters['generationId'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v2/api/generation-member`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CotatoGenerationMemberInfoResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async findGenerationMember(requestParameters: FindGenerationMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoGenerationMemberInfoResponse> {
+        const response = await this.findGenerationMemberRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -826,6 +983,46 @@ export class APIApi extends runtime.BaseAPI {
     }
 
     /**
+     * 출결 이벤트 발송 API
+     */
+    async sendEventRaw(requestParameters: SendEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['attendanceId'] == null) {
+            throw new runtime.RequiredError(
+                'attendanceId',
+                'Required parameter "attendanceId" was null or undefined when calling sendEvent().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v2/api/events/attendances/{attendanceId}/test`.replace(`{${"attendanceId"}}`, encodeURIComponent(String(requestParameters['attendanceId']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * 출결 이벤트 발송 API
+     */
+    async sendEvent(requestParameters: SendEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.sendEventRaw(requestParameters, initOverrides);
+    }
+
+    /**
      */
     async sendSignUpVerificationCode1Raw(requestParameters: SendSignUpVerificationCode1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters['cotatoSendEmailRequest'] == null) {
@@ -937,6 +1134,47 @@ export class APIApi extends runtime.BaseAPI {
     async tokenReissue(requestParameters: TokenReissueRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoReissueResponse> {
         const response = await this.tokenReissueRaw(requestParameters, initOverrides);
         return await response.value();
+    }
+
+    /**
+     */
+    async updateGenerationMemberRoleRaw(requestParameters: UpdateGenerationMemberRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['cotatoUpdateGenerationMemberRoleRequest'] == null) {
+            throw new runtime.RequiredError(
+                'cotatoUpdateGenerationMemberRoleRequest',
+                'Required parameter "cotatoUpdateGenerationMemberRoleRequest" was null or undefined when calling updateGenerationMemberRole().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v2/api/generation-member`,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CotatoUpdateGenerationMemberRoleRequestToJSON(requestParameters['cotatoUpdateGenerationMemberRoleRequest']),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async updateGenerationMemberRole(requestParameters: UpdateGenerationMemberRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.updateGenerationMemberRoleRaw(requestParameters, initOverrides);
     }
 
     /**

@@ -19,6 +19,7 @@ import type {
   CotatoAddSessionResponse,
   CotatoAttendResponse,
   CotatoAttendanceRecordResponse,
+  CotatoAttendanceResponse,
   CotatoAttendanceTimeResponse,
   CotatoAttendancesResponse,
   CotatoCsEducationOnSessionNumberResponse,
@@ -43,6 +44,8 @@ import {
     CotatoAttendResponseToJSON,
     CotatoAttendanceRecordResponseFromJSON,
     CotatoAttendanceRecordResponseToJSON,
+    CotatoAttendanceResponseFromJSON,
+    CotatoAttendanceResponseToJSON,
     CotatoAttendanceTimeResponseFromJSON,
     CotatoAttendanceTimeResponseToJSON,
     CotatoAttendancesResponseFromJSON,
@@ -78,12 +81,14 @@ export interface AddSessionRequest {
     title: string;
     description: string;
     sessionDateTime: Date;
+    attendanceDeadLine: Date;
+    lateDeadLine: Date;
     images?: Array<Blob>;
     latitude?: number;
     longitude?: number;
     placeName?: string;
-    attendanceDeadLine?: Date;
-    lateDeadLine?: Date;
+    isOffline?: boolean;
+    isOnline?: boolean;
     itIssue?: AddSessionItIssueEnum;
     networking?: AddSessionNetworkingEnum;
     csEducation?: AddSessionCsEducationEnum;
@@ -134,6 +139,10 @@ export interface FindSessionRequest {
 
 export interface FindSessionsByGenerationIdRequest {
     generationId: number;
+}
+
+export interface GetAttendanceRequest {
+    attendanceId: number;
 }
 
 export interface SubmitOfflineAttendanceRecordRequest {
@@ -195,6 +204,20 @@ export class DefaultApi extends runtime.BaseAPI {
             throw new runtime.RequiredError(
                 'sessionDateTime',
                 'Required parameter "sessionDateTime" was null or undefined when calling addSession().'
+            );
+        }
+
+        if (requestParameters['attendanceDeadLine'] == null) {
+            throw new runtime.RequiredError(
+                'attendanceDeadLine',
+                'Required parameter "attendanceDeadLine" was null or undefined when calling addSession().'
+            );
+        }
+
+        if (requestParameters['lateDeadLine'] == null) {
+            throw new runtime.RequiredError(
+                'lateDeadLine',
+                'Required parameter "lateDeadLine" was null or undefined when calling addSession().'
             );
         }
 
@@ -260,6 +283,14 @@ export class DefaultApi extends runtime.BaseAPI {
             formParams.append('sessionDateTime', requestParameters['sessionDateTime'] as any);
         }
 
+        if (requestParameters['isOffline'] != null) {
+            formParams.append('isOffline', requestParameters['isOffline'] as any);
+        }
+
+        if (requestParameters['isOnline'] != null) {
+            formParams.append('isOnline', requestParameters['isOnline'] as any);
+        }
+
         if (requestParameters['attendanceDeadLine'] != null) {
             formParams.append('attendanceDeadLine', requestParameters['attendanceDeadLine'] as any);
         }
@@ -285,7 +316,7 @@ export class DefaultApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/v1/api/session/add`,
+            path: `/v1/api/session`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -834,6 +865,47 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
+     * 출석 단건 조회
+     */
+    async getAttendanceRaw(requestParameters: GetAttendanceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoAttendanceResponse>> {
+        if (requestParameters['attendanceId'] == null) {
+            throw new runtime.RequiredError(
+                'attendanceId',
+                'Required parameter "attendanceId" was null or undefined when calling getAttendance().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v2/api/attendances/{attendanceId}`.replace(`{${"attendanceId"}}`, encodeURIComponent(String(requestParameters['attendanceId']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CotatoAttendanceResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 출석 단건 조회
+     */
+    async getAttendance(requestParameters: GetAttendanceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoAttendanceResponse> {
+        const response = await this.getAttendanceRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * 대면 출결 입력 API
      */
     async submitOfflineAttendanceRecordRaw(requestParameters: SubmitOfflineAttendanceRecordRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoAttendResponse>> {
@@ -1040,7 +1112,7 @@ export class DefaultApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/v1/api/session/update`,
+            path: `/v1/api/session`,
             method: 'PATCH',
             headers: headerParameters,
             query: queryParameters,

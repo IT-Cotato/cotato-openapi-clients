@@ -13,12 +13,12 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { CotatoAttendanceResponse } from './CotatoAttendanceResponse.js';
+import type { CotatoAttendanceWithSessionResponse } from './CotatoAttendanceWithSessionResponse.js';
 import {
-    CotatoAttendanceResponseFromJSON,
-    CotatoAttendanceResponseFromJSONTyped,
-    CotatoAttendanceResponseToJSON,
-} from './CotatoAttendanceResponse.js';
+    CotatoAttendanceWithSessionResponseFromJSON,
+    CotatoAttendanceWithSessionResponseFromJSONTyped,
+    CotatoAttendanceWithSessionResponseToJSON,
+} from './CotatoAttendanceWithSessionResponse.js';
 
 /**
  * 
@@ -31,25 +31,27 @@ export interface CotatoAttendancesResponse {
      * @type {number}
      * @memberof CotatoAttendancesResponse
      */
-    generationId?: number;
+    generationId: number;
     /**
      * 
      * @type {number}
      * @memberof CotatoAttendancesResponse
      */
-    generationNumber?: number;
+    generationNumber: number;
     /**
      * 
-     * @type {Array<CotatoAttendanceResponse>}
+     * @type {Array<CotatoAttendanceWithSessionResponse>}
      * @memberof CotatoAttendancesResponse
      */
-    attendances?: Array<CotatoAttendanceResponse>;
+    attendances?: Array<CotatoAttendanceWithSessionResponse>;
 }
 
 /**
  * Check if a given object implements the CotatoAttendancesResponse interface.
  */
 export function instanceOfCotatoAttendancesResponse(value: object): value is CotatoAttendancesResponse {
+    if (!('generationId' in value) || value['generationId'] === undefined) return false;
+    if (!('generationNumber' in value) || value['generationNumber'] === undefined) return false;
     return true;
 }
 
@@ -63,9 +65,9 @@ export function CotatoAttendancesResponseFromJSONTyped(json: any, ignoreDiscrimi
     }
     return {
         
-        'generationId': json['generationId'] == null ? undefined : json['generationId'],
-        'generationNumber': json['generationNumber'] == null ? undefined : json['generationNumber'],
-        'attendances': json['attendances'] == null ? undefined : ((json['attendances'] as Array<any>).map(CotatoAttendanceResponseFromJSON)),
+        'generationId': json['generationId'],
+        'generationNumber': json['generationNumber'],
+        'attendances': json['attendances'] == null ? undefined : ((json['attendances'] as Array<any>).map(CotatoAttendanceWithSessionResponseFromJSON)),
     };
 }
 
@@ -77,7 +79,7 @@ export function CotatoAttendancesResponseToJSON(value?: CotatoAttendancesRespons
         
         'generationId': value['generationId'],
         'generationNumber': value['generationNumber'],
-        'attendances': value['attendances'] == null ? undefined : ((value['attendances'] as Array<any>).map(CotatoAttendanceResponseToJSON)),
+        'attendances': value['attendances'] == null ? undefined : ((value['attendances'] as Array<any>).map(CotatoAttendanceWithSessionResponseToJSON)),
     };
 }
 

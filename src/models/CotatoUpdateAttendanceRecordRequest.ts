@@ -30,21 +30,20 @@ export interface CotatoUpdateAttendanceRecordRequest {
      * @type {string}
      * @memberof CotatoUpdateAttendanceRecordRequest
      */
-    attendanceResult?: CotatoUpdateAttendanceRecordRequestAttendanceResultEnum;
+    result?: CotatoUpdateAttendanceRecordRequestResultEnum;
 }
 
 
 /**
  * @export
  */
-export const CotatoUpdateAttendanceRecordRequestAttendanceResultEnum = {
-    Present: 'PRESENT',
+export const CotatoUpdateAttendanceRecordRequestResultEnum = {
     Online: 'ONLINE',
     Offline: 'OFFLINE',
     Late: 'LATE',
     Absent: 'ABSENT'
 } as const;
-export type CotatoUpdateAttendanceRecordRequestAttendanceResultEnum = typeof CotatoUpdateAttendanceRecordRequestAttendanceResultEnum[keyof typeof CotatoUpdateAttendanceRecordRequestAttendanceResultEnum];
+export type CotatoUpdateAttendanceRecordRequestResultEnum = typeof CotatoUpdateAttendanceRecordRequestResultEnum[keyof typeof CotatoUpdateAttendanceRecordRequestResultEnum];
 
 
 /**
@@ -65,7 +64,7 @@ export function CotatoUpdateAttendanceRecordRequestFromJSONTyped(json: any, igno
     return {
         
         'memberId': json['memberId'] == null ? undefined : json['memberId'],
-        'attendanceResult': json['attendanceResult'] == null ? undefined : json['attendanceResult'],
+        'result': json['result'] == null ? undefined : json['result'],
     };
 }
 
@@ -76,7 +75,7 @@ export function CotatoUpdateAttendanceRecordRequestToJSON(value?: CotatoUpdateAt
     return {
         
         'memberId': value['memberId'],
-        'attendanceResult': value['attendanceResult'],
+        'result': value['result'],
     };
 }
 

@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../runtime.js';
+import type { CotatoLocation } from './CotatoLocation.js';
+import {
+    CotatoLocationFromJSON,
+    CotatoLocationFromJSONTyped,
+    CotatoLocationToJSON,
+} from './CotatoLocation.js';
+
 /**
  * 
  * @export
@@ -20,35 +27,41 @@ import { mapValues } from '../runtime.js';
  */
 export interface CotatoAttendanceResponse {
     /**
-     * 
+     * 출석 PK
      * @type {number}
      * @memberof CotatoAttendanceResponse
      */
-    sessionId?: number;
+    attendanceId: number;
     /**
-     * 
-     * @type {number}
-     * @memberof CotatoAttendanceResponse
-     */
-    attendanceId?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof CotatoAttendanceResponse
-     */
-    sessionTitle?: string;
-    /**
-     * 
+     * 출석 마감 시간
      * @type {Date}
      * @memberof CotatoAttendanceResponse
      */
-    sessionDateTime?: Date;
+    attendanceDeadLine: Date;
+    /**
+     * 지각 마감 시간
+     * @type {Date}
+     * @memberof CotatoAttendanceResponse
+     */
+    lateDeadLine: Date;
     /**
      * 
+     * @type {CotatoLocation}
+     * @memberof CotatoAttendanceResponse
+     */
+    location?: CotatoLocation;
+    /**
+     * 세션 PK
+     * @type {number}
+     * @memberof CotatoAttendanceResponse
+     */
+    sessionId: number;
+    /**
+     * 출석 오픈 상태
      * @type {string}
      * @memberof CotatoAttendanceResponse
      */
-    openStatus?: CotatoAttendanceResponseOpenStatusEnum;
+    openStatus: CotatoAttendanceResponseOpenStatusEnum;
 }
 
 
@@ -69,6 +82,11 @@ export type CotatoAttendanceResponseOpenStatusEnum = typeof CotatoAttendanceResp
  * Check if a given object implements the CotatoAttendanceResponse interface.
  */
 export function instanceOfCotatoAttendanceResponse(value: object): value is CotatoAttendanceResponse {
+    if (!('attendanceId' in value) || value['attendanceId'] === undefined) return false;
+    if (!('attendanceDeadLine' in value) || value['attendanceDeadLine'] === undefined) return false;
+    if (!('lateDeadLine' in value) || value['lateDeadLine'] === undefined) return false;
+    if (!('sessionId' in value) || value['sessionId'] === undefined) return false;
+    if (!('openStatus' in value) || value['openStatus'] === undefined) return false;
     return true;
 }
 
@@ -82,11 +100,12 @@ export function CotatoAttendanceResponseFromJSONTyped(json: any, ignoreDiscrimin
     }
     return {
         
-        'sessionId': json['sessionId'] == null ? undefined : json['sessionId'],
-        'attendanceId': json['attendanceId'] == null ? undefined : json['attendanceId'],
-        'sessionTitle': json['sessionTitle'] == null ? undefined : json['sessionTitle'],
-        'sessionDateTime': json['sessionDateTime'] == null ? undefined : (new Date(json['sessionDateTime'])),
-        'openStatus': json['openStatus'] == null ? undefined : json['openStatus'],
+        'attendanceId': json['attendanceId'],
+        'attendanceDeadLine': (new Date(json['attendanceDeadLine'])),
+        'lateDeadLine': (new Date(json['lateDeadLine'])),
+        'location': json['location'] == null ? undefined : CotatoLocationFromJSON(json['location']),
+        'sessionId': json['sessionId'],
+        'openStatus': json['openStatus'],
     };
 }
 
@@ -96,10 +115,11 @@ export function CotatoAttendanceResponseToJSON(value?: CotatoAttendanceResponse 
     }
     return {
         
-        'sessionId': value['sessionId'],
         'attendanceId': value['attendanceId'],
-        'sessionTitle': value['sessionTitle'],
-        'sessionDateTime': value['sessionDateTime'] == null ? undefined : ((value['sessionDateTime']).toISOString()),
+        'attendanceDeadLine': ((value['attendanceDeadLine']).toISOString()),
+        'lateDeadLine': ((value['lateDeadLine']).toISOString()),
+        'location': CotatoLocationToJSON(value['location']),
+        'sessionId': value['sessionId'],
         'openStatus': value['openStatus'],
     };
 }

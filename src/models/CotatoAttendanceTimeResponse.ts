@@ -31,7 +31,7 @@ export interface CotatoAttendanceTimeResponse {
      * @type {number}
      * @memberof CotatoAttendanceTimeResponse
      */
-    sessionId?: number;
+    sessionId: number;
     /**
      * 
      * @type {Date}
@@ -56,6 +56,7 @@ export interface CotatoAttendanceTimeResponse {
  * Check if a given object implements the CotatoAttendanceTimeResponse interface.
  */
 export function instanceOfCotatoAttendanceTimeResponse(value: object): value is CotatoAttendanceTimeResponse {
+    if (!('sessionId' in value) || value['sessionId'] === undefined) return false;
     if (!('attendanceDeadLine' in value) || value['attendanceDeadLine'] === undefined) return false;
     if (!('lateDeadLine' in value) || value['lateDeadLine'] === undefined) return false;
     return true;
@@ -71,7 +72,7 @@ export function CotatoAttendanceTimeResponseFromJSONTyped(json: any, ignoreDiscr
     }
     return {
         
-        'sessionId': json['sessionId'] == null ? undefined : json['sessionId'],
+        'sessionId': json['sessionId'],
         'attendanceDeadLine': (new Date(json['attendanceDeadLine'])),
         'lateDeadLine': (new Date(json['lateDeadLine'])),
         'location': json['location'] == null ? undefined : CotatoLocationFromJSON(json['location']),

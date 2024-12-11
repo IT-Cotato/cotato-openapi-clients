@@ -43,13 +43,13 @@ export interface CotatoSessionWithAttendanceResponse {
      * @type {number}
      * @memberof CotatoSessionWithAttendanceResponse
      */
-    sessionId?: number;
+    sessionId: number;
     /**
      * 
      * @type {number}
      * @memberof CotatoSessionWithAttendanceResponse
      */
-    sessionNumber?: number;
+    sessionNumber: number;
     /**
      * 
      * @type {string}
@@ -73,7 +73,7 @@ export interface CotatoSessionWithAttendanceResponse {
      * @type {number}
      * @memberof CotatoSessionWithAttendanceResponse
      */
-    generationId?: number;
+    generationId: number;
     /**
      * 
      * @type {string}
@@ -94,6 +94,18 @@ export interface CotatoSessionWithAttendanceResponse {
     sessionContents?: CotatoSessionContents;
     /**
      * 
+     * @type {boolean}
+     * @memberof CotatoSessionWithAttendanceResponse
+     */
+    isOffline?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CotatoSessionWithAttendanceResponse
+     */
+    isOnline?: boolean;
+    /**
+     * 
      * @type {CotatoAttendanceTimeResponse}
      * @memberof CotatoSessionWithAttendanceResponse
      */
@@ -104,6 +116,9 @@ export interface CotatoSessionWithAttendanceResponse {
  * Check if a given object implements the CotatoSessionWithAttendanceResponse interface.
  */
 export function instanceOfCotatoSessionWithAttendanceResponse(value: object): value is CotatoSessionWithAttendanceResponse {
+    if (!('sessionId' in value) || value['sessionId'] === undefined) return false;
+    if (!('sessionNumber' in value) || value['sessionNumber'] === undefined) return false;
+    if (!('generationId' in value) || value['generationId'] === undefined) return false;
     return true;
 }
 
@@ -117,15 +132,17 @@ export function CotatoSessionWithAttendanceResponseFromJSONTyped(json: any, igno
     }
     return {
         
-        'sessionId': json['sessionId'] == null ? undefined : json['sessionId'],
-        'sessionNumber': json['sessionNumber'] == null ? undefined : json['sessionNumber'],
+        'sessionId': json['sessionId'],
+        'sessionNumber': json['sessionNumber'],
         'title': json['title'] == null ? undefined : json['title'],
         'sessionImages': json['sessionImages'] == null ? undefined : ((json['sessionImages'] as Array<any>).map(CotatoSessionListImageInfoResponseFromJSON)),
         'description': json['description'] == null ? undefined : json['description'],
-        'generationId': json['generationId'] == null ? undefined : json['generationId'],
+        'generationId': json['generationId'],
         'placeName': json['placeName'] == null ? undefined : json['placeName'],
         'sessionDateTime': json['sessionDateTime'] == null ? undefined : (new Date(json['sessionDateTime'])),
         'sessionContents': json['sessionContents'] == null ? undefined : CotatoSessionContentsFromJSON(json['sessionContents']),
+        'isOffline': json['isOffline'] == null ? undefined : json['isOffline'],
+        'isOnline': json['isOnline'] == null ? undefined : json['isOnline'],
         'attendance': json['attendance'] == null ? undefined : CotatoAttendanceTimeResponseFromJSON(json['attendance']),
     };
 }
@@ -145,6 +162,8 @@ export function CotatoSessionWithAttendanceResponseToJSON(value?: CotatoSessionW
         'placeName': value['placeName'],
         'sessionDateTime': value['sessionDateTime'] == null ? undefined : ((value['sessionDateTime']).toISOString()),
         'sessionContents': CotatoSessionContentsToJSON(value['sessionContents']),
+        'isOffline': value['isOffline'],
+        'isOnline': value['isOnline'],
         'attendance': CotatoAttendanceTimeResponseToJSON(value['attendance']),
     };
 }
