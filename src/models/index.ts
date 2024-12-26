@@ -77,6 +77,8 @@ export * from './CotatoQuizInfoInCsQuizResponse.js';
 export * from './CotatoQuizResponse.js';
 export * from './CotatoQuizResultInfo.js';
 export * from './CotatoQuizSocketRequest.js';
+export * from './CotatoRandomQuizReplyResponse.js';
+export * from './CotatoRandomTutorialQuizResponse.js';
 export * from './CotatoRecordResponse.js';
 export * from './CotatoRecordsAndScorerResponse.js';
 export * from './CotatoRegradeRequest.js';

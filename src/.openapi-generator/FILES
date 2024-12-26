@@ -1,5 +1,6 @@
 apis/APIApi.ts
 apis/AdminControllerApi.ts
+apis/CSApi.ts
 apis/DefaultApi.ts
 apis/EducationControllerApi.ts
 apis/LoginEndpointApi.ts
@@ -87,6 +88,8 @@ models/CotatoQuizInfoInCsQuizResponse.ts
 models/CotatoQuizResponse.ts
 models/CotatoQuizResultInfo.ts
 models/CotatoQuizSocketRequest.ts
+models/CotatoRandomQuizReplyResponse.ts
+models/CotatoRandomTutorialQuizResponse.ts
 models/CotatoRecordResponse.ts
 models/CotatoRecordsAndScorerResponse.ts
 models/CotatoRegradeRequest.ts

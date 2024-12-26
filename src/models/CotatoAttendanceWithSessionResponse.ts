@@ -48,21 +48,20 @@ export interface CotatoAttendanceWithSessionResponse {
      * @type {string}
      * @memberof CotatoAttendanceWithSessionResponse
      */
-    openStatus?: CotatoAttendanceWithSessionResponseOpenStatusEnum;
+    sessionType: CotatoAttendanceWithSessionResponseSessionTypeEnum;
 }
 
 
 /**
  * @export
  */
-export const CotatoAttendanceWithSessionResponseOpenStatusEnum = {
-    Closed: 'CLOSED',
-    Open: 'OPEN',
-    Late: 'LATE',
-    Absent: 'ABSENT',
-    Before: 'BEFORE'
+export const CotatoAttendanceWithSessionResponseSessionTypeEnum = {
+    NoAttend: 'NO_ATTEND',
+    Online: 'ONLINE',
+    Offline: 'OFFLINE',
+    All: 'ALL'
 } as const;
-export type CotatoAttendanceWithSessionResponseOpenStatusEnum = typeof CotatoAttendanceWithSessionResponseOpenStatusEnum[keyof typeof CotatoAttendanceWithSessionResponseOpenStatusEnum];
+export type CotatoAttendanceWithSessionResponseSessionTypeEnum = typeof CotatoAttendanceWithSessionResponseSessionTypeEnum[keyof typeof CotatoAttendanceWithSessionResponseSessionTypeEnum];
 
 
 /**
@@ -71,6 +70,7 @@ export type CotatoAttendanceWithSessionResponseOpenStatusEnum = typeof CotatoAtt
 export function instanceOfCotatoAttendanceWithSessionResponse(value: object): value is CotatoAttendanceWithSessionResponse {
     if (!('sessionId' in value) || value['sessionId'] === undefined) return false;
     if (!('attendanceId' in value) || value['attendanceId'] === undefined) return false;
+    if (!('sessionType' in value) || value['sessionType'] === undefined) return false;
     return true;
 }
 
@@ -88,7 +88,7 @@ export function CotatoAttendanceWithSessionResponseFromJSONTyped(json: any, igno
         'attendanceId': json['attendanceId'],
         'sessionTitle': json['sessionTitle'] == null ? undefined : json['sessionTitle'],
         'sessionDateTime': json['sessionDateTime'] == null ? undefined : (new Date(json['sessionDateTime'])),
-        'openStatus': json['openStatus'] == null ? undefined : json['openStatus'],
+        'sessionType': json['sessionType'],
     };
 }
 
@@ -102,7 +102,7 @@ export function CotatoAttendanceWithSessionResponseToJSON(value?: CotatoAttendan
         'attendanceId': value['attendanceId'],
         'sessionTitle': value['sessionTitle'],
         'sessionDateTime': value['sessionDateTime'] == null ? undefined : ((value['sessionDateTime']).toISOString()),
-        'openStatus': value['openStatus'],
+        'sessionType': value['sessionType'],
     };
 }
 

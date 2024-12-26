@@ -57,6 +57,12 @@ export interface CotatoAttendanceResponse {
      */
     sessionId: number;
     /**
+     * 출결 옵션
+     * @type {string}
+     * @memberof CotatoAttendanceResponse
+     */
+    sessionType: CotatoAttendanceResponseSessionTypeEnum;
+    /**
      * 출석 오픈 상태
      * @type {string}
      * @memberof CotatoAttendanceResponse
@@ -64,6 +70,17 @@ export interface CotatoAttendanceResponse {
     openStatus: CotatoAttendanceResponseOpenStatusEnum;
 }
 
+
+/**
+ * @export
+ */
+export const CotatoAttendanceResponseSessionTypeEnum = {
+    NoAttend: 'NO_ATTEND',
+    Online: 'ONLINE',
+    Offline: 'OFFLINE',
+    All: 'ALL'
+} as const;
+export type CotatoAttendanceResponseSessionTypeEnum = typeof CotatoAttendanceResponseSessionTypeEnum[keyof typeof CotatoAttendanceResponseSessionTypeEnum];
 
 /**
  * @export
@@ -86,6 +103,7 @@ export function instanceOfCotatoAttendanceResponse(value: object): value is Cota
     if (!('attendanceDeadLine' in value) || value['attendanceDeadLine'] === undefined) return false;
     if (!('lateDeadLine' in value) || value['lateDeadLine'] === undefined) return false;
     if (!('sessionId' in value) || value['sessionId'] === undefined) return false;
+    if (!('sessionType' in value) || value['sessionType'] === undefined) return false;
     if (!('openStatus' in value) || value['openStatus'] === undefined) return false;
     return true;
 }
@@ -105,6 +123,7 @@ export function CotatoAttendanceResponseFromJSONTyped(json: any, ignoreDiscrimin
         'lateDeadLine': (new Date(json['lateDeadLine'])),
         'location': json['location'] == null ? undefined : CotatoLocationFromJSON(json['location']),
         'sessionId': json['sessionId'],
+        'sessionType': json['sessionType'],
         'openStatus': json['openStatus'],
     };
 }
@@ -120,6 +139,7 @@ export function CotatoAttendanceResponseToJSON(value?: CotatoAttendanceResponse 
         'lateDeadLine': ((value['lateDeadLine']).toISOString()),
         'location': CotatoLocationToJSON(value['location']),
         'sessionId': value['sessionId'],
+        'sessionType': value['sessionType'],
         'openStatus': value['openStatus'],
     };
 }

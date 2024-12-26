@@ -3,6 +3,7 @@
 export * from './DefaultApi.js';
 export * from './APIApi.js';
 export * from './AdminControllerApi.js';
+export * from './CSApi.js';
 export * from './EducationControllerApi.js';
 export * from './LoginEndpointApi.js';
 export * from './MemberControllerApi.js';
