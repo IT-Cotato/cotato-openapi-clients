@@ -57,6 +57,12 @@ export interface CotatoAttendanceResponse {
      */
     sessionId: number;
     /**
+     * 세션 타이틀
+     * @type {string}
+     * @memberof CotatoAttendanceResponse
+     */
+    sessionTitle: string;
+    /**
      * 출결 옵션
      * @type {string}
      * @memberof CotatoAttendanceResponse
@@ -103,6 +109,7 @@ export function instanceOfCotatoAttendanceResponse(value: object): value is Cota
     if (!('attendanceDeadLine' in value) || value['attendanceDeadLine'] === undefined) return false;
     if (!('lateDeadLine' in value) || value['lateDeadLine'] === undefined) return false;
     if (!('sessionId' in value) || value['sessionId'] === undefined) return false;
+    if (!('sessionTitle' in value) || value['sessionTitle'] === undefined) return false;
     if (!('sessionType' in value) || value['sessionType'] === undefined) return false;
     if (!('openStatus' in value) || value['openStatus'] === undefined) return false;
     return true;
@@ -123,6 +130,7 @@ export function CotatoAttendanceResponseFromJSONTyped(json: any, ignoreDiscrimin
         'lateDeadLine': (new Date(json['lateDeadLine'])),
         'location': json['location'] == null ? undefined : CotatoLocationFromJSON(json['location']),
         'sessionId': json['sessionId'],
+        'sessionTitle': json['sessionTitle'],
         'sessionType': json['sessionType'],
         'openStatus': json['openStatus'],
     };
@@ -139,6 +147,7 @@ export function CotatoAttendanceResponseToJSON(value?: CotatoAttendanceResponse 
         'lateDeadLine': ((value['lateDeadLine']).toISOString()),
         'location': CotatoLocationToJSON(value['location']),
         'sessionId': value['sessionId'],
+        'sessionTitle': value['sessionTitle'],
         'sessionType': value['sessionType'],
         'openStatus': value['openStatus'],
     };
