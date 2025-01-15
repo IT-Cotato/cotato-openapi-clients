@@ -203,7 +203,7 @@ export class APIApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/v1/api/generation/add`,
+            path: `/v1/api/generations/add`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -245,7 +245,7 @@ export class APIApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/v2/api/generation-member`,
+            path: `/v2/api/generation-members`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -286,7 +286,7 @@ export class APIApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/v1/api/generation/period`,
+            path: `/v1/api/generations/{generationId}/period`,
             method: 'PATCH',
             headers: headerParameters,
             query: queryParameters,
@@ -327,7 +327,7 @@ export class APIApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/v1/api/generation/recruiting`,
+            path: `/v1/api/generations/recruiting`,
             method: 'PATCH',
             headers: headerParameters,
             query: queryParameters,
@@ -527,7 +527,7 @@ export class APIApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/v2/api/generation-member`,
+            path: `/v2/api/generation-members`,
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -560,7 +560,7 @@ export class APIApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/v1/api/generation/current`,
+            path: `/v1/api/generations/current`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -655,7 +655,7 @@ export class APIApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/v1/api/generation/{generationId}`.replace(`{${"generationId"}}`, encodeURIComponent(String(requestParameters['generationId']))),
+            path: `/v1/api/generations/{generationId}`.replace(`{${"generationId"}}`, encodeURIComponent(String(requestParameters['generationId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -699,7 +699,7 @@ export class APIApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/v2/api/generation-member`,
+            path: `/v2/api/generation-members`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -731,7 +731,7 @@ export class APIApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/v1/api/generation`,
+            path: `/v1/api/generations`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1161,7 +1161,7 @@ export class APIApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/v2/api/generation-member`,
+            path: `/v2/api/generation-members`,
             method: 'PATCH',
             headers: headerParameters,
             query: queryParameters,

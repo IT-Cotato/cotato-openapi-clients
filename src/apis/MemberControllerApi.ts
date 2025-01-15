@@ -19,6 +19,7 @@ import type {
   CotatoMemberMyPageInfoResponse,
   CotatoUpdatePasswordRequest,
   CotatoUpdatePhoneNumberRequest,
+  CotatoUpdateProfileInfoRequest,
 } from '../models/index.js';
 import {
     CotatoMemberInfoResponseFromJSON,
@@ -29,6 +30,8 @@ import {
     CotatoUpdatePasswordRequestToJSON,
     CotatoUpdatePhoneNumberRequestFromJSON,
     CotatoUpdatePhoneNumberRequestToJSON,
+    CotatoUpdateProfileInfoRequestFromJSON,
+    CotatoUpdateProfileInfoRequestToJSON,
 } from '../models/index.js';
 
 export interface FindMyPageInfoRequest {
@@ -43,47 +46,15 @@ export interface UpdatePhoneNumberRequest {
     cotatoUpdatePhoneNumberRequest: CotatoUpdatePhoneNumberRequest;
 }
 
-export interface UpdateProfileImageRequest {
-    image: Blob;
+export interface UpdateProfileInfoRequest {
+    request: CotatoUpdateProfileInfoRequest;
+    profileImage?: Blob;
 }
 
 /**
  * 
  */
 export class MemberControllerApi extends runtime.BaseAPI {
-
-    /**
-     * 멤버 프로필 사진 삭제 API
-     */
-    async deleteProfileImageRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearerAuth", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/v1/api/member/profile-image`,
-            method: 'DELETE',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     * 멤버 프로필 사진 삭제 API
-     */
-    async deleteProfileImage(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.deleteProfileImageRaw(initOverrides);
-    }
 
     /**
      */
@@ -241,13 +212,13 @@ export class MemberControllerApi extends runtime.BaseAPI {
     }
 
     /**
-     * 멤버 프로필 사진 수정 API
+     * 멤버 프로필 정보 수정 API
      */
-    async updateProfileImageRaw(requestParameters: UpdateProfileImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['image'] == null) {
+    async updateProfileInfoRaw(requestParameters: UpdateProfileInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['request'] == null) {
             throw new runtime.RequiredError(
-                'image',
-                'Required parameter "image" was null or undefined when calling updateProfileImage().'
+                'request',
+                'Required parameter "request" was null or undefined when calling updateProfileInfo().'
             );
         }
 
@@ -279,13 +250,17 @@ export class MemberControllerApi extends runtime.BaseAPI {
             formParams = new URLSearchParams();
         }
 
-        if (requestParameters['image'] != null) {
-            formParams.append('image', requestParameters['image'] as any);
+        if (requestParameters['request'] != null) {
+            formParams.append('request', new Blob([JSON.stringify(CotatoUpdateProfileInfoRequestToJSON(requestParameters['request']))], { type: "application/json", }));
+                    }
+
+        if (requestParameters['profileImage'] != null) {
+            formParams.append('profileImage', requestParameters['profileImage'] as any);
         }
 
         const response = await this.request({
-            path: `/v1/api/member/profile-image`,
-            method: 'PATCH',
+            path: `/v1/api/member/profile`,
+            method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
             body: formParams,
@@ -295,10 +270,10 @@ export class MemberControllerApi extends runtime.BaseAPI {
     }
 
     /**
-     * 멤버 프로필 사진 수정 API
+     * 멤버 프로필 정보 수정 API
      */
-    async updateProfileImage(requestParameters: UpdateProfileImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.updateProfileImageRaw(requestParameters, initOverrides);
+    async updateProfileInfo(requestParameters: UpdateProfileInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.updateProfileInfoRaw(requestParameters, initOverrides);
     }
 
 }

@@ -68,13 +68,10 @@ export type CotatoMemberEnrollInfoResponsePositionEnum = typeof CotatoMemberEnro
  * @export
  */
 export const CotatoMemberEnrollInfoResponseRoleEnum = {
-    Refused: 'REFUSED',
-    General: 'GENERAL',
     Member: 'MEMBER',
-    OldMember: 'OLD_MEMBER',
+    Manager: 'MANAGER',
     Admin: 'ADMIN',
-    Education: 'EDUCATION',
-    Operation: 'OPERATION'
+    Dev: 'DEV'
 } as const;
 export type CotatoMemberEnrollInfoResponseRoleEnum = typeof CotatoMemberEnrollInfoResponseRoleEnum[keyof typeof CotatoMemberEnrollInfoResponseRoleEnum];
 

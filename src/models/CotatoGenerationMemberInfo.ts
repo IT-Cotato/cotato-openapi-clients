@@ -68,13 +68,10 @@ export type CotatoGenerationMemberInfoPositionEnum = typeof CotatoGenerationMemb
  * @export
  */
 export const CotatoGenerationMemberInfoRoleEnum = {
-    Refused: 'REFUSED',
-    General: 'GENERAL',
     Member: 'MEMBER',
-    OldMember: 'OLD_MEMBER',
+    Manager: 'MANAGER',
     Admin: 'ADMIN',
-    Education: 'EDUCATION',
-    Operation: 'OPERATION'
+    Dev: 'DEV'
 } as const;
 export type CotatoGenerationMemberInfoRoleEnum = typeof CotatoGenerationMemberInfoRoleEnum[keyof typeof CotatoGenerationMemberInfoRoleEnum];
 

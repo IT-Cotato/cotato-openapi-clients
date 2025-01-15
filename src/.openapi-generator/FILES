@@ -79,6 +79,7 @@ models/CotatoOfflineAttendanceRequest.ts
 models/CotatoOnlineAttendanceRequest.ts
 models/CotatoPoliciesResponse.ts
 models/CotatoPolicyInfoResponse.ts
+models/CotatoProfileLinkRequest.ts
 models/CotatoProjectDetailResponse.ts
 models/CotatoProjectImageInfoResponse.ts
 models/CotatoProjectMemberInfoResponse.ts
@@ -115,6 +116,7 @@ models/CotatoUpdateGenerationMemberRoleRequest.ts
 models/CotatoUpdateOldMemberRoleRequest.ts
 models/CotatoUpdatePasswordRequest.ts
 models/CotatoUpdatePhoneNumberRequest.ts
+models/CotatoUpdateProfileInfoRequest.ts
 models/CotatoUpdateSessionImageOrderInfoRequest.ts
 models/CotatoUpdateSessionImageOrderRequest.ts
 models/CotatoUpdateSessionRequest.ts
