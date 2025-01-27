@@ -37,12 +37,6 @@ export interface CotatoAddGenerationRequest {
      * @memberof CotatoAddGenerationRequest
      */
     endDate: Date;
-    /**
-     * 
-     * @type {number}
-     * @memberof CotatoAddGenerationRequest
-     */
-    sessionCount: number;
 }
 
 /**
@@ -52,7 +46,6 @@ export function instanceOfCotatoAddGenerationRequest(value: object): value is Co
     if (!('generationNumber' in value) || value['generationNumber'] === undefined) return false;
     if (!('startDate' in value) || value['startDate'] === undefined) return false;
     if (!('endDate' in value) || value['endDate'] === undefined) return false;
-    if (!('sessionCount' in value) || value['sessionCount'] === undefined) return false;
     return true;
 }
 
@@ -69,7 +62,6 @@ export function CotatoAddGenerationRequestFromJSONTyped(json: any, ignoreDiscrim
         'generationNumber': json['generationNumber'],
         'startDate': (new Date(json['startDate'])),
         'endDate': (new Date(json['endDate'])),
-        'sessionCount': json['sessionCount'],
     };
 }
 
@@ -82,7 +74,6 @@ export function CotatoAddGenerationRequestToJSON(value?: CotatoAddGenerationRequ
         'generationNumber': value['generationNumber'],
         'startDate': ((value['startDate']).toISOString().substring(0,10)),
         'endDate': ((value['endDate']).toISOString().substring(0,10)),
-        'sessionCount': value['sessionCount'],
     };
 }
 

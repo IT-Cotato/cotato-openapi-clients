@@ -24,37 +24,35 @@ export interface CotatoGenerationInfoResponse {
      * @type {number}
      * @memberof CotatoGenerationInfoResponse
      */
-    generationId?: number;
+    generationId: number;
     /**
      * 
      * @type {number}
      * @memberof CotatoGenerationInfoResponse
      */
-    generationNumber?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof CotatoGenerationInfoResponse
-     */
-    sessionCount?: number;
+    generationNumber: number;
     /**
      * 
      * @type {Date}
      * @memberof CotatoGenerationInfoResponse
      */
-    startDate?: Date;
+    startDate: Date;
     /**
      * 
      * @type {Date}
      * @memberof CotatoGenerationInfoResponse
      */
-    endDate?: Date;
+    endDate: Date;
 }
 
 /**
  * Check if a given object implements the CotatoGenerationInfoResponse interface.
  */
 export function instanceOfCotatoGenerationInfoResponse(value: object): value is CotatoGenerationInfoResponse {
+    if (!('generationId' in value) || value['generationId'] === undefined) return false;
+    if (!('generationNumber' in value) || value['generationNumber'] === undefined) return false;
+    if (!('startDate' in value) || value['startDate'] === undefined) return false;
+    if (!('endDate' in value) || value['endDate'] === undefined) return false;
     return true;
 }
 
@@ -68,11 +66,10 @@ export function CotatoGenerationInfoResponseFromJSONTyped(json: any, ignoreDiscr
     }
     return {
         
-        'generationId': json['generationId'] == null ? undefined : json['generationId'],
-        'generationNumber': json['generationNumber'] == null ? undefined : json['generationNumber'],
-        'sessionCount': json['sessionCount'] == null ? undefined : json['sessionCount'],
-        'startDate': json['startDate'] == null ? undefined : (new Date(json['startDate'])),
-        'endDate': json['endDate'] == null ? undefined : (new Date(json['endDate'])),
+        'generationId': json['generationId'],
+        'generationNumber': json['generationNumber'],
+        'startDate': (new Date(json['startDate'])),
+        'endDate': (new Date(json['endDate'])),
     };
 }
 
@@ -84,9 +81,8 @@ export function CotatoGenerationInfoResponseToJSON(value?: CotatoGenerationInfoR
         
         'generationId': value['generationId'],
         'generationNumber': value['generationNumber'],
-        'sessionCount': value['sessionCount'],
-        'startDate': value['startDate'] == null ? undefined : ((value['startDate']).toISOString().substring(0,10)),
-        'endDate': value['endDate'] == null ? undefined : ((value['endDate']).toISOString().substring(0,10)),
+        'startDate': ((value['startDate']).toISOString().substring(0,10)),
+        'endDate': ((value['endDate']).toISOString().substring(0,10)),
     };
 }
 

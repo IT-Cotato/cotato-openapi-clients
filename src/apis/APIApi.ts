@@ -23,7 +23,6 @@ import type {
   CotatoCreateGenerationMemberRequest,
   CotatoCreateProjectRequest,
   CotatoCreateProjectResponse,
-  CotatoDeleteGenerationMemberRequest,
   CotatoFindMemberPolicyResponse,
   CotatoFindPasswordResponse,
   CotatoGenerationInfoResponse,
@@ -57,8 +56,6 @@ import {
     CotatoCreateProjectRequestToJSON,
     CotatoCreateProjectResponseFromJSON,
     CotatoCreateProjectResponseToJSON,
-    CotatoDeleteGenerationMemberRequestFromJSON,
-    CotatoDeleteGenerationMemberRequestToJSON,
     CotatoFindMemberPolicyResponseFromJSON,
     CotatoFindMemberPolicyResponseToJSON,
     CotatoFindPasswordResponseFromJSON,
@@ -123,7 +120,7 @@ export interface CreateProjectImageRequest {
 }
 
 export interface DeleteGenerationMemberRequest {
-    cotatoDeleteGenerationMemberRequest: CotatoDeleteGenerationMemberRequest;
+    generationMemberId: number;
 }
 
 export interface FindEmailRequest {
@@ -137,6 +134,10 @@ export interface FindGenerationByIdRequest {
 
 export interface FindGenerationMemberRequest {
     generationId: number;
+}
+
+export interface GetPolicies1Request {
+    category: GetPolicies1CategoryEnum;
 }
 
 export interface GetProjectDetailRequest {
@@ -203,7 +204,7 @@ export class APIApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/v1/api/generations/add`,
+            path: `/v1/api/generations`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -505,18 +506,20 @@ export class APIApi extends runtime.BaseAPI {
     /**
      */
     async deleteGenerationMemberRaw(requestParameters: DeleteGenerationMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['cotatoDeleteGenerationMemberRequest'] == null) {
+        if (requestParameters['generationMemberId'] == null) {
             throw new runtime.RequiredError(
-                'cotatoDeleteGenerationMemberRequest',
-                'Required parameter "cotatoDeleteGenerationMemberRequest" was null or undefined when calling deleteGenerationMember().'
+                'generationMemberId',
+                'Required parameter "generationMemberId" was null or undefined when calling deleteGenerationMember().'
             );
         }
 
         const queryParameters: any = {};
 
-        const headerParameters: runtime.HTTPHeaders = {};
+        if (requestParameters['generationMemberId'] != null) {
+            queryParameters['generationMemberId'] = requestParameters['generationMemberId'];
+        }
 
-        headerParameters['Content-Type'] = 'application/json';
+        const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -531,7 +534,6 @@ export class APIApi extends runtime.BaseAPI {
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-            body: CotatoDeleteGenerationMemberRequestToJSON(requestParameters['cotatoDeleteGenerationMemberRequest']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -782,10 +784,22 @@ export class APIApi extends runtime.BaseAPI {
     }
 
     /**
-     * 회원 가입 시 보여줘야 할 정책 목록 반환 API
+     * 특정 카테고리에 맞는 정책 목록 반환 API
+     * @deprecated
      */
-    async getPoliciesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoPoliciesResponse>> {
+    async getPolicies1Raw(requestParameters: GetPolicies1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoPoliciesResponse>> {
+        if (requestParameters['category'] == null) {
+            throw new runtime.RequiredError(
+                'category',
+                'Required parameter "category" was null or undefined when calling getPolicies1().'
+            );
+        }
+
         const queryParameters: any = {};
+
+        if (requestParameters['category'] != null) {
+            queryParameters['category'] = requestParameters['category'];
+        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -808,10 +822,11 @@ export class APIApi extends runtime.BaseAPI {
     }
 
     /**
-     * 회원 가입 시 보여줘야 할 정책 목록 반환 API
+     * 특정 카테고리에 맞는 정책 목록 반환 API
+     * @deprecated
      */
-    async getPolicies(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoPoliciesResponse> {
-        const response = await this.getPoliciesRaw(initOverrides);
+    async getPolicies1(requestParameters: GetPolicies1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoPoliciesResponse> {
+        const response = await this.getPolicies1Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1232,3 +1247,12 @@ export class APIApi extends runtime.BaseAPI {
     }
 
 }
+
+/**
+ * @export
+ */
+export const GetPolicies1CategoryEnum = {
+    PersonalInformation: 'PERSONAL_INFORMATION',
+    Leaving: 'LEAVING'
+} as const;
+export type GetPolicies1CategoryEnum = typeof GetPolicies1CategoryEnum[keyof typeof GetPolicies1CategoryEnum];

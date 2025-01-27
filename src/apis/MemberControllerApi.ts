@@ -15,6 +15,7 @@
 
 import * as runtime from '../runtime.js';
 import type {
+  CotatoAddableMembersResponse,
   CotatoMemberInfoResponse,
   CotatoMemberMyPageInfoResponse,
   CotatoUpdatePasswordRequest,
@@ -22,6 +23,8 @@ import type {
   CotatoUpdateProfileInfoRequest,
 } from '../models/index.js';
 import {
+    CotatoAddableMembersResponseFromJSON,
+    CotatoAddableMembersResponseToJSON,
     CotatoMemberInfoResponseFromJSON,
     CotatoMemberInfoResponseToJSON,
     CotatoMemberMyPageInfoResponseFromJSON,
@@ -33,6 +36,13 @@ import {
     CotatoUpdateProfileInfoRequestFromJSON,
     CotatoUpdateProfileInfoRequestToJSON,
 } from '../models/index.js';
+
+export interface FindAddableMembersForGenerationMemberRequest {
+    generationId: number;
+    passedGenerationNumber?: number;
+    position?: FindAddableMembersForGenerationMemberPositionEnum;
+    name?: string;
+}
 
 export interface FindMyPageInfoRequest {
     memberId: number;
@@ -55,6 +65,63 @@ export interface UpdateProfileInfoRequest {
  * 
  */
 export class MemberControllerApi extends runtime.BaseAPI {
+
+    /**
+     * 기수별 멤버에 추가 가능한 멤버 반환 API
+     */
+    async findAddableMembersForGenerationMemberRaw(requestParameters: FindAddableMembersForGenerationMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoAddableMembersResponse>> {
+        if (requestParameters['generationId'] == null) {
+            throw new runtime.RequiredError(
+                'generationId',
+                'Required parameter "generationId" was null or undefined when calling findAddableMembersForGenerationMember().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['generationId'] != null) {
+            queryParameters['generationId'] = requestParameters['generationId'];
+        }
+
+        if (requestParameters['passedGenerationNumber'] != null) {
+            queryParameters['passedGenerationNumber'] = requestParameters['passedGenerationNumber'];
+        }
+
+        if (requestParameters['position'] != null) {
+            queryParameters['position'] = requestParameters['position'];
+        }
+
+        if (requestParameters['name'] != null) {
+            queryParameters['name'] = requestParameters['name'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v1/api/member`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CotatoAddableMembersResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 기수별 멤버에 추가 가능한 멤버 반환 API
+     */
+    async findAddableMembersForGenerationMember(requestParameters: FindAddableMembersForGenerationMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoAddableMembersResponse> {
+        const response = await this.findAddableMembersForGenerationMemberRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      */
@@ -277,3 +344,15 @@ export class MemberControllerApi extends runtime.BaseAPI {
     }
 
 }
+
+/**
+ * @export
+ */
+export const FindAddableMembersForGenerationMemberPositionEnum = {
+    None: 'NONE',
+    Be: 'BE',
+    Fe: 'FE',
+    Design: 'DESIGN',
+    Pm: 'PM'
+} as const;
+export type FindAddableMembersForGenerationMemberPositionEnum = typeof FindAddableMembersForGenerationMemberPositionEnum[keyof typeof FindAddableMembersForGenerationMemberPositionEnum];

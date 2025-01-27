@@ -22,7 +22,6 @@ import type {
   CotatoAttendanceResponse,
   CotatoAttendanceTimeResponse,
   CotatoAttendancesResponse,
-  CotatoCsEducationOnSessionNumberResponse,
   CotatoDeleteSessionImageRequest,
   CotatoGenerationMemberAttendanceRecordResponse,
   CotatoMemberAttendanceRecordsResponse,
@@ -50,8 +49,6 @@ import {
     CotatoAttendanceTimeResponseToJSON,
     CotatoAttendancesResponseFromJSON,
     CotatoAttendancesResponseToJSON,
-    CotatoCsEducationOnSessionNumberResponseFromJSON,
-    CotatoCsEducationOnSessionNumberResponseToJSON,
     CotatoDeleteSessionImageRequestFromJSON,
     CotatoDeleteSessionImageRequestToJSON,
     CotatoGenerationMemberAttendanceRecordResponseFromJSON,
@@ -103,14 +100,6 @@ export interface AdditionalSessionImageRequest {
 
 export interface DeleteSessionImageRequest {
     cotatoDeleteSessionImageRequest: CotatoDeleteSessionImageRequest;
-}
-
-export interface DownloadAttendanceRecordsAsExcelBySessionsRequest {
-    attendanceIds: Array<number>;
-}
-
-export interface FindAllCsOnSessionsByGenerationIdRequest {
-    generationId: number;
 }
 
 export interface FindAllRecordsByGenerationRequest {
@@ -459,102 +448,6 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async deleteSessionImage(requestParameters: DeleteSessionImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteSessionImageRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     * 세션별 출석 기록 엑셀 다운로드 API
-     */
-    async downloadAttendanceRecordsAsExcelBySessionsRaw(requestParameters: DownloadAttendanceRecordsAsExcelBySessionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        if (requestParameters['attendanceIds'] == null) {
-            throw new runtime.RequiredError(
-                'attendanceIds',
-                'Required parameter "attendanceIds" was null or undefined when calling downloadAttendanceRecordsAsExcelBySessions().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters['attendanceIds'] != null) {
-            queryParameters['attendanceIds'] = requestParameters['attendanceIds'];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearerAuth", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/v2/api/attendances/excel`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        if (this.isJsonMime(response.headers.get('content-type'))) {
-            return new runtime.JSONApiResponse<string>(response);
-        } else {
-            return new runtime.TextApiResponse(response) as any;
-        }
-    }
-
-    /**
-     * 세션별 출석 기록 엑셀 다운로드 API
-     */
-    async downloadAttendanceRecordsAsExcelBySessions(requestParameters: DownloadAttendanceRecordsAsExcelBySessionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
-        const response = await this.downloadAttendanceRecordsAsExcelBySessionsRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * 세션과 교육 연계 제거 시 삭제 예정
-     * CS ON인 세션 목록 반환 API
-     */
-    async findAllCsOnSessionsByGenerationIdRaw(requestParameters: FindAllCsOnSessionsByGenerationIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<CotatoCsEducationOnSessionNumberResponse>>> {
-        if (requestParameters['generationId'] == null) {
-            throw new runtime.RequiredError(
-                'generationId',
-                'Required parameter "generationId" was null or undefined when calling findAllCsOnSessionsByGenerationId().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters['generationId'] != null) {
-            queryParameters['generationId'] = requestParameters['generationId'];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearerAuth", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/v1/api/session/cs-on`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(CotatoCsEducationOnSessionNumberResponseFromJSON));
-    }
-
-    /**
-     * 세션과 교육 연계 제거 시 삭제 예정
-     * CS ON인 세션 목록 반환 API
-     */
-    async findAllCsOnSessionsByGenerationId(requestParameters: FindAllCsOnSessionsByGenerationIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<CotatoCsEducationOnSessionNumberResponse>> {
-        const response = await this.findAllCsOnSessionsByGenerationIdRaw(requestParameters, initOverrides);
-        return await response.value();
     }
 
     /**

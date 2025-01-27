@@ -24,13 +24,14 @@ export interface CotatoAddGenerationResponse {
      * @type {number}
      * @memberof CotatoAddGenerationResponse
      */
-    generationId?: number;
+    generationId: number;
 }
 
 /**
  * Check if a given object implements the CotatoAddGenerationResponse interface.
  */
 export function instanceOfCotatoAddGenerationResponse(value: object): value is CotatoAddGenerationResponse {
+    if (!('generationId' in value) || value['generationId'] === undefined) return false;
     return true;
 }
 
@@ -44,7 +45,7 @@ export function CotatoAddGenerationResponseFromJSONTyped(json: any, ignoreDiscri
     }
     return {
         
-        'generationId': json['generationId'] == null ? undefined : json['generationId'],
+        'generationId': json['generationId'],
     };
 }
 
