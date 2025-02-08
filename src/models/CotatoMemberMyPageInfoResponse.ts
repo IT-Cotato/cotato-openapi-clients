@@ -20,67 +20,25 @@ import { mapValues } from '../runtime.js';
  */
 export interface CotatoMemberMyPageInfoResponse {
     /**
-     * 
-     * @type {number}
-     * @memberof CotatoMemberMyPageInfoResponse
-     */
-    memberId?: number;
-    /**
-     * 
+     * 이메일
      * @type {string}
      * @memberof CotatoMemberMyPageInfoResponse
      */
-    email?: string;
+    email: string;
     /**
-     * 
+     * 전화번호
      * @type {string}
      * @memberof CotatoMemberMyPageInfoResponse
      */
-    name?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof CotatoMemberMyPageInfoResponse
-     */
-    generationNumber?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof CotatoMemberMyPageInfoResponse
-     */
-    position?: CotatoMemberMyPageInfoResponsePositionEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof CotatoMemberMyPageInfoResponse
-     */
-    phoneNumber?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CotatoMemberMyPageInfoResponse
-     */
-    profileImage?: string;
+    phoneNumber: string;
 }
-
-
-/**
- * @export
- */
-export const CotatoMemberMyPageInfoResponsePositionEnum = {
-    None: 'NONE',
-    Be: 'BE',
-    Fe: 'FE',
-    Design: 'DESIGN',
-    Pm: 'PM'
-} as const;
-export type CotatoMemberMyPageInfoResponsePositionEnum = typeof CotatoMemberMyPageInfoResponsePositionEnum[keyof typeof CotatoMemberMyPageInfoResponsePositionEnum];
-
 
 /**
  * Check if a given object implements the CotatoMemberMyPageInfoResponse interface.
  */
 export function instanceOfCotatoMemberMyPageInfoResponse(value: object): value is CotatoMemberMyPageInfoResponse {
+    if (!('email' in value) || value['email'] === undefined) return false;
+    if (!('phoneNumber' in value) || value['phoneNumber'] === undefined) return false;
     return true;
 }
 
@@ -94,13 +52,8 @@ export function CotatoMemberMyPageInfoResponseFromJSONTyped(json: any, ignoreDis
     }
     return {
         
-        'memberId': json['memberId'] == null ? undefined : json['memberId'],
-        'email': json['email'] == null ? undefined : json['email'],
-        'name': json['name'] == null ? undefined : json['name'],
-        'generationNumber': json['generationNumber'] == null ? undefined : json['generationNumber'],
-        'position': json['position'] == null ? undefined : json['position'],
-        'phoneNumber': json['phoneNumber'] == null ? undefined : json['phoneNumber'],
-        'profileImage': json['profileImage'] == null ? undefined : json['profileImage'],
+        'email': json['email'],
+        'phoneNumber': json['phoneNumber'],
     };
 }
 
@@ -110,13 +63,8 @@ export function CotatoMemberMyPageInfoResponseToJSON(value?: CotatoMemberMyPageI
     }
     return {
         
-        'memberId': value['memberId'],
         'email': value['email'],
-        'name': value['name'],
-        'generationNumber': value['generationNumber'],
-        'position': value['position'],
         'phoneNumber': value['phoneNumber'],
-        'profileImage': value['profileImage'],
     };
 }
 

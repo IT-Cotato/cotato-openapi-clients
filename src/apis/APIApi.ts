@@ -144,6 +144,10 @@ export interface GetProjectDetailRequest {
     projectId: number;
 }
 
+export interface GetUnCheckedPoliciesRequest {
+    category: GetUnCheckedPoliciesCategoryEnum;
+}
+
 export interface JoinAuthRequest {
     cotatoJoinRequest: CotatoJoinRequest;
 }
@@ -874,8 +878,19 @@ export class APIApi extends runtime.BaseAPI {
     /**
      * 체크하지 않은 정책 조회 API
      */
-    async getUnCheckedPoliciesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoFindMemberPolicyResponse>> {
+    async getUnCheckedPoliciesRaw(requestParameters: GetUnCheckedPoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoFindMemberPolicyResponse>> {
+        if (requestParameters['category'] == null) {
+            throw new runtime.RequiredError(
+                'category',
+                'Required parameter "category" was null or undefined when calling getUnCheckedPolicies().'
+            );
+        }
+
         const queryParameters: any = {};
+
+        if (requestParameters['category'] != null) {
+            queryParameters['category'] = requestParameters['category'];
+        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -888,7 +903,7 @@ export class APIApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/v2/api/policies/essential`,
+            path: `/v2/api/policies/unchecked`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -900,8 +915,8 @@ export class APIApi extends runtime.BaseAPI {
     /**
      * 체크하지 않은 정책 조회 API
      */
-    async getUnCheckedPolicies(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoFindMemberPolicyResponse> {
-        const response = await this.getUnCheckedPoliciesRaw(initOverrides);
+    async getUnCheckedPolicies(requestParameters: GetUnCheckedPoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoFindMemberPolicyResponse> {
+        const response = await this.getUnCheckedPoliciesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1256,3 +1271,11 @@ export const GetPolicies1CategoryEnum = {
     Leaving: 'LEAVING'
 } as const;
 export type GetPolicies1CategoryEnum = typeof GetPolicies1CategoryEnum[keyof typeof GetPolicies1CategoryEnum];
+/**
+ * @export
+ */
+export const GetUnCheckedPoliciesCategoryEnum = {
+    PersonalInformation: 'PERSONAL_INFORMATION',
+    Leaving: 'LEAVING'
+} as const;
+export type GetUnCheckedPoliciesCategoryEnum = typeof GetUnCheckedPoliciesCategoryEnum[keyof typeof GetUnCheckedPoliciesCategoryEnum];
