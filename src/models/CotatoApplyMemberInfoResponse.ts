@@ -24,25 +24,28 @@ export interface CotatoApplyMemberInfoResponse {
      * @type {number}
      * @memberof CotatoApplyMemberInfoResponse
      */
-    id?: number;
+    id: number;
     /**
      * 
      * @type {string}
      * @memberof CotatoApplyMemberInfoResponse
      */
-    name?: string;
+    name: string;
     /**
      * 
      * @type {string}
      * @memberof CotatoApplyMemberInfoResponse
      */
-    backFourNumber?: string;
+    backFourNumber: string;
 }
 
 /**
  * Check if a given object implements the CotatoApplyMemberInfoResponse interface.
  */
 export function instanceOfCotatoApplyMemberInfoResponse(value: object): value is CotatoApplyMemberInfoResponse {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('backFourNumber' in value) || value['backFourNumber'] === undefined) return false;
     return true;
 }
 
@@ -56,9 +59,9 @@ export function CotatoApplyMemberInfoResponseFromJSONTyped(json: any, ignoreDisc
     }
     return {
         
-        'id': json['id'] == null ? undefined : json['id'],
-        'name': json['name'] == null ? undefined : json['name'],
-        'backFourNumber': json['backFourNumber'] == null ? undefined : json['backFourNumber'],
+        'id': json['id'],
+        'name': json['name'],
+        'backFourNumber': json['backFourNumber'],
     };
 }
 

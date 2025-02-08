@@ -30,13 +30,13 @@ export interface CotatoCreateEducationRequest {
      * @type {number}
      * @memberof CotatoCreateEducationRequest
      */
-    sessionId: number;
+    generationId: number;
     /**
      * 
      * @type {number}
      * @memberof CotatoCreateEducationRequest
      */
-    educationNum: number;
+    educationNumber: number;
 }
 
 /**
@@ -44,8 +44,8 @@ export interface CotatoCreateEducationRequest {
  */
 export function instanceOfCotatoCreateEducationRequest(value: object): value is CotatoCreateEducationRequest {
     if (!('subject' in value) || value['subject'] === undefined) return false;
-    if (!('sessionId' in value) || value['sessionId'] === undefined) return false;
-    if (!('educationNum' in value) || value['educationNum'] === undefined) return false;
+    if (!('generationId' in value) || value['generationId'] === undefined) return false;
+    if (!('educationNumber' in value) || value['educationNumber'] === undefined) return false;
     return true;
 }
 
@@ -60,8 +60,8 @@ export function CotatoCreateEducationRequestFromJSONTyped(json: any, ignoreDiscr
     return {
         
         'subject': json['subject'],
-        'sessionId': json['sessionId'],
-        'educationNum': json['educationNum'],
+        'generationId': json['generationId'],
+        'educationNumber': json['educationNumber'],
     };
 }
 
@@ -72,8 +72,8 @@ export function CotatoCreateEducationRequestToJSON(value?: CotatoCreateEducation
     return {
         
         'subject': value['subject'],
-        'sessionId': value['sessionId'],
-        'educationNum': value['educationNum'],
+        'generationId': value['generationId'],
+        'educationNumber': value['educationNumber'],
     };
 }
 

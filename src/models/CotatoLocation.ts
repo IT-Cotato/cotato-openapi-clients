@@ -24,19 +24,21 @@ export interface CotatoLocation {
      * @type {number}
      * @memberof CotatoLocation
      */
-    latitude?: number;
+    latitude: number;
     /**
      * 
      * @type {number}
      * @memberof CotatoLocation
      */
-    longitude?: number;
+    longitude: number;
 }
 
 /**
  * Check if a given object implements the CotatoLocation interface.
  */
 export function instanceOfCotatoLocation(value: object): value is CotatoLocation {
+    if (!('latitude' in value) || value['latitude'] === undefined) return false;
+    if (!('longitude' in value) || value['longitude'] === undefined) return false;
     return true;
 }
 
@@ -50,8 +52,8 @@ export function CotatoLocationFromJSONTyped(json: any, ignoreDiscriminator: bool
     }
     return {
         
-        'latitude': json['latitude'] == null ? undefined : json['latitude'],
-        'longitude': json['longitude'] == null ? undefined : json['longitude'],
+        'latitude': json['latitude'],
+        'longitude': json['longitude'],
     };
 }
 
