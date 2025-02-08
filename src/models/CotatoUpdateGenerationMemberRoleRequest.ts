@@ -38,13 +38,12 @@ export interface CotatoUpdateGenerationMemberRoleRequest {
  * @export
  */
 export const CotatoUpdateGenerationMemberRoleRequestRoleEnum = {
-    Refused: 'REFUSED',
-    General: 'GENERAL',
     Member: 'MEMBER',
-    OldMember: 'OLD_MEMBER',
-    Admin: 'ADMIN',
-    Education: 'EDUCATION',
-    Operation: 'OPERATION'
+    LeaderTeam: 'LEADER_TEAM',
+    OperationSupportTeam: 'OPERATION_SUPPORT_TEAM',
+    EducationTeam: 'EDUCATION_TEAM',
+    PlanningTeam: 'PLANNING_TEAM',
+    MarketingTeam: 'MARKETING_TEAM'
 } as const;
 export type CotatoUpdateGenerationMemberRoleRequestRoleEnum = typeof CotatoUpdateGenerationMemberRoleRequestRoleEnum[keyof typeof CotatoUpdateGenerationMemberRoleRequestRoleEnum];
 

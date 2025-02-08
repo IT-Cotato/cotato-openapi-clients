@@ -18,6 +18,7 @@ import type {
   CotatoAllEducationResponse,
   CotatoCreateEducationRequest,
   CotatoCreateEducationResponse,
+  CotatoEducationCountResponse,
   CotatoEducationIdOfQuizResponse,
   CotatoFindEducationStatusResponse,
   CotatoKingMemberInfo,
@@ -31,6 +32,8 @@ import {
     CotatoCreateEducationRequestToJSON,
     CotatoCreateEducationResponseFromJSON,
     CotatoCreateEducationResponseToJSON,
+    CotatoEducationCountResponseFromJSON,
+    CotatoEducationCountResponseToJSON,
     CotatoEducationIdOfQuizResponseFromJSON,
     CotatoEducationIdOfQuizResponseToJSON,
     CotatoFindEducationStatusResponseFromJSON,
@@ -169,6 +172,7 @@ export class EducationControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * 교육 추가 API
      */
     async createEducationRaw(requestParameters: CreateEducationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoCreateEducationResponse>> {
         if (requestParameters['cotatoCreateEducationRequest'] == null) {
@@ -193,7 +197,7 @@ export class EducationControllerApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/v1/api/education/add`,
+            path: `/v1/api/education`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -204,6 +208,7 @@ export class EducationControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * 교육 추가 API
      */
     async createEducation(requestParameters: CreateEducationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoCreateEducationResponse> {
         const response = await this.createEducationRaw(requestParameters, initOverrides);
@@ -426,6 +431,41 @@ export class EducationControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * 교육 및 퀴즈 수 조회 API
+     */
+    async getEducationCountsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoEducationCountResponse>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v1/api/education/counts`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CotatoEducationCountResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 교육 및 퀴즈 수 조회 API
+     */
+    async getEducationCounts(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoEducationCountResponse> {
+        const response = await this.getEducationCountsRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 교육 수정 API
      */
     async updateEducationRaw(requestParameters: UpdateEducationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters['cotatoUpdateEducationRequest'] == null) {
@@ -450,7 +490,7 @@ export class EducationControllerApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/v1/api/education/update`,
+            path: `/v1/api/education`,
             method: 'PATCH',
             headers: headerParameters,
             query: queryParameters,
@@ -461,6 +501,7 @@ export class EducationControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * 교육 수정 API
      */
     async updateEducation(requestParameters: UpdateEducationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.updateEducationRaw(requestParameters, initOverrides);

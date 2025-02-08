@@ -20,17 +20,18 @@ import { mapValues } from '../runtime.js';
  */
 export interface CotatoCreateEducationResponse {
     /**
-     * 
+     * 생성된 교육 PK
      * @type {number}
      * @memberof CotatoCreateEducationResponse
      */
-    educationId?: number;
+    educationId: number;
 }
 
 /**
  * Check if a given object implements the CotatoCreateEducationResponse interface.
  */
 export function instanceOfCotatoCreateEducationResponse(value: object): value is CotatoCreateEducationResponse {
+    if (!('educationId' in value) || value['educationId'] === undefined) return false;
     return true;
 }
 
@@ -44,7 +45,7 @@ export function CotatoCreateEducationResponseFromJSONTyped(json: any, ignoreDisc
     }
     return {
         
-        'educationId': json['educationId'] == null ? undefined : json['educationId'],
+        'educationId': json['educationId'],
     };
 }
 

@@ -24,7 +24,7 @@ export interface CotatoMemberInfoResponse {
      * @type {number}
      * @memberof CotatoMemberInfoResponse
      */
-    memberId?: number;
+    memberId: number;
     /**
      * 
      * @type {string}
@@ -48,6 +48,12 @@ export interface CotatoMemberInfoResponse {
      * @type {string}
      * @memberof CotatoMemberInfoResponse
      */
+    status?: CotatoMemberInfoResponseStatusEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof CotatoMemberInfoResponse
+     */
     position?: CotatoMemberInfoResponsePositionEnum;
 }
 
@@ -56,15 +62,23 @@ export interface CotatoMemberInfoResponse {
  * @export
  */
 export const CotatoMemberInfoResponseRoleEnum = {
-    Refused: 'REFUSED',
-    General: 'GENERAL',
     Member: 'MEMBER',
-    OldMember: 'OLD_MEMBER',
+    Manager: 'MANAGER',
     Admin: 'ADMIN',
-    Education: 'EDUCATION',
-    Operation: 'OPERATION'
+    Dev: 'DEV'
 } as const;
 export type CotatoMemberInfoResponseRoleEnum = typeof CotatoMemberInfoResponseRoleEnum[keyof typeof CotatoMemberInfoResponseRoleEnum];
+
+/**
+ * @export
+ */
+export const CotatoMemberInfoResponseStatusEnum = {
+    Rejected: 'REJECTED',
+    Requested: 'REQUESTED',
+    Retired: 'RETIRED',
+    Approved: 'APPROVED'
+} as const;
+export type CotatoMemberInfoResponseStatusEnum = typeof CotatoMemberInfoResponseStatusEnum[keyof typeof CotatoMemberInfoResponseStatusEnum];
 
 /**
  * @export
@@ -83,6 +97,7 @@ export type CotatoMemberInfoResponsePositionEnum = typeof CotatoMemberInfoRespon
  * Check if a given object implements the CotatoMemberInfoResponse interface.
  */
 export function instanceOfCotatoMemberInfoResponse(value: object): value is CotatoMemberInfoResponse {
+    if (!('memberId' in value) || value['memberId'] === undefined) return false;
     return true;
 }
 
@@ -96,10 +111,11 @@ export function CotatoMemberInfoResponseFromJSONTyped(json: any, ignoreDiscrimin
     }
     return {
         
-        'memberId': json['memberId'] == null ? undefined : json['memberId'],
+        'memberId': json['memberId'],
         'name': json['name'] == null ? undefined : json['name'],
         'backFourNumber': json['backFourNumber'] == null ? undefined : json['backFourNumber'],
         'role': json['role'] == null ? undefined : json['role'],
+        'status': json['status'] == null ? undefined : json['status'],
         'position': json['position'] == null ? undefined : json['position'],
     };
 }
@@ -114,6 +130,7 @@ export function CotatoMemberInfoResponseToJSON(value?: CotatoMemberInfoResponse 
         'name': value['name'],
         'backFourNumber': value['backFourNumber'],
         'role': value['role'],
+        'status': value['status'],
         'position': value['position'],
     };
 }
