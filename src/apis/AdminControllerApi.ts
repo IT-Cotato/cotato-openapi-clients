@@ -19,8 +19,8 @@ import type {
   CotatoMemberApproveRequest,
   CotatoMemberEnrollInfoResponse,
   CotatoMemberRejectRequest,
-  CotatoUpdateActiveMemberRoleRequest,
   CotatoUpdateActiveMemberToOldMemberRequest,
+  CotatoUpdateMemberRoleRequest,
   CotatoUpdateOldMemberRoleRequest,
 } from '../models/index.js';
 import {
@@ -32,15 +32,15 @@ import {
     CotatoMemberEnrollInfoResponseToJSON,
     CotatoMemberRejectRequestFromJSON,
     CotatoMemberRejectRequestToJSON,
-    CotatoUpdateActiveMemberRoleRequestFromJSON,
-    CotatoUpdateActiveMemberRoleRequestToJSON,
     CotatoUpdateActiveMemberToOldMemberRequestFromJSON,
     CotatoUpdateActiveMemberToOldMemberRequestToJSON,
+    CotatoUpdateMemberRoleRequestFromJSON,
+    CotatoUpdateMemberRoleRequestToJSON,
     CotatoUpdateOldMemberRoleRequestFromJSON,
     CotatoUpdateOldMemberRoleRequestToJSON,
 } from '../models/index.js';
 
-export interface ApproveApplicantRequest {
+export interface ApproveApplicant1Request {
     cotatoMemberApproveRequest: CotatoMemberApproveRequest;
 }
 
@@ -48,12 +48,12 @@ export interface ReapproveApplicantRequest {
     cotatoMemberApproveRequest: CotatoMemberApproveRequest;
 }
 
-export interface RejectApplicantRequest {
+export interface RejectApplicant1Request {
     cotatoMemberRejectRequest: CotatoMemberRejectRequest;
 }
 
 export interface UpdateActiveMemberRoleRequest {
-    cotatoUpdateActiveMemberRoleRequest: CotatoUpdateActiveMemberRoleRequest;
+    cotatoUpdateMemberRoleRequest: CotatoUpdateMemberRoleRequest;
 }
 
 export interface UpdateActiveMembersToOldMembersRequest {
@@ -70,12 +70,13 @@ export interface UpdateOldMemberToActiveGenerationRequest {
 export class AdminControllerApi extends runtime.BaseAPI {
 
     /**
+     * @deprecated
      */
-    async approveApplicantRaw(requestParameters: ApproveApplicantRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async approveApplicant1Raw(requestParameters: ApproveApplicant1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters['cotatoMemberApproveRequest'] == null) {
             throw new runtime.RequiredError(
                 'cotatoMemberApproveRequest',
-                'Required parameter "cotatoMemberApproveRequest" was null or undefined when calling approveApplicant().'
+                'Required parameter "cotatoMemberApproveRequest" was null or undefined when calling approveApplicant1().'
             );
         }
 
@@ -105,12 +106,14 @@ export class AdminControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * @deprecated
      */
-    async approveApplicant(requestParameters: ApproveApplicantRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.approveApplicantRaw(requestParameters, initOverrides);
+    async approveApplicant1(requestParameters: ApproveApplicant1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.approveApplicant1Raw(requestParameters, initOverrides);
     }
 
     /**
+     * @deprecated
      */
     async findApplicantListRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<CotatoApplyMemberInfoResponse>>> {
         const queryParameters: any = {};
@@ -136,6 +139,7 @@ export class AdminControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * @deprecated
      */
     async findApplicantList(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<CotatoApplyMemberInfoResponse>> {
         const response = await this.findApplicantListRaw(initOverrides);
@@ -143,6 +147,7 @@ export class AdminControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * @deprecated
      */
     async findCurrentActiveMembersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<CotatoMemberEnrollInfoResponse>>> {
         const queryParameters: any = {};
@@ -168,6 +173,7 @@ export class AdminControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * @deprecated
      */
     async findCurrentActiveMembers(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<CotatoMemberEnrollInfoResponse>> {
         const response = await this.findCurrentActiveMembersRaw(initOverrides);
@@ -175,6 +181,7 @@ export class AdminControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * @deprecated
      */
     async findOldMembersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<CotatoMemberEnrollInfoResponse>>> {
         const queryParameters: any = {};
@@ -200,6 +207,7 @@ export class AdminControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * @deprecated
      */
     async findOldMembers(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<CotatoMemberEnrollInfoResponse>> {
         const response = await this.findOldMembersRaw(initOverrides);
@@ -207,6 +215,7 @@ export class AdminControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * @deprecated
      */
     async findRejectApplicantListRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<CotatoApplyMemberInfoResponse>>> {
         const queryParameters: any = {};
@@ -232,6 +241,7 @@ export class AdminControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * @deprecated
      */
     async findRejectApplicantList(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<CotatoApplyMemberInfoResponse>> {
         const response = await this.findRejectApplicantListRaw(initOverrides);
@@ -239,6 +249,7 @@ export class AdminControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * @deprecated
      */
     async reapproveApplicantRaw(requestParameters: ReapproveApplicantRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters['cotatoMemberApproveRequest'] == null) {
@@ -274,18 +285,20 @@ export class AdminControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * @deprecated
      */
     async reapproveApplicant(requestParameters: ReapproveApplicantRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.reapproveApplicantRaw(requestParameters, initOverrides);
     }
 
     /**
+     * @deprecated
      */
-    async rejectApplicantRaw(requestParameters: RejectApplicantRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async rejectApplicant1Raw(requestParameters: RejectApplicant1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters['cotatoMemberRejectRequest'] == null) {
             throw new runtime.RequiredError(
                 'cotatoMemberRejectRequest',
-                'Required parameter "cotatoMemberRejectRequest" was null or undefined when calling rejectApplicant().'
+                'Required parameter "cotatoMemberRejectRequest" was null or undefined when calling rejectApplicant1().'
             );
         }
 
@@ -315,18 +328,20 @@ export class AdminControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * @deprecated
      */
-    async rejectApplicant(requestParameters: RejectApplicantRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.rejectApplicantRaw(requestParameters, initOverrides);
+    async rejectApplicant1(requestParameters: RejectApplicant1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.rejectApplicant1Raw(requestParameters, initOverrides);
     }
 
     /**
+     * @deprecated
      */
     async updateActiveMemberRoleRaw(requestParameters: UpdateActiveMemberRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['cotatoUpdateActiveMemberRoleRequest'] == null) {
+        if (requestParameters['cotatoUpdateMemberRoleRequest'] == null) {
             throw new runtime.RequiredError(
-                'cotatoUpdateActiveMemberRoleRequest',
-                'Required parameter "cotatoUpdateActiveMemberRoleRequest" was null or undefined when calling updateActiveMemberRole().'
+                'cotatoUpdateMemberRoleRequest',
+                'Required parameter "cotatoUpdateMemberRoleRequest" was null or undefined when calling updateActiveMemberRole().'
             );
         }
 
@@ -349,19 +364,21 @@ export class AdminControllerApi extends runtime.BaseAPI {
             method: 'PATCH',
             headers: headerParameters,
             query: queryParameters,
-            body: CotatoUpdateActiveMemberRoleRequestToJSON(requestParameters['cotatoUpdateActiveMemberRoleRequest']),
+            body: CotatoUpdateMemberRoleRequestToJSON(requestParameters['cotatoUpdateMemberRoleRequest']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
 
     /**
+     * @deprecated
      */
     async updateActiveMemberRole(requestParameters: UpdateActiveMemberRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.updateActiveMemberRoleRaw(requestParameters, initOverrides);
     }
 
     /**
+     * @deprecated
      */
     async updateActiveMembersToOldMembersRaw(requestParameters: UpdateActiveMembersToOldMembersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters['cotatoUpdateActiveMemberToOldMemberRequest'] == null) {
@@ -397,12 +414,14 @@ export class AdminControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * @deprecated
      */
     async updateActiveMembersToOldMembers(requestParameters: UpdateActiveMembersToOldMembersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.updateActiveMembersToOldMembersRaw(requestParameters, initOverrides);
     }
 
     /**
+     * @deprecated
      */
     async updateOldMemberToActiveGenerationRaw(requestParameters: UpdateOldMemberToActiveGenerationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters['cotatoUpdateOldMemberRoleRequest'] == null) {
@@ -438,6 +457,7 @@ export class AdminControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * @deprecated
      */
     async updateOldMemberToActiveGeneration(requestParameters: UpdateOldMemberToActiveGenerationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.updateOldMemberToActiveGenerationRaw(requestParameters, initOverrides);

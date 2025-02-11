@@ -49,6 +49,12 @@ export interface CotatoAttendanceWithSessionResponse {
      * @memberof CotatoAttendanceWithSessionResponse
      */
     sessionType: CotatoAttendanceWithSessionResponseSessionTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof CotatoAttendanceWithSessionResponse
+     */
+    openStatus: CotatoAttendanceWithSessionResponseOpenStatusEnum;
 }
 
 
@@ -63,6 +69,18 @@ export const CotatoAttendanceWithSessionResponseSessionTypeEnum = {
 } as const;
 export type CotatoAttendanceWithSessionResponseSessionTypeEnum = typeof CotatoAttendanceWithSessionResponseSessionTypeEnum[keyof typeof CotatoAttendanceWithSessionResponseSessionTypeEnum];
 
+/**
+ * @export
+ */
+export const CotatoAttendanceWithSessionResponseOpenStatusEnum = {
+    Closed: 'CLOSED',
+    Open: 'OPEN',
+    Late: 'LATE',
+    Absent: 'ABSENT',
+    Before: 'BEFORE'
+} as const;
+export type CotatoAttendanceWithSessionResponseOpenStatusEnum = typeof CotatoAttendanceWithSessionResponseOpenStatusEnum[keyof typeof CotatoAttendanceWithSessionResponseOpenStatusEnum];
+
 
 /**
  * Check if a given object implements the CotatoAttendanceWithSessionResponse interface.
@@ -71,6 +89,7 @@ export function instanceOfCotatoAttendanceWithSessionResponse(value: object): va
     if (!('sessionId' in value) || value['sessionId'] === undefined) return false;
     if (!('attendanceId' in value) || value['attendanceId'] === undefined) return false;
     if (!('sessionType' in value) || value['sessionType'] === undefined) return false;
+    if (!('openStatus' in value) || value['openStatus'] === undefined) return false;
     return true;
 }
 
@@ -89,6 +108,7 @@ export function CotatoAttendanceWithSessionResponseFromJSONTyped(json: any, igno
         'sessionTitle': json['sessionTitle'] == null ? undefined : json['sessionTitle'],
         'sessionDateTime': json['sessionDateTime'] == null ? undefined : (new Date(json['sessionDateTime'])),
         'sessionType': json['sessionType'],
+        'openStatus': json['openStatus'],
     };
 }
 
@@ -103,6 +123,7 @@ export function CotatoAttendanceWithSessionResponseToJSON(value?: CotatoAttendan
         'sessionTitle': value['sessionTitle'],
         'sessionDateTime': value['sessionDateTime'] == null ? undefined : ((value['sessionDateTime']).toISOString()),
         'sessionType': value['sessionType'],
+        'openStatus': value['openStatus'],
     };
 }
 

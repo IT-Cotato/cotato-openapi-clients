@@ -23,6 +23,7 @@ export interface CotatoMemberApproveRequest {
      * 
      * @type {number}
      * @memberof CotatoMemberApproveRequest
+     * @deprecated
      */
     memberId: number;
     /**
