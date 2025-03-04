@@ -16,9 +16,7 @@
 import * as runtime from '../runtime.js';
 import type {
   CotatoApplyMemberInfoResponse,
-  CotatoMemberApproveRequest,
   CotatoMemberEnrollInfoResponse,
-  CotatoMemberRejectRequest,
   CotatoUpdateActiveMemberToOldMemberRequest,
   CotatoUpdateMemberRoleRequest,
   CotatoUpdateOldMemberRoleRequest,
@@ -26,12 +24,8 @@ import type {
 import {
     CotatoApplyMemberInfoResponseFromJSON,
     CotatoApplyMemberInfoResponseToJSON,
-    CotatoMemberApproveRequestFromJSON,
-    CotatoMemberApproveRequestToJSON,
     CotatoMemberEnrollInfoResponseFromJSON,
     CotatoMemberEnrollInfoResponseToJSON,
-    CotatoMemberRejectRequestFromJSON,
-    CotatoMemberRejectRequestToJSON,
     CotatoUpdateActiveMemberToOldMemberRequestFromJSON,
     CotatoUpdateActiveMemberToOldMemberRequestToJSON,
     CotatoUpdateMemberRoleRequestFromJSON,
@@ -39,18 +33,6 @@ import {
     CotatoUpdateOldMemberRoleRequestFromJSON,
     CotatoUpdateOldMemberRoleRequestToJSON,
 } from '../models/index.js';
-
-export interface ApproveApplicant1Request {
-    cotatoMemberApproveRequest: CotatoMemberApproveRequest;
-}
-
-export interface ReapproveApplicantRequest {
-    cotatoMemberApproveRequest: CotatoMemberApproveRequest;
-}
-
-export interface RejectApplicant1Request {
-    cotatoMemberRejectRequest: CotatoMemberRejectRequest;
-}
 
 export interface UpdateActiveMemberRoleRequest {
     cotatoUpdateMemberRoleRequest: CotatoUpdateMemberRoleRequest;
@@ -68,49 +50,6 @@ export interface UpdateOldMemberToActiveGenerationRequest {
  * 
  */
 export class AdminControllerApi extends runtime.BaseAPI {
-
-    /**
-     * @deprecated
-     */
-    async approveApplicant1Raw(requestParameters: ApproveApplicant1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['cotatoMemberApproveRequest'] == null) {
-            throw new runtime.RequiredError(
-                'cotatoMemberApproveRequest',
-                'Required parameter "cotatoMemberApproveRequest" was null or undefined when calling approveApplicant1().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearerAuth", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/v1/api/admin/approve`,
-            method: 'PATCH',
-            headers: headerParameters,
-            query: queryParameters,
-            body: CotatoMemberApproveRequestToJSON(requestParameters['cotatoMemberApproveRequest']),
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     * @deprecated
-     */
-    async approveApplicant1(requestParameters: ApproveApplicant1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.approveApplicant1Raw(requestParameters, initOverrides);
-    }
 
     /**
      * @deprecated
@@ -251,92 +190,6 @@ export class AdminControllerApi extends runtime.BaseAPI {
     /**
      * @deprecated
      */
-    async reapproveApplicantRaw(requestParameters: ReapproveApplicantRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['cotatoMemberApproveRequest'] == null) {
-            throw new runtime.RequiredError(
-                'cotatoMemberApproveRequest',
-                'Required parameter "cotatoMemberApproveRequest" was null or undefined when calling reapproveApplicant().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearerAuth", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/v1/api/admin/reapprove`,
-            method: 'PATCH',
-            headers: headerParameters,
-            query: queryParameters,
-            body: CotatoMemberApproveRequestToJSON(requestParameters['cotatoMemberApproveRequest']),
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     * @deprecated
-     */
-    async reapproveApplicant(requestParameters: ReapproveApplicantRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.reapproveApplicantRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     * @deprecated
-     */
-    async rejectApplicant1Raw(requestParameters: RejectApplicant1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['cotatoMemberRejectRequest'] == null) {
-            throw new runtime.RequiredError(
-                'cotatoMemberRejectRequest',
-                'Required parameter "cotatoMemberRejectRequest" was null or undefined when calling rejectApplicant1().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearerAuth", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/v1/api/admin/reject`,
-            method: 'PATCH',
-            headers: headerParameters,
-            query: queryParameters,
-            body: CotatoMemberRejectRequestToJSON(requestParameters['cotatoMemberRejectRequest']),
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     * @deprecated
-     */
-    async rejectApplicant1(requestParameters: RejectApplicant1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.rejectApplicant1Raw(requestParameters, initOverrides);
-    }
-
-    /**
-     * @deprecated
-     */
     async updateActiveMemberRoleRaw(requestParameters: UpdateActiveMemberRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters['cotatoUpdateMemberRoleRequest'] == null) {
             throw new runtime.RequiredError(
@@ -378,6 +231,7 @@ export class AdminControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * @deprecated
      */
     async updateActiveMembersToOldMembersRaw(requestParameters: UpdateActiveMembersToOldMembersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters['cotatoUpdateActiveMemberToOldMemberRequest'] == null) {
@@ -413,12 +267,14 @@ export class AdminControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * @deprecated
      */
     async updateActiveMembersToOldMembers(requestParameters: UpdateActiveMembersToOldMembersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.updateActiveMembersToOldMembersRaw(requestParameters, initOverrides);
     }
 
     /**
+     * @deprecated
      */
     async updateOldMemberToActiveGenerationRaw(requestParameters: UpdateOldMemberToActiveGenerationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters['cotatoUpdateOldMemberRoleRequest'] == null) {
@@ -454,6 +310,7 @@ export class AdminControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * @deprecated
      */
     async updateOldMemberToActiveGeneration(requestParameters: UpdateOldMemberToActiveGenerationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.updateOldMemberToActiveGenerationRaw(requestParameters, initOverrides);

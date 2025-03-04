@@ -78,14 +78,15 @@ export interface AddSessionRequest {
     title: string;
     description: string;
     sessionDateTime: Date;
-    attendanceDeadLine: Date;
-    lateDeadLine: Date;
     images?: Array<Blob>;
     latitude?: number;
     longitude?: number;
     placeName?: string;
+    roadNameAddress?: string;
     isOffline?: boolean;
     isOnline?: boolean;
+    attendanceDeadLine?: Date;
+    lateDeadLine?: Date;
     itIssue?: AddSessionItIssueEnum;
     networking?: AddSessionNetworkingEnum;
     csEducation?: AddSessionCsEducationEnum;
@@ -196,20 +197,6 @@ export class DefaultApi extends runtime.BaseAPI {
             );
         }
 
-        if (requestParameters['attendanceDeadLine'] == null) {
-            throw new runtime.RequiredError(
-                'attendanceDeadLine',
-                'Required parameter "attendanceDeadLine" was null or undefined when calling addSession().'
-            );
-        }
-
-        if (requestParameters['lateDeadLine'] == null) {
-            throw new runtime.RequiredError(
-                'lateDeadLine',
-                'Required parameter "lateDeadLine" was null or undefined when calling addSession().'
-            );
-        }
-
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -266,6 +253,10 @@ export class DefaultApi extends runtime.BaseAPI {
 
         if (requestParameters['placeName'] != null) {
             formParams.append('placeName', requestParameters['placeName'] as any);
+        }
+
+        if (requestParameters['roadNameAddress'] != null) {
+            formParams.append('roadNameAddress', requestParameters['roadNameAddress'] as any);
         }
 
         if (requestParameters['sessionDateTime'] != null) {

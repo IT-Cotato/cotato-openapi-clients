@@ -82,6 +82,12 @@ export interface CotatoSessionWithAttendanceResponse {
     placeName?: string;
     /**
      * 
+     * @type {string}
+     * @memberof CotatoSessionWithAttendanceResponse
+     */
+    roadNameAddress?: string;
+    /**
+     * 
      * @type {Date}
      * @memberof CotatoSessionWithAttendanceResponse
      */
@@ -139,6 +145,7 @@ export function CotatoSessionWithAttendanceResponseFromJSONTyped(json: any, igno
         'description': json['description'] == null ? undefined : json['description'],
         'generationId': json['generationId'],
         'placeName': json['placeName'] == null ? undefined : json['placeName'],
+        'roadNameAddress': json['roadNameAddress'] == null ? undefined : json['roadNameAddress'],
         'sessionDateTime': json['sessionDateTime'] == null ? undefined : (new Date(json['sessionDateTime'])),
         'sessionContents': json['sessionContents'] == null ? undefined : CotatoSessionContentsFromJSON(json['sessionContents']),
         'isOffline': json['isOffline'] == null ? undefined : json['isOffline'],
@@ -160,6 +167,7 @@ export function CotatoSessionWithAttendanceResponseToJSON(value?: CotatoSessionW
         'description': value['description'],
         'generationId': value['generationId'],
         'placeName': value['placeName'],
+        'roadNameAddress': value['roadNameAddress'],
         'sessionDateTime': value['sessionDateTime'] == null ? undefined : ((value['sessionDateTime']).toISOString()),
         'sessionContents': CotatoSessionContentsToJSON(value['sessionContents']),
         'isOffline': value['isOffline'],

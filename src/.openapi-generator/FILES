@@ -74,11 +74,14 @@ models/CotatoMemberEmailResponse.ts
 models/CotatoMemberEnrollInfoResponse.ts
 models/CotatoMemberInfoResponse.ts
 models/CotatoMemberMyPageInfoResponse.ts
-models/CotatoMemberRejectRequest.ts
+models/CotatoMemberResponse.ts
 models/CotatoMultipleQuizResponse.ts
 models/CotatoMyHallOfFameInfo.ts
 models/CotatoOfflineAttendanceRequest.ts
 models/CotatoOnlineAttendanceRequest.ts
+models/CotatoPageMemberResponse.ts
+models/CotatoPageable.ts
+models/CotatoPageableObject.ts
 models/CotatoPoliciesResponse.ts
 models/CotatoPolicyInfoResponse.ts
 models/CotatoProfileInfoResponse.ts
@@ -110,6 +113,7 @@ models/CotatoSessionWithAttendanceResponse.ts
 models/CotatoShortAnswerResponse.ts
 models/CotatoShortQuizResponse.ts
 models/CotatoSocketTokenDto.ts
+models/CotatoSortObject.ts
 models/CotatoSseEmitter.ts
 models/CotatoUpdateActiveMemberToOldMemberRequest.ts
 models/CotatoUpdateAttendanceRecordRequest.ts

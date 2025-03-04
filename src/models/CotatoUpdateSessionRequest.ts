@@ -64,6 +64,12 @@ export interface CotatoUpdateSessionRequest {
     placeName?: string;
     /**
      * 
+     * @type {string}
+     * @memberof CotatoUpdateSessionRequest
+     */
+    roadNameAddress?: string;
+    /**
+     * 
      * @type {CotatoLocation}
      * @memberof CotatoUpdateSessionRequest
      */
@@ -178,6 +184,7 @@ export function CotatoUpdateSessionRequestFromJSONTyped(json: any, ignoreDiscrim
         'description': json['description'] == null ? undefined : json['description'],
         'sessionDateTime': (new Date(json['sessionDateTime'])),
         'placeName': json['placeName'] == null ? undefined : json['placeName'],
+        'roadNameAddress': json['roadNameAddress'] == null ? undefined : json['roadNameAddress'],
         'location': json['location'] == null ? undefined : CotatoLocationFromJSON(json['location']),
         'attendTime': json['attendTime'] == null ? undefined : CotatoAttendanceDeadLineDtoFromJSON(json['attendTime']),
         'isOffline': json['isOffline'] == null ? undefined : json['isOffline'],
@@ -200,6 +207,7 @@ export function CotatoUpdateSessionRequestToJSON(value?: CotatoUpdateSessionRequ
         'description': value['description'],
         'sessionDateTime': ((value['sessionDateTime']).toISOString()),
         'placeName': value['placeName'],
+        'roadNameAddress': value['roadNameAddress'],
         'location': CotatoLocationToJSON(value['location']),
         'attendTime': CotatoAttendanceDeadLineDtoToJSON(value['attendTime']),
         'isOffline': value['isOffline'],
