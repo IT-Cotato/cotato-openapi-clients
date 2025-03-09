@@ -16,8 +16,15 @@
 import * as runtime from '../runtime.js';
 import type {
   CotatoAddableMembersResponse,
+  CotatoDeactivateRequest,
+  CotatoMemberApproveRequest,
   CotatoMemberInfoResponse,
   CotatoMemberMyPageInfoResponse,
+  CotatoPageMemberResponse,
+  CotatoPageable,
+  CotatoProfileInfoResponse,
+  CotatoUpdateActiveMemberToOldMemberRequest,
+  CotatoUpdateMemberRoleRequest,
   CotatoUpdatePasswordRequest,
   CotatoUpdatePhoneNumberRequest,
   CotatoUpdateProfileInfoRequest,
@@ -25,10 +32,24 @@ import type {
 import {
     CotatoAddableMembersResponseFromJSON,
     CotatoAddableMembersResponseToJSON,
+    CotatoDeactivateRequestFromJSON,
+    CotatoDeactivateRequestToJSON,
+    CotatoMemberApproveRequestFromJSON,
+    CotatoMemberApproveRequestToJSON,
     CotatoMemberInfoResponseFromJSON,
     CotatoMemberInfoResponseToJSON,
     CotatoMemberMyPageInfoResponseFromJSON,
     CotatoMemberMyPageInfoResponseToJSON,
+    CotatoPageMemberResponseFromJSON,
+    CotatoPageMemberResponseToJSON,
+    CotatoPageableFromJSON,
+    CotatoPageableToJSON,
+    CotatoProfileInfoResponseFromJSON,
+    CotatoProfileInfoResponseToJSON,
+    CotatoUpdateActiveMemberToOldMemberRequestFromJSON,
+    CotatoUpdateActiveMemberToOldMemberRequestToJSON,
+    CotatoUpdateMemberRoleRequestFromJSON,
+    CotatoUpdateMemberRoleRequestToJSON,
     CotatoUpdatePasswordRequestFromJSON,
     CotatoUpdatePasswordRequestToJSON,
     CotatoUpdatePhoneNumberRequestFromJSON,
@@ -37,6 +58,20 @@ import {
     CotatoUpdateProfileInfoRequestToJSON,
 } from '../models/index.js';
 
+export interface ActivateMemberRequest {
+    memberId: number;
+}
+
+export interface ApproveApplicantRequest {
+    memberId: number;
+    cotatoMemberApproveRequest: CotatoMemberApproveRequest;
+}
+
+export interface DeactivateMemberRequest {
+    memberId: number;
+    cotatoDeactivateRequest: CotatoDeactivateRequest;
+}
+
 export interface FindAddableMembersForGenerationMemberRequest {
     generationId: number;
     passedGenerationNumber?: number;
@@ -44,8 +79,30 @@ export interface FindAddableMembersForGenerationMemberRequest {
     name?: string;
 }
 
+export interface FindMembersByStatusRequest {
+    status: FindMembersByStatusStatusEnum;
+    pageable: CotatoPageable;
+}
+
 export interface FindMyPageInfoRequest {
     memberId: number;
+}
+
+export interface FindProfileInfoRequest {
+    memberId: number;
+}
+
+export interface RejectApplicantRequest {
+    memberId: number;
+}
+
+export interface UpdateMemberRoleRequest {
+    memberId: number;
+    cotatoUpdateMemberRoleRequest: CotatoUpdateMemberRoleRequest;
+}
+
+export interface UpdateMembersToOldMembersRequest {
+    cotatoUpdateActiveMemberToOldMemberRequest: CotatoUpdateActiveMemberToOldMemberRequest;
 }
 
 export interface UpdatePasswordRequest {
@@ -61,10 +118,154 @@ export interface UpdateProfileInfoRequest {
     profileImage?: Blob;
 }
 
+export interface UpdateToApprovedMemberRequest {
+    memberId: number;
+}
+
 /**
  * 
  */
 export class MemberControllerApi extends runtime.BaseAPI {
+
+    /**
+     * 멤버 활성화 API
+     */
+    async activateMemberRaw(requestParameters: ActivateMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['memberId'] == null) {
+            throw new runtime.RequiredError(
+                'memberId',
+                'Required parameter "memberId" was null or undefined when calling activateMember().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v1/api/member/{memberId}/activate`.replace(`{${"memberId"}}`, encodeURIComponent(String(requestParameters['memberId']))),
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * 멤버 활성화 API
+     */
+    async activateMember(requestParameters: ActivateMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.activateMemberRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * 부원 가입 승인
+     */
+    async approveApplicantRaw(requestParameters: ApproveApplicantRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['memberId'] == null) {
+            throw new runtime.RequiredError(
+                'memberId',
+                'Required parameter "memberId" was null or undefined when calling approveApplicant().'
+            );
+        }
+
+        if (requestParameters['cotatoMemberApproveRequest'] == null) {
+            throw new runtime.RequiredError(
+                'cotatoMemberApproveRequest',
+                'Required parameter "cotatoMemberApproveRequest" was null or undefined when calling approveApplicant().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v1/api/member/{memberId}/approve`.replace(`{${"memberId"}}`, encodeURIComponent(String(requestParameters['memberId']))),
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CotatoMemberApproveRequestToJSON(requestParameters['cotatoMemberApproveRequest']),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * 부원 가입 승인
+     */
+    async approveApplicant(requestParameters: ApproveApplicantRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.approveApplicantRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * 회원 비활성화 요청 API
+     */
+    async deactivateMemberRaw(requestParameters: DeactivateMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['memberId'] == null) {
+            throw new runtime.RequiredError(
+                'memberId',
+                'Required parameter "memberId" was null or undefined when calling deactivateMember().'
+            );
+        }
+
+        if (requestParameters['cotatoDeactivateRequest'] == null) {
+            throw new runtime.RequiredError(
+                'cotatoDeactivateRequest',
+                'Required parameter "cotatoDeactivateRequest" was null or undefined when calling deactivateMember().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v1/api/member/{memberId}/deactivate`.replace(`{${"memberId"}}`, encodeURIComponent(String(requestParameters['memberId']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CotatoDeactivateRequestToJSON(requestParameters['cotatoDeactivateRequest']),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * 회원 비활성화 요청 API
+     */
+    async deactivateMember(requestParameters: DeactivateMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deactivateMemberRaw(requestParameters, initOverrides);
+    }
 
     /**
      * 기수별 멤버에 추가 가능한 멤버 반환 API
@@ -106,7 +307,7 @@ export class MemberControllerApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/v1/api/member`,
+            path: `/v1/api/member/addable`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -156,6 +357,62 @@ export class MemberControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * 회원 상태에 따른 조회 요청 API
+     */
+    async findMembersByStatusRaw(requestParameters: FindMembersByStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoPageMemberResponse>> {
+        if (requestParameters['status'] == null) {
+            throw new runtime.RequiredError(
+                'status',
+                'Required parameter "status" was null or undefined when calling findMembersByStatus().'
+            );
+        }
+
+        if (requestParameters['pageable'] == null) {
+            throw new runtime.RequiredError(
+                'pageable',
+                'Required parameter "pageable" was null or undefined when calling findMembersByStatus().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['status'] != null) {
+            queryParameters['status'] = requestParameters['status'];
+        }
+
+        if (requestParameters['pageable'] != null) {
+            queryParameters['pageable'] = requestParameters['pageable'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v1/api/member`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CotatoPageMemberResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 회원 상태에 따른 조회 요청 API
+     */
+    async findMembersByStatus(requestParameters: FindMembersByStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoPageMemberResponse> {
+        const response = await this.findMembersByStatusRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      */
     async findMyPageInfoRaw(requestParameters: FindMyPageInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoMemberMyPageInfoResponse>> {
         if (requestParameters['memberId'] == null) {
@@ -192,6 +449,180 @@ export class MemberControllerApi extends runtime.BaseAPI {
     async findMyPageInfo(requestParameters: FindMyPageInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoMemberMyPageInfoResponse> {
         const response = await this.findMyPageInfoRaw(requestParameters, initOverrides);
         return await response.value();
+    }
+
+    /**
+     * 멤버 프로필 정보 반환 API
+     */
+    async findProfileInfoRaw(requestParameters: FindProfileInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoProfileInfoResponse>> {
+        if (requestParameters['memberId'] == null) {
+            throw new runtime.RequiredError(
+                'memberId',
+                'Required parameter "memberId" was null or undefined when calling findProfileInfo().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v1/api/member/{memberId}/profile`.replace(`{${"memberId"}}`, encodeURIComponent(String(requestParameters['memberId']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CotatoProfileInfoResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 멤버 프로필 정보 반환 API
+     */
+    async findProfileInfo(requestParameters: FindProfileInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoProfileInfoResponse> {
+        const response = await this.findProfileInfoRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 부원 가입 거절
+     */
+    async rejectApplicantRaw(requestParameters: RejectApplicantRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['memberId'] == null) {
+            throw new runtime.RequiredError(
+                'memberId',
+                'Required parameter "memberId" was null or undefined when calling rejectApplicant().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v1/api/member/{memberId}/reject`.replace(`{${"memberId"}}`, encodeURIComponent(String(requestParameters['memberId']))),
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * 부원 가입 거절
+     */
+    async rejectApplicant(requestParameters: RejectApplicantRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.rejectApplicantRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * 부원 역할 변경
+     */
+    async updateMemberRoleRaw(requestParameters: UpdateMemberRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['memberId'] == null) {
+            throw new runtime.RequiredError(
+                'memberId',
+                'Required parameter "memberId" was null or undefined when calling updateMemberRole().'
+            );
+        }
+
+        if (requestParameters['cotatoUpdateMemberRoleRequest'] == null) {
+            throw new runtime.RequiredError(
+                'cotatoUpdateMemberRoleRequest',
+                'Required parameter "cotatoUpdateMemberRoleRequest" was null or undefined when calling updateMemberRole().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v1/api/member/{memberId}/role`.replace(`{${"memberId"}}`, encodeURIComponent(String(requestParameters['memberId']))),
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CotatoUpdateMemberRoleRequestToJSON(requestParameters['cotatoUpdateMemberRoleRequest']),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * 부원 역할 변경
+     */
+    async updateMemberRole(requestParameters: UpdateMemberRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.updateMemberRoleRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * 부원 OM 전환
+     */
+    async updateMembersToOldMembersRaw(requestParameters: UpdateMembersToOldMembersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['cotatoUpdateActiveMemberToOldMemberRequest'] == null) {
+            throw new runtime.RequiredError(
+                'cotatoUpdateActiveMemberToOldMemberRequest',
+                'Required parameter "cotatoUpdateActiveMemberToOldMemberRequest" was null or undefined when calling updateMembersToOldMembers().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v1/api/member/status`,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CotatoUpdateActiveMemberToOldMemberRequestToJSON(requestParameters['cotatoUpdateActiveMemberToOldMemberRequest']),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * 부원 OM 전환
+     */
+    async updateMembersToOldMembers(requestParameters: UpdateMembersToOldMembersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.updateMembersToOldMembersRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -343,6 +774,46 @@ export class MemberControllerApi extends runtime.BaseAPI {
         await this.updateProfileInfoRaw(requestParameters, initOverrides);
     }
 
+    /**
+     * OM을 일반 부원으로 전환
+     */
+    async updateToApprovedMemberRaw(requestParameters: UpdateToApprovedMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['memberId'] == null) {
+            throw new runtime.RequiredError(
+                'memberId',
+                'Required parameter "memberId" was null or undefined when calling updateToApprovedMember().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v1/api/member/{memberId}/status`.replace(`{${"memberId"}}`, encodeURIComponent(String(requestParameters['memberId']))),
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * OM을 일반 부원으로 전환
+     */
+    async updateToApprovedMember(requestParameters: UpdateToApprovedMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.updateToApprovedMemberRaw(requestParameters, initOverrides);
+    }
+
 }
 
 /**
@@ -356,3 +827,14 @@ export const FindAddableMembersForGenerationMemberPositionEnum = {
     Pm: 'PM'
 } as const;
 export type FindAddableMembersForGenerationMemberPositionEnum = typeof FindAddableMembersForGenerationMemberPositionEnum[keyof typeof FindAddableMembersForGenerationMemberPositionEnum];
+/**
+ * @export
+ */
+export const FindMembersByStatusStatusEnum = {
+    Inactive: 'INACTIVE',
+    Rejected: 'REJECTED',
+    Requested: 'REQUESTED',
+    Retired: 'RETIRED',
+    Approved: 'APPROVED'
+} as const;
+export type FindMembersByStatusStatusEnum = typeof FindMembersByStatusStatusEnum[keyof typeof FindMembersByStatusStatusEnum];

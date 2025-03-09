@@ -73,6 +73,7 @@ export type CotatoMemberInfoResponseRoleEnum = typeof CotatoMemberInfoResponseRo
  * @export
  */
 export const CotatoMemberInfoResponseStatusEnum = {
+    Inactive: 'INACTIVE',
     Rejected: 'REJECTED',
     Requested: 'REQUESTED',
     Retired: 'RETIRED',

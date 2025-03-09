@@ -21,12 +21,6 @@ import { mapValues } from '../runtime.js';
 export interface CotatoMemberApproveRequest {
     /**
      * 
-     * @type {number}
-     * @memberof CotatoMemberApproveRequest
-     */
-    memberId: number;
-    /**
-     * 
      * @type {string}
      * @memberof CotatoMemberApproveRequest
      */
@@ -57,7 +51,6 @@ export type CotatoMemberApproveRequestPositionEnum = typeof CotatoMemberApproveR
  * Check if a given object implements the CotatoMemberApproveRequest interface.
  */
 export function instanceOfCotatoMemberApproveRequest(value: object): value is CotatoMemberApproveRequest {
-    if (!('memberId' in value) || value['memberId'] === undefined) return false;
     if (!('position' in value) || value['position'] === undefined) return false;
     if (!('generationId' in value) || value['generationId'] === undefined) return false;
     return true;
@@ -73,7 +66,6 @@ export function CotatoMemberApproveRequestFromJSONTyped(json: any, ignoreDiscrim
     }
     return {
         
-        'memberId': json['memberId'],
         'position': json['position'],
         'generationId': json['generationId'],
     };
@@ -85,7 +77,6 @@ export function CotatoMemberApproveRequestToJSON(value?: CotatoMemberApproveRequ
     }
     return {
         
-        'memberId': value['memberId'],
         'position': value['position'],
         'generationId': value['generationId'],
     };
