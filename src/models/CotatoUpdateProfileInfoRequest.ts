@@ -27,6 +27,12 @@ import {
  */
 export interface CotatoUpdateProfileInfoRequest {
     /**
+     * 프로필 이미지 변환 여부
+     * @type {string}
+     * @memberof CotatoUpdateProfileInfoRequest
+     */
+    imageUpdateStatus: CotatoUpdateProfileInfoRequestImageUpdateStatusEnum;
+    /**
      * 자기 소개
      * @type {string}
      * @memberof CotatoUpdateProfileInfoRequest
@@ -46,10 +52,23 @@ export interface CotatoUpdateProfileInfoRequest {
     profileLinks?: Array<CotatoProfileLinkRequest>;
 }
 
+
+/**
+ * @export
+ */
+export const CotatoUpdateProfileInfoRequestImageUpdateStatusEnum = {
+    Update: 'UPDATE',
+    Keep: 'KEEP',
+    Default: 'DEFAULT'
+} as const;
+export type CotatoUpdateProfileInfoRequestImageUpdateStatusEnum = typeof CotatoUpdateProfileInfoRequestImageUpdateStatusEnum[keyof typeof CotatoUpdateProfileInfoRequestImageUpdateStatusEnum];
+
+
 /**
  * Check if a given object implements the CotatoUpdateProfileInfoRequest interface.
  */
 export function instanceOfCotatoUpdateProfileInfoRequest(value: object): value is CotatoUpdateProfileInfoRequest {
+    if (!('imageUpdateStatus' in value) || value['imageUpdateStatus'] === undefined) return false;
     return true;
 }
 
@@ -63,6 +82,7 @@ export function CotatoUpdateProfileInfoRequestFromJSONTyped(json: any, ignoreDis
     }
     return {
         
+        'imageUpdateStatus': json['imageUpdateStatus'],
         'introduction': json['introduction'] == null ? undefined : json['introduction'],
         'university': json['university'] == null ? undefined : json['university'],
         'profileLinks': json['profileLinks'] == null ? undefined : ((json['profileLinks'] as Array<any>).map(CotatoProfileLinkRequestFromJSON)),
@@ -75,6 +95,7 @@ export function CotatoUpdateProfileInfoRequestToJSON(value?: CotatoUpdateProfile
     }
     return {
         
+        'imageUpdateStatus': value['imageUpdateStatus'],
         'introduction': value['introduction'],
         'university': value['university'],
         'profileLinks': value['profileLinks'] == null ? undefined : ((value['profileLinks'] as Array<any>).map(CotatoProfileLinkRequestToJSON)),

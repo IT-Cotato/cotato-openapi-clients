@@ -16,8 +16,6 @@ models/CotatoAddGenerationRequest.ts
 models/CotatoAddGenerationResponse.ts
 models/CotatoAddSessionImageResponse.ts
 models/CotatoAddSessionResponse.ts
-models/CotatoAddableMemberInfo.ts
-models/CotatoAddableMembersResponse.ts
 models/CotatoAllEducationResponse.ts
 models/CotatoAllQuizzesInCsQuizResponse.ts
 models/CotatoAllQuizzesResponse.ts
@@ -105,6 +103,8 @@ models/CotatoReissueResponse.ts
 models/CotatoReplyRequest.ts
 models/CotatoReplyResponse.ts
 models/CotatoScorerResponse.ts
+models/CotatoSearchedMemberInfo.ts
+models/CotatoSearchedMembersResponse.ts
 models/CotatoSendEmailRequest.ts
 models/CotatoSessionContents.ts
 models/CotatoSessionListImageInfoResponse.ts

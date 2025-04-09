@@ -15,7 +15,6 @@
 
 import * as runtime from '../runtime.js';
 import type {
-  CotatoAddableMembersResponse,
   CotatoDeactivateRequest,
   CotatoMemberApproveRequest,
   CotatoMemberInfoResponse,
@@ -23,6 +22,7 @@ import type {
   CotatoPageMemberResponse,
   CotatoPageable,
   CotatoProfileInfoResponse,
+  CotatoSearchedMembersResponse,
   CotatoUpdateActiveMemberToOldMemberRequest,
   CotatoUpdateMemberRoleRequest,
   CotatoUpdatePasswordRequest,
@@ -30,8 +30,6 @@ import type {
   CotatoUpdateProfileInfoRequest,
 } from '../models/index.js';
 import {
-    CotatoAddableMembersResponseFromJSON,
-    CotatoAddableMembersResponseToJSON,
     CotatoDeactivateRequestFromJSON,
     CotatoDeactivateRequestToJSON,
     CotatoMemberApproveRequestFromJSON,
@@ -46,6 +44,8 @@ import {
     CotatoPageableToJSON,
     CotatoProfileInfoResponseFromJSON,
     CotatoProfileInfoResponseToJSON,
+    CotatoSearchedMembersResponseFromJSON,
+    CotatoSearchedMembersResponseToJSON,
     CotatoUpdateActiveMemberToOldMemberRequestFromJSON,
     CotatoUpdateActiveMemberToOldMemberRequestToJSON,
     CotatoUpdateMemberRoleRequestFromJSON,
@@ -90,6 +90,12 @@ export interface FindMyPageInfoRequest {
 
 export interface FindProfileInfoRequest {
     memberId: number;
+}
+
+export interface FindRetiredMembersRequest {
+    passedGenerationNumber?: number;
+    position?: FindRetiredMembersPositionEnum;
+    name?: string;
 }
 
 export interface RejectApplicantRequest {
@@ -270,7 +276,7 @@ export class MemberControllerApi extends runtime.BaseAPI {
     /**
      * 기수별 멤버에 추가 가능한 멤버 반환 API
      */
-    async findAddableMembersForGenerationMemberRaw(requestParameters: FindAddableMembersForGenerationMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoAddableMembersResponse>> {
+    async findAddableMembersForGenerationMemberRaw(requestParameters: FindAddableMembersForGenerationMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoSearchedMembersResponse>> {
         if (requestParameters['generationId'] == null) {
             throw new runtime.RequiredError(
                 'generationId',
@@ -313,13 +319,13 @@ export class MemberControllerApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CotatoAddableMembersResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => CotatoSearchedMembersResponseFromJSON(jsonValue));
     }
 
     /**
      * 기수별 멤버에 추가 가능한 멤버 반환 API
      */
-    async findAddableMembersForGenerationMember(requestParameters: FindAddableMembersForGenerationMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoAddableMembersResponse> {
+    async findAddableMembersForGenerationMember(requestParameters: FindAddableMembersForGenerationMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoSearchedMembersResponse> {
         const response = await this.findAddableMembersForGenerationMemberRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -489,6 +495,50 @@ export class MemberControllerApi extends runtime.BaseAPI {
      */
     async findProfileInfo(requestParameters: FindProfileInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoProfileInfoResponse> {
         const response = await this.findProfileInfoRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async findRetiredMembersRaw(requestParameters: FindRetiredMembersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoSearchedMembersResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters['passedGenerationNumber'] != null) {
+            queryParameters['passedGenerationNumber'] = requestParameters['passedGenerationNumber'];
+        }
+
+        if (requestParameters['position'] != null) {
+            queryParameters['position'] = requestParameters['position'];
+        }
+
+        if (requestParameters['name'] != null) {
+            queryParameters['name'] = requestParameters['name'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v1/api/member/search`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CotatoSearchedMembersResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async findRetiredMembers(requestParameters: FindRetiredMembersRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoSearchedMembersResponse> {
+        const response = await this.findRetiredMembersRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -758,7 +808,7 @@ export class MemberControllerApi extends runtime.BaseAPI {
 
         const response = await this.request({
             path: `/v1/api/member/profile`,
-            method: 'PUT',
+            method: 'PATCH',
             headers: headerParameters,
             query: queryParameters,
             body: formParams,
@@ -838,3 +888,14 @@ export const FindMembersByStatusStatusEnum = {
     Approved: 'APPROVED'
 } as const;
 export type FindMembersByStatusStatusEnum = typeof FindMembersByStatusStatusEnum[keyof typeof FindMembersByStatusStatusEnum];
+/**
+ * @export
+ */
+export const FindRetiredMembersPositionEnum = {
+    None: 'NONE',
+    Be: 'BE',
+    Fe: 'FE',
+    Design: 'DESIGN',
+    Pm: 'PM'
+} as const;
+export type FindRetiredMembersPositionEnum = typeof FindRetiredMembersPositionEnum[keyof typeof FindRetiredMembersPositionEnum];
