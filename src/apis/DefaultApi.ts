@@ -22,11 +22,17 @@ import type {
   CotatoAttendanceResponse,
   CotatoAttendanceTimeResponse,
   CotatoAttendancesResponse,
+  CotatoChangeRecruitmentInfoRequest,
   CotatoDeleteSessionImageRequest,
   CotatoGenerationMemberAttendanceRecordResponse,
   CotatoMemberAttendanceRecordsResponse,
   CotatoOfflineAttendanceRequest,
   CotatoOnlineAttendanceRequest,
+  CotatoRecruitmentInfoResponse,
+  CotatoRecruitmentNotificationLogsResponse,
+  CotatoRecruitmentNotificationPendingResponse,
+  CotatoRequestNotificationRequest,
+  CotatoRequestRecruitmentNotificationRequest,
   CotatoSessionListResponse,
   CotatoSessionWithAttendanceResponse,
   CotatoUpdateAttendanceRecordRequest,
@@ -49,6 +55,8 @@ import {
     CotatoAttendanceTimeResponseToJSON,
     CotatoAttendancesResponseFromJSON,
     CotatoAttendancesResponseToJSON,
+    CotatoChangeRecruitmentInfoRequestFromJSON,
+    CotatoChangeRecruitmentInfoRequestToJSON,
     CotatoDeleteSessionImageRequestFromJSON,
     CotatoDeleteSessionImageRequestToJSON,
     CotatoGenerationMemberAttendanceRecordResponseFromJSON,
@@ -59,6 +67,16 @@ import {
     CotatoOfflineAttendanceRequestToJSON,
     CotatoOnlineAttendanceRequestFromJSON,
     CotatoOnlineAttendanceRequestToJSON,
+    CotatoRecruitmentInfoResponseFromJSON,
+    CotatoRecruitmentInfoResponseToJSON,
+    CotatoRecruitmentNotificationLogsResponseFromJSON,
+    CotatoRecruitmentNotificationLogsResponseToJSON,
+    CotatoRecruitmentNotificationPendingResponseFromJSON,
+    CotatoRecruitmentNotificationPendingResponseToJSON,
+    CotatoRequestNotificationRequestFromJSON,
+    CotatoRequestNotificationRequestToJSON,
+    CotatoRequestRecruitmentNotificationRequestFromJSON,
+    CotatoRequestRecruitmentNotificationRequestToJSON,
     CotatoSessionListResponseFromJSON,
     CotatoSessionListResponseToJSON,
     CotatoSessionWithAttendanceResponseFromJSON,
@@ -99,6 +117,10 @@ export interface AdditionalSessionImageRequest {
     order: number;
 }
 
+export interface ChangeRecruitmentInfoRequest {
+    cotatoChangeRecruitmentInfoRequest: CotatoChangeRecruitmentInfoRequest;
+}
+
 export interface DeleteSessionImageRequest {
     cotatoDeleteSessionImageRequest: CotatoDeleteSessionImageRequest;
 }
@@ -133,6 +155,14 @@ export interface FindSessionsByGenerationIdRequest {
 
 export interface GetAttendanceRequest {
     attendanceId: number;
+}
+
+export interface RequestRecruitmentNotificationRequest {
+    cotatoRequestRecruitmentNotificationRequest: CotatoRequestRecruitmentNotificationRequest;
+}
+
+export interface RequestRecruitmentNotification1Request {
+    cotatoRequestNotificationRequest: CotatoRequestNotificationRequest;
 }
 
 export interface SubmitOfflineAttendanceRecordRequest {
@@ -395,6 +425,83 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async additionalSessionImage(requestParameters: AdditionalSessionImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoAddSessionImageResponse> {
         const response = await this.additionalSessionImageRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 모집 정보 수정 API
+     */
+    async changeRecruitmentInfoRaw(requestParameters: ChangeRecruitmentInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['cotatoChangeRecruitmentInfoRequest'] == null) {
+            throw new runtime.RequiredError(
+                'cotatoChangeRecruitmentInfoRequest',
+                'Required parameter "cotatoChangeRecruitmentInfoRequest" was null or undefined when calling changeRecruitmentInfo().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v2/api/recruitments`,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CotatoChangeRecruitmentInfoRequestToJSON(requestParameters['cotatoChangeRecruitmentInfoRequest']),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * 모집 정보 수정 API
+     */
+    async changeRecruitmentInfo(requestParameters: ChangeRecruitmentInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.changeRecruitmentInfoRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * 모집 알람 대기자 수 반환 API
+     */
+    async countPendingNotificationRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoRecruitmentNotificationPendingResponse>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v2/api/recruitments/notifications/pending`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CotatoRecruitmentNotificationPendingResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 모집 알람 대기자 수 반환 API
+     */
+    async countPendingNotification(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoRecruitmentNotificationPendingResponse> {
+        const response = await this.countPendingNotificationRaw(initOverrides);
         return await response.value();
     }
 
@@ -663,6 +770,74 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
+     * 모집 알림 신청 결과 확인 API
+     */
+    async findNotificationLogsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoRecruitmentNotificationLogsResponse>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v2/api/recruitments/notifications/logs`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CotatoRecruitmentNotificationLogsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 모집 알림 신청 결과 확인 API
+     */
+    async findNotificationLogs(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoRecruitmentNotificationLogsResponse> {
+        const response = await this.findNotificationLogsRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 모집 정보 반환 API
+     */
+    async findRecruitmentInfoRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoRecruitmentInfoResponse>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v2/api/recruitments`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CotatoRecruitmentInfoResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 모집 정보 반환 API
+     */
+    async findRecruitmentInfo(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoRecruitmentInfoResponse> {
+        const response = await this.findRecruitmentInfoRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
      * 세션 단건 조회 API
      */
     async findSessionRaw(requestParameters: FindSessionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoSessionWithAttendanceResponse>> {
@@ -787,6 +962,92 @@ export class DefaultApi extends runtime.BaseAPI {
     async getAttendance(requestParameters: GetAttendanceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoAttendanceResponse> {
         const response = await this.getAttendanceRaw(requestParameters, initOverrides);
         return await response.value();
+    }
+
+    /**
+     * 모집 알림 신청 API
+     */
+    async requestRecruitmentNotificationRaw(requestParameters: RequestRecruitmentNotificationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['cotatoRequestRecruitmentNotificationRequest'] == null) {
+            throw new runtime.RequiredError(
+                'cotatoRequestRecruitmentNotificationRequest',
+                'Required parameter "cotatoRequestRecruitmentNotificationRequest" was null or undefined when calling requestRecruitmentNotification().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v2/api/recruitments/notification`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CotatoRequestRecruitmentNotificationRequestToJSON(requestParameters['cotatoRequestRecruitmentNotificationRequest']),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * 모집 알림 신청 API
+     */
+    async requestRecruitmentNotification(requestParameters: RequestRecruitmentNotificationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.requestRecruitmentNotificationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * 모집 알림 전송 API
+     */
+    async requestRecruitmentNotification1Raw(requestParameters: RequestRecruitmentNotification1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['cotatoRequestNotificationRequest'] == null) {
+            throw new runtime.RequiredError(
+                'cotatoRequestNotificationRequest',
+                'Required parameter "cotatoRequestNotificationRequest" was null or undefined when calling requestRecruitmentNotification1().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v2/api/recruitments/notification/requester`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CotatoRequestNotificationRequestToJSON(requestParameters['cotatoRequestNotificationRequest']),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * 모집 알림 전송 API
+     */
+    async requestRecruitmentNotification1(requestParameters: RequestRecruitmentNotification1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.requestRecruitmentNotification1Raw(requestParameters, initOverrides);
     }
 
     /**

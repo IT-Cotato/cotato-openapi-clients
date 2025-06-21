@@ -228,6 +228,7 @@ export class QuizControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * 모든 퀴즈 문제 조회 API
      */
     async findAllQuizzesForEducationTeamRaw(requestParameters: FindAllQuizzesForEducationTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoAllQuizzesResponse>> {
         if (requestParameters['educationId'] == null) {
@@ -264,6 +265,7 @@ export class QuizControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * 모든 퀴즈 문제 조회 API
      */
     async findAllQuizzesForEducationTeam(requestParameters: FindAllQuizzesForEducationTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoAllQuizzesResponse> {
         const response = await this.findAllQuizzesForEducationTeamRaw(requestParameters, initOverrides);

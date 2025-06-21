@@ -37,7 +37,7 @@ export interface CotatoJoinRequest {
      * @type {string}
      * @memberof CotatoJoinRequest
      */
-    password: string;
+    password?: string;
     /**
      * 
      * @type {string}
@@ -63,7 +63,6 @@ export interface CotatoJoinRequest {
  */
 export function instanceOfCotatoJoinRequest(value: object): value is CotatoJoinRequest {
     if (!('email' in value) || value['email'] === undefined) return false;
-    if (!('password' in value) || value['password'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('phoneNumber' in value) || value['phoneNumber'] === undefined) return false;
     if (!('policies' in value) || value['policies'] === undefined) return false;
@@ -81,7 +80,7 @@ export function CotatoJoinRequestFromJSONTyped(json: any, ignoreDiscriminator: b
     return {
         
         'email': json['email'],
-        'password': json['password'],
+        'password': json['password'] == null ? undefined : json['password'],
         'name': json['name'],
         'phoneNumber': json['phoneNumber'],
         'policies': ((json['policies'] as Array<any>).map(CotatoCheckPolicyRequestFromJSON)),

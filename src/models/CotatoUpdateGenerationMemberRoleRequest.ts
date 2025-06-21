@@ -21,12 +21,6 @@ import { mapValues } from '../runtime.js';
 export interface CotatoUpdateGenerationMemberRoleRequest {
     /**
      * 
-     * @type {number}
-     * @memberof CotatoUpdateGenerationMemberRoleRequest
-     */
-    generationMemberId: number;
-    /**
-     * 
      * @type {string}
      * @memberof CotatoUpdateGenerationMemberRoleRequest
      */
@@ -52,7 +46,6 @@ export type CotatoUpdateGenerationMemberRoleRequestRoleEnum = typeof CotatoUpdat
  * Check if a given object implements the CotatoUpdateGenerationMemberRoleRequest interface.
  */
 export function instanceOfCotatoUpdateGenerationMemberRoleRequest(value: object): value is CotatoUpdateGenerationMemberRoleRequest {
-    if (!('generationMemberId' in value) || value['generationMemberId'] === undefined) return false;
     if (!('role' in value) || value['role'] === undefined) return false;
     return true;
 }
@@ -67,7 +60,6 @@ export function CotatoUpdateGenerationMemberRoleRequestFromJSONTyped(json: any, 
     }
     return {
         
-        'generationMemberId': json['generationMemberId'],
         'role': json['role'],
     };
 }
@@ -78,7 +70,6 @@ export function CotatoUpdateGenerationMemberRoleRequestToJSON(value?: CotatoUpda
     }
     return {
         
-        'generationMemberId': value['generationMemberId'],
         'role': value['role'],
     };
 }

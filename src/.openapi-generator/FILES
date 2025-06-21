@@ -1,5 +1,4 @@
 apis/APIApi.ts
-apis/AdminControllerApi.ts
 apis/CSApi.ts
 apis/DefaultApi.ts
 apis/EducationControllerApi.ts
@@ -19,7 +18,6 @@ models/CotatoAddSessionResponse.ts
 models/CotatoAllEducationResponse.ts
 models/CotatoAllQuizzesInCsQuizResponse.ts
 models/CotatoAllQuizzesResponse.ts
-models/CotatoApplyMemberInfoResponse.ts
 models/CotatoAttendResponse.ts
 models/CotatoAttendanceDeadLineDto.ts
 models/CotatoAttendanceMemberInfo.ts
@@ -31,6 +29,7 @@ models/CotatoAttendanceWithSessionResponse.ts
 models/CotatoAttendancesResponse.ts
 models/CotatoChangeGenerationPeriodRequest.ts
 models/CotatoChangeRecruitingStatusRequest.ts
+models/CotatoChangeRecruitmentInfoRequest.ts
 models/CotatoCheckMemberPoliciesRequest.ts
 models/CotatoCheckPolicyRequest.ts
 models/CotatoChoiceResponse.ts
@@ -69,7 +68,6 @@ models/CotatoMemberApproveRequest.ts
 models/CotatoMemberAttendResponse.ts
 models/CotatoMemberAttendanceRecordsResponse.ts
 models/CotatoMemberEmailResponse.ts
-models/CotatoMemberEnrollInfoResponse.ts
 models/CotatoMemberInfoResponse.ts
 models/CotatoMemberMyPageInfoResponse.ts
 models/CotatoMemberResponse.ts
@@ -77,9 +75,8 @@ models/CotatoMultipleQuizResponse.ts
 models/CotatoMyHallOfFameInfo.ts
 models/CotatoOfflineAttendanceRequest.ts
 models/CotatoOnlineAttendanceRequest.ts
-models/CotatoPageMemberResponse.ts
+models/CotatoPageResponseMemberResponse.ts
 models/CotatoPageable.ts
-models/CotatoPageableObject.ts
 models/CotatoPoliciesResponse.ts
 models/CotatoPolicyInfoResponse.ts
 models/CotatoProfileInfoResponse.ts
@@ -98,10 +95,16 @@ models/CotatoRandomQuizReplyResponse.ts
 models/CotatoRandomTutorialQuizResponse.ts
 models/CotatoRecordResponse.ts
 models/CotatoRecordsAndScorerResponse.ts
+models/CotatoRecruitmentInfoResponse.ts
+models/CotatoRecruitmentNotificationLogResponse.ts
+models/CotatoRecruitmentNotificationLogsResponse.ts
+models/CotatoRecruitmentNotificationPendingResponse.ts
 models/CotatoRegradeRequest.ts
 models/CotatoReissueResponse.ts
 models/CotatoReplyRequest.ts
 models/CotatoReplyResponse.ts
+models/CotatoRequestNotificationRequest.ts
+models/CotatoRequestRecruitmentNotificationRequest.ts
 models/CotatoScorerResponse.ts
 models/CotatoSearchedMemberInfo.ts
 models/CotatoSearchedMembersResponse.ts
@@ -113,7 +116,6 @@ models/CotatoSessionWithAttendanceResponse.ts
 models/CotatoShortAnswerResponse.ts
 models/CotatoShortQuizResponse.ts
 models/CotatoSocketTokenDto.ts
-models/CotatoSortObject.ts
 models/CotatoSseEmitter.ts
 models/CotatoUpdateActiveMemberToOldMemberRequest.ts
 models/CotatoUpdateAttendanceRecordRequest.ts
@@ -121,7 +123,6 @@ models/CotatoUpdateAttendanceRequest.ts
 models/CotatoUpdateEducationRequest.ts
 models/CotatoUpdateGenerationMemberRoleRequest.ts
 models/CotatoUpdateMemberRoleRequest.ts
-models/CotatoUpdateOldMemberRoleRequest.ts
 models/CotatoUpdatePasswordRequest.ts
 models/CotatoUpdatePhoneNumberRequest.ts
 models/CotatoUpdateProfileInfoRequest.ts

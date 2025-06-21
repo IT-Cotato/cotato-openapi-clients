@@ -19,7 +19,7 @@ import type {
   CotatoMemberApproveRequest,
   CotatoMemberInfoResponse,
   CotatoMemberMyPageInfoResponse,
-  CotatoPageMemberResponse,
+  CotatoPageResponseMemberResponse,
   CotatoPageable,
   CotatoProfileInfoResponse,
   CotatoSearchedMembersResponse,
@@ -38,8 +38,8 @@ import {
     CotatoMemberInfoResponseToJSON,
     CotatoMemberMyPageInfoResponseFromJSON,
     CotatoMemberMyPageInfoResponseToJSON,
-    CotatoPageMemberResponseFromJSON,
-    CotatoPageMemberResponseToJSON,
+    CotatoPageResponseMemberResponseFromJSON,
+    CotatoPageResponseMemberResponseToJSON,
     CotatoPageableFromJSON,
     CotatoPageableToJSON,
     CotatoProfileInfoResponseFromJSON,
@@ -93,6 +93,7 @@ export interface FindProfileInfoRequest {
 }
 
 export interface FindRetiredMembersRequest {
+    pageable: CotatoPageable;
     passedGenerationNumber?: number;
     position?: FindRetiredMembersPositionEnum;
     name?: string;
@@ -365,7 +366,7 @@ export class MemberControllerApi extends runtime.BaseAPI {
     /**
      * 회원 상태에 따른 조회 요청 API
      */
-    async findMembersByStatusRaw(requestParameters: FindMembersByStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoPageMemberResponse>> {
+    async findMembersByStatusRaw(requestParameters: FindMembersByStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoPageResponseMemberResponse>> {
         if (requestParameters['status'] == null) {
             throw new runtime.RequiredError(
                 'status',
@@ -407,13 +408,13 @@ export class MemberControllerApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CotatoPageMemberResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => CotatoPageResponseMemberResponseFromJSON(jsonValue));
     }
 
     /**
      * 회원 상태에 따른 조회 요청 API
      */
-    async findMembersByStatus(requestParameters: FindMembersByStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoPageMemberResponse> {
+    async findMembersByStatus(requestParameters: FindMembersByStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoPageResponseMemberResponse> {
         const response = await this.findMembersByStatusRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -499,8 +500,16 @@ export class MemberControllerApi extends runtime.BaseAPI {
     }
 
     /**
+     * OM 검색 API
      */
-    async findRetiredMembersRaw(requestParameters: FindRetiredMembersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoSearchedMembersResponse>> {
+    async findRetiredMembersRaw(requestParameters: FindRetiredMembersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoPageResponseMemberResponse>> {
+        if (requestParameters['pageable'] == null) {
+            throw new runtime.RequiredError(
+                'pageable',
+                'Required parameter "pageable" was null or undefined when calling findRetiredMembers().'
+            );
+        }
+
         const queryParameters: any = {};
 
         if (requestParameters['passedGenerationNumber'] != null) {
@@ -513,6 +522,10 @@ export class MemberControllerApi extends runtime.BaseAPI {
 
         if (requestParameters['name'] != null) {
             queryParameters['name'] = requestParameters['name'];
+        }
+
+        if (requestParameters['pageable'] != null) {
+            queryParameters['pageable'] = requestParameters['pageable'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -532,12 +545,13 @@ export class MemberControllerApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CotatoSearchedMembersResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => CotatoPageResponseMemberResponseFromJSON(jsonValue));
     }
 
     /**
+     * OM 검색 API
      */
-    async findRetiredMembers(requestParameters: FindRetiredMembersRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoSearchedMembersResponse> {
+    async findRetiredMembers(requestParameters: FindRetiredMembersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoPageResponseMemberResponse> {
         const response = await this.findRetiredMembersRaw(requestParameters, initOverrides);
         return await response.value();
     }

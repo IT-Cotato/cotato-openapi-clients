@@ -170,6 +170,7 @@ export interface TokenReissueRequest {
 }
 
 export interface UpdateGenerationMemberRoleRequest {
+    generationMemberId: number;
     cotatoUpdateGenerationMemberRoleRequest: CotatoUpdateGenerationMemberRoleRequest;
 }
 
@@ -226,6 +227,7 @@ export class APIApi extends runtime.BaseAPI {
     }
 
     /**
+     * 기수별 활동 멤버 추가
      */
     async addGenerationMemberRaw(requestParameters: AddGenerationMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters['cotatoCreateGenerationMemberRequest'] == null) {
@@ -261,6 +263,7 @@ export class APIApi extends runtime.BaseAPI {
     }
 
     /**
+     * 기수별 활동 멤버 추가
      */
     async addGenerationMember(requestParameters: AddGenerationMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.addGenerationMemberRaw(requestParameters, initOverrides);
@@ -508,6 +511,7 @@ export class APIApi extends runtime.BaseAPI {
     }
 
     /**
+     * 기수별 활동 멤버 삭제
      */
     async deleteGenerationMemberRaw(requestParameters: DeleteGenerationMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters['generationMemberId'] == null) {
@@ -544,6 +548,7 @@ export class APIApi extends runtime.BaseAPI {
     }
 
     /**
+     * 기수별 활동 멤버 삭제
      */
     async deleteGenerationMember(requestParameters: DeleteGenerationMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteGenerationMemberRaw(requestParameters, initOverrides);
@@ -679,6 +684,7 @@ export class APIApi extends runtime.BaseAPI {
     }
 
     /**
+     * 기수별 활동 멤버 조회
      */
     async findGenerationMemberRaw(requestParameters: FindGenerationMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CotatoGenerationMemberInfoResponse>> {
         if (requestParameters['generationId'] == null) {
@@ -715,6 +721,7 @@ export class APIApi extends runtime.BaseAPI {
     }
 
     /**
+     * 기수별 활동 멤버 조회
      */
     async findGenerationMember(requestParameters: FindGenerationMemberRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CotatoGenerationMemberInfoResponse> {
         const response = await this.findGenerationMemberRaw(requestParameters, initOverrides);
@@ -1167,8 +1174,16 @@ export class APIApi extends runtime.BaseAPI {
     }
 
     /**
+     * 기수별 활동 멤버 역할 수정
      */
     async updateGenerationMemberRoleRaw(requestParameters: UpdateGenerationMemberRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['generationMemberId'] == null) {
+            throw new runtime.RequiredError(
+                'generationMemberId',
+                'Required parameter "generationMemberId" was null or undefined when calling updateGenerationMemberRole().'
+            );
+        }
+
         if (requestParameters['cotatoUpdateGenerationMemberRoleRequest'] == null) {
             throw new runtime.RequiredError(
                 'cotatoUpdateGenerationMemberRoleRequest',
@@ -1191,7 +1206,7 @@ export class APIApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/v2/api/generation-members`,
+            path: `/v2/api/generation-members/{generationMemberId}/role`.replace(`{${"generationMemberId"}}`, encodeURIComponent(String(requestParameters['generationMemberId']))),
             method: 'PATCH',
             headers: headerParameters,
             query: queryParameters,
@@ -1202,6 +1217,7 @@ export class APIApi extends runtime.BaseAPI {
     }
 
     /**
+     * 기수별 활동 멤버 역할 수정
      */
     async updateGenerationMemberRole(requestParameters: UpdateGenerationMemberRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.updateGenerationMemberRoleRaw(requestParameters, initOverrides);
